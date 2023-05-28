@@ -1,0 +1,24 @@
+.nav {
+    display: none;
+
+    @media screen and (min-width: 1280px) {
+        display: flex;
+
+    }
+};
+
+.nav_item {
+    padding: 10px 20px;
+    background-color: #4b35f2;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: 20px;
+    text-decoration: none;
+    border: 1px #4b35f2 solid;
+};
+
+.nav_item:hover {
+    color: #000;
+    background-color: #fff;
+    border: 1px #000 solid ;
+}
