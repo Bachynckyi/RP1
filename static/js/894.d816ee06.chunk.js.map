@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/894.d816ee06.chunk.js","mappings":"0JAYE,UAXkB,WAEhB,OACE,iCACE,kEACE,qBAIP,C","sources":["pages/PaymentPage/PaymentPage.jsx"],"sourcesContent":["\nconst PaymentPage = () => {\n\n    return (\n      <>\n        <h1>Оплата</h1>\n          <div>\n          </div>\n      </>\n    );\n  };\n  \n  export default PaymentPage;"],"names":[],"sourceRoot":""}
