@@ -8,17 +8,8 @@
 };
 
 .nav_item {
-    padding: 10px 20px;
-    background-color: #4b35f2;
-    color: #fff;
-    border-radius: 5px;
-    margin-right: 20px;
-    text-decoration: none;
-    border: 1px #4b35f2 solid;
+        margin-right: 40px;
+        text-decoration: none;
+        color: #000;
+        font-size: 25px;
 };
-
-.nav_item:hover {
-    color: #000;
-    background-color: #fff;
-    border: 1px #000 solid ;
-}
