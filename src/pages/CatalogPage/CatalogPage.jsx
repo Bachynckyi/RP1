@@ -1,10 +1,11 @@
-import Search from "components/Search/Search";
+import NavCatalog from "components/NavCatalog/NavCatalog";
 
 const CatalogPage = () => {
 
     return (
       <>
-        <Search/>
+        <h1>Каталог товарів</h1>
+        <NavCatalog/>
       </>
     );
   };

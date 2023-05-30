@@ -1,4 +1,5 @@
 .button {
+    display: none;
     text-decoration: none;
     padding: 10px 20px;
     background-color: #54adff;
@@ -12,7 +13,10 @@
     &:hover {
         color: #000;
         background-color: #fff;
-    }
-}
+    };
+    @media screen and (min-width: 1280px) {
+        display: inline;
+    };
+};
 
 

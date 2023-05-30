@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import scss from './Logo.module.scss';
+import image from '../../images/1.png';
 
 const Logo = () => {
   return  <NavLink to="/" className={scss.nav_logo}>
-    <span className={scss.logo}>COLOR FARB</span>
+    <img src={image} alt="Logo" className={scss.logo}></img>
   </NavLink>;
 };
 

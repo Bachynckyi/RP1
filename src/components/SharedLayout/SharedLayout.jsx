@@ -1,7 +1,12 @@
 import Header from 'components/Header/Header';
 
 const SharedLayout = () => {
-    return <Header />;
+    return (
+        <>
+        <Header/> 
+        </>
+    )
+
 };
 
 export default SharedLayout;
