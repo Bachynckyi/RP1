@@ -30,13 +30,13 @@ const Header = () => {
                 </NavLink>
             </div>
               <div className={scss.menu_list}>
-                <NavLink to="/login" onClick={toggle}>Вхід</NavLink>
-                <NavLink to="/register" onClick={toggle}>Регістрація</NavLink>
-                <NavLink to="/catalog" onClick={toggle}>Каталог</NavLink >
-                <NavLink to="/delivery" onClick={toggle}>Доставка</NavLink>
-                <NavLink  to="/payment" onClick={toggle}>Оплата</NavLink>
-                <NavLink  to="/company" onClick={toggle}>Про компанію</NavLink>
-                <NavLink to="/contacts" onClick={toggle}>Контакти</NavLink>
+                <NavLink className={scss.nav_mobile_item} to="/login" onClick={toggle}>Вхід</NavLink>
+                <NavLink className={scss.nav_mobile_item} to="/register" onClick={toggle}>Регістрація</NavLink>
+                <NavLink className={scss.nav_mobile_item} to="/catalog" onClick={toggle}>Каталог</NavLink >
+                <NavLink className={scss.nav_mobile_item} to="/delivery" onClick={toggle}>Доставка</NavLink>
+                <NavLink  className={scss.nav_mobile_item} to="/payment" onClick={toggle}>Оплата</NavLink>
+                <NavLink  className={scss.nav_mobile_item} to="/company" onClick={toggle}>Про компанію</NavLink>
+                <NavLink className={scss.nav_mobile_item} to="/contacts" onClick={toggle}>Контакти</NavLink>
               </div>
               </>  
             ) 

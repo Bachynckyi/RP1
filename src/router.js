@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react';
 import SharedLayout from 'components/SharedLayout/SharedLayout';
 import PrivateRoute from 'components/PrivatRoute/PrivatRoute';
 import PublicRoute from 'components/PublicRoute/PublicRoute';
+import Footer from 'components/Footer/Footer';
 
 const CatalogPage = lazy(() => import('./pages/CatalogPage/CatalogPage'));
 const DeliveryPage = lazy(() => import('./pages/DeliveryPage/DeliveryPage'));
@@ -39,6 +40,7 @@ const UserRoutes = () => {
           <Route path="*"/>
         </Routes>
       </Suspense>
+      <Footer/>
     </>
   );
 };

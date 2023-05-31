@@ -1,0 +1,36 @@
+.container {
+    padding: 0px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+};
+
+.title {
+    margin-top: 8px;
+    margin-bottom: 8px;
+};
+
+.part {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+};
+
+.sentences {
+    text-align: justify;
+    text-indent: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+};
+
+.list {
+    margin-top: 0px;
+    padding: 25px;
+};
+
+.list_item {
+    margin-top: 10px;
+};
+
