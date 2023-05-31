@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/475.ba7b47c9.chunk.js","mappings":"0JAYA,UAXqB,WAEnB,OACE,iCACE,8EACE,qBAIP,C","sources":["pages/DeliveryPage/DeliveryPage.jsx"],"sourcesContent":["\nconst DeliveryPage = () => {\n\n  return (\n    <>\n      <h1>Доставка</h1>\n        <div>\n        </div>\n    </>\n  );\n};\n\nexport default DeliveryPage;"],"names":[],"sourceRoot":""}
