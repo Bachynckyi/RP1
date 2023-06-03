@@ -12,7 +12,7 @@ const ContactsPage = () => {
           <a className={scss.constacts_link} href="tel:+380991111111"> +38 099 111 11 11</a>
         </p>
         <p className={scss.contacts_item}>Електронна пошта:
-          <a className={scss.constacts_link} href="mailto:test@example.com"> test@example.com</a>
+          <a className={scss.constacts_link} href="mailto:test@example.com"> color-farb@gmail.com</a>
         </p>
       </div>
     );

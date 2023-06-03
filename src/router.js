@@ -4,6 +4,7 @@ import SharedLayout from 'components/SharedLayout/SharedLayout';
 import PrivateRoute from 'components/PrivatRoute/PrivatRoute';
 import PublicRoute from 'components/PublicRoute/PublicRoute';
 import Footer from 'components/Footer/Footer';
+import HomePage from 'pages/HomePage/HomePage';
 
 const CatalogPage = lazy(() => import('./pages/CatalogPage/CatalogPage'));
 const DeliveryPage = lazy(() => import('./pages/DeliveryPage/DeliveryPage'));
@@ -20,7 +21,7 @@ const UserRoutes = () => {
       <SharedLayout />
       <Suspense>
         <Routes>
-          <Route path="/"></Route>
+          <Route path="/" element={<HomePage/>}></Route>
           <Route path="/delivery" element={<DeliveryPage/>}></Route>
           <Route path="/payment" element={<PaymentPage/>}></Route>
           <Route path="/company" element={<CompanyPage/>} ></Route>

@@ -9,7 +9,6 @@ import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
-  // const isLoggedIn = false;
   const toggle = () => {
     setOpen(!isOpen);
   };
@@ -31,7 +30,7 @@ const Header = () => {
             </div>
               <div className={scss.menu_list}>
                 <NavLink className={scss.nav_mobile_item} to="/login" onClick={toggle}>Вхід</NavLink>
-                <NavLink className={scss.nav_mobile_item} to="/register" onClick={toggle}>Регістрація</NavLink>
+                <NavLink className={scss.nav_mobile_item} to="/register" onClick={toggle}>Реєстрація</NavLink>
                 <NavLink className={scss.nav_mobile_item} to="/catalog" onClick={toggle}>Каталог</NavLink >
                 <NavLink className={scss.nav_mobile_item} to="/delivery" onClick={toggle}>Доставка</NavLink>
                 <NavLink  className={scss.nav_mobile_item} to="/payment" onClick={toggle}>Оплата</NavLink>
