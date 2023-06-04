@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { user } from 'redux/auth/auth-selectors';
+import { userToken } from 'redux/auth/auth-selectors';
 import { logOut } from '../../redux/auth/auth-operations';
 
 
 const ButtonLogOut = () => {
 const dispatch = useDispatch();
-const token = useSelector(user)
+const token = useSelector(userToken)
 
  const logOutUser = () => {
 

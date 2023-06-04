@@ -1,12 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import scss from './AuthNav.module.scss';
-import { isLogin } from 'redux/auth/auth-selectors';
+import { isLogin, userName } from 'redux/auth/auth-selectors';
 import { useSelector } from 'react-redux';
-import ButtonLogOut from 'components/ButtonLogOut/ButtonLogOut';
-
+import userIcon from '../../images/iconUser.svg';
 
 const AuthNav = () => {
   const userStatus = useSelector(isLogin);
+  const name = useSelector(userName);
   return (
     <div>
         {!userStatus ? (
@@ -20,10 +20,14 @@ const AuthNav = () => {
           </>
         ) : (
           <>
-          <NavLink className={scss.button} to="/">
-            
+          <NavLink className={scss.user} to="/">
+          {name ?   
+          (<p className={scss.name}>{name}</p>)
+          : 
+          (<p className={scss.name}>User</p>)
+          }  
+          <img className={scss.icon} src={userIcon} alt="userIcon" /> 
           </NavLink>
-          <ButtonLogOut/>
           </>  
         )}
     </div>
