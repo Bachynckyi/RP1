@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/162.a7b5df62.chunk.js","mappings":"4JAOA,UAPuB,WAEnB,OACE,yBAAK,mBAER,C","sources":["pages/CatalogPage/Emali-GruntovkiPage/Emali-GruntovkiPage.jsx"],"sourcesContent":["const EmaliGruntovki = () => {\n\n    return (\n      <div>Emali-Gruntovki</div>\n    );\n  };\n  \nexport default EmaliGruntovki;"],"names":[],"sourceRoot":""}
