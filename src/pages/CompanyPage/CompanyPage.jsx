@@ -1,12 +1,16 @@
-const PaymentPage = () => {
+import scss from './CompanyPage.module.scss';
+import Footer from "components/Footer/Footer";
+
+const CompanyPage = () => {
 
     return (
       <>
-        <h1>Про компанію</h1>
-          <div>
-          </div>
+        <div className={scss.container}>
+          <h1>Про компанію</h1>
+        </div>
+        <Footer/>
       </>
     );
   };
   
-  export default PaymentPage;
+  export default CompanyPage;

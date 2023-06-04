@@ -1,11 +1,11 @@
 .container {
-    height: 50px;
+    height: 40px;
+    width: 100%;
     display: flex;
-    margin-top: 350px;
+    margin-top: 50px;
     background-color: #2f303a;
-};
 
-.image {
-    width: 200px;
-    height: 100px;
+    @media screen and (min-width: 768px) {
+        margin-top: 20px;
+    }
 };

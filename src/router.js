@@ -3,8 +3,6 @@ import { lazy, Suspense } from 'react';
 import SharedLayout from 'components/SharedLayout/SharedLayout';
 import PrivateRoute from 'components/PrivatRoute/PrivatRoute';
 import PublicRoute from 'components/PublicRoute/PublicRoute';
-import Footer from 'components/Footer/Footer';
-import HomePage from 'pages/HomePage/HomePage';
 
 const CatalogPage = lazy(() => import('./pages/CatalogPage/CatalogPage'));
 const DeliveryPage = lazy(() => import('./pages/DeliveryPage/DeliveryPage'));
@@ -13,11 +11,16 @@ const CompanyPage = lazy(() => import('./pages/CompanyPage/CompanyPage'));
 const ContactsPage = lazy(() => import('./pages/ContactsPage/ContactsPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage'));
 const RegisterPage = lazy(() => import('./pages/RegisterPage/RegisterPage'));
+const PageNotFound = lazy(() => import('./pages/NotFoundPage/NotFoundPage'));
+const EmaliPage = lazy(() => import('./pages/CatalogPage/EmaliPage/EmaliPage'));
+const GruntovkiPage = lazy(() => import('./pages/CatalogPage/GruntovkiPage/GruntovkiPage'));
+const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
+const ProfilePage = lazy(() => import('./pages/ProfilePage/ProfilePage'));
+const EmaliGruntovki = lazy(() => import('./pages/CatalogPage/Emali-GruntovkiPage/Emali-GruntovkiPage'))
 
 const UserRoutes = () => {
-
   return (
-    <>
+    <div>
       <SharedLayout />
       <Suspense>
         <Routes>
@@ -27,6 +30,9 @@ const UserRoutes = () => {
           <Route path="/company" element={<CompanyPage/>} ></Route>
           <Route path="/contacts" element={<ContactsPage/>} ></Route>
           <Route path="/catalog" element={<CatalogPage/>}></Route>
+          <Route path="/emali" element={<EmaliPage/>}></Route>
+          <Route path="/gruntovki" element={<GruntovkiPage/>}></Route>
+          <Route path="/emali-gruntovki-3v1" element={<EmaliGruntovki/>}></Route>
 
           <Route element={<PublicRoute />}>
             <Route path="/login" element={<LoginPage/>}/>
@@ -34,15 +40,15 @@ const UserRoutes = () => {
           </Route>
 
           <Route element={<PrivateRoute />}>
-            <Route path="" />
+            <Route path="/profile" element={<ProfilePage/>}/>
             <Route path="" />
           </Route>
 
-          <Route path="*"/>
+          <Route path="*" element={<PageNotFound/>}/>
         </Routes>
       </Suspense>
-      <Footer/>
-    </>
+      {/* <Footer/> */}
+    </div>
   );
 };
 

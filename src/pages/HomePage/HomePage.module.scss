@@ -1,7 +1,15 @@
 .container {
-    padding: 0px 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    height: 300px;
+    background-image: url("../../images/color.jpg");
+    background-repeat: 'no-repeat';
+    background-position: center;
+    background-size: cover;
+
+    @media screen and (min-width: 768px) {
+        height: 450px;
+    }
+
+    @media screen and (min-width: 1280px) {
+        height: 650px;
+    }
 };

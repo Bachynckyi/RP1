@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { signUp, signIn } from './auth-operations';
+import { signUp, signIn, logOut } from './auth-operations';
 
 const initialState = {
   user: {},
-  token: '',
   isLogin: false,
   loading: false,
   error: null,
@@ -20,8 +19,7 @@ const authSlice = createSlice({
       })
       .addCase(signUp.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.token = payload.user.token
-        state.user = payload.user.user
+        state.user = payload.user
         state.isLogin = true;
       })
       .addCase(signUp.rejected, (state, { payload }) => {
@@ -34,14 +32,26 @@ const authSlice = createSlice({
       })
       .addCase(signIn.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.token = payload.user.token
-        state.user = payload.user.user
+        state.user = payload.user
         state.isLogin = true;
       })
       .addCase(signIn.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       })
+      .addCase(logOut.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(logOut.fulfilled, state => {
+        state.loading = false;
+        state.user = {};
+        state.isLogin = false;
+      })
+      .addCase(logOut.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      });
   },
 });
 

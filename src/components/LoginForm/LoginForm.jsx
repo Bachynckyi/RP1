@@ -54,7 +54,7 @@ export const LoginForm = ({onSubmit}) => {
       </button>
 
       <NavLink className={scss.p} to="/register">
-        Немає аккаунта? Регістрація
+        Немає аккаунта? Реєстрація
       </NavLink>
     </form>
   );

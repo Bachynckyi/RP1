@@ -2,8 +2,9 @@
     padding: 0px 40px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    min-height: 70vh;
 };
 
 .title_main {
@@ -20,7 +21,6 @@
 .address {
     align-self: flex-start;
     margin-top: 8px;
-    text-decoration: none;
     font-style: normal;
 };
 
@@ -37,7 +37,7 @@
     margin-bottom: 0px;
 };
 
-.constacts_link {
+.contacts_link {
     color: #000;
     text-decoration: none;
 };
