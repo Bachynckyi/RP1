@@ -1,0 +1,14 @@
+
+.input_checkbox {
+    width: 60px;
+    height: 60px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 25px;
+    border-radius:10%;
+};
+
+.input_checkbox:checked {
+    outline: 5px solid green;
+};

@@ -1,0 +1,16 @@
+.container {
+    padding: 0px 40px;
+    display: flex;
+    justify-content: space-between;
+    min-height: 100vh;
+};
+
+.button_addproduct {
+    width: 100px;
+    height: 30px;
+    background-color: blue;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-decoration: none;
+};

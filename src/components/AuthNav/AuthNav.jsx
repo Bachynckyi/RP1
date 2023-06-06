@@ -20,7 +20,7 @@ const AuthNav = () => {
           </>
         ) : (
           <>
-          <NavLink className={scss.user} to="/">
+          <NavLink to="/profile" className={scss.user} >
           {name ?   
           (<p className={scss.name}>{name}</p>)
           : 

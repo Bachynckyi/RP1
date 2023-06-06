@@ -19,7 +19,6 @@ const LoginPage = () => {
       try {
         dispatch(signIn(dataSend));
       } catch (error) {
-        console.log(error);
       }
     };
     sendData(dataSend);
