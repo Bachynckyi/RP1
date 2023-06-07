@@ -22,7 +22,7 @@ const token = useSelector(userToken)
 
   return (
     <div>
-      <button onClick={logOutUser}>LogOut</button>
+      <button onClick={logOutUser}>Вихід</button>
     </div>
   );
 };
