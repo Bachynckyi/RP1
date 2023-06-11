@@ -1,10 +1,20 @@
 import scss from './AddProductForm.module.scss';
-import ColorPicker from '../ColorPicker/ColorPicker';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import dafaultPicture from '../../images/images.png';
+import TablePrice from 'components/TablePrice/TablePrice';
 
 const AddProductForm = () => {
     const [state, setState] = useState("");
+    const [prices, setPrices] = useState({});
+
+    const fetchData = (data) => {
+        setPrices(data);
+    };
+
+    useEffect(() => {
+        console.log(prices)
+    }, [prices])
+
     return (
         <div className={scss.container}>
             <form className={scss.product_form}>
@@ -33,7 +43,6 @@ const AddProductForm = () => {
                         <input
                             className={scss.input}
                             name='email'
-                            required
                             placeholder='Введіть назву товару'
                         />
                     </label>
@@ -41,16 +50,15 @@ const AddProductForm = () => {
                         <textarea
                             className={scss.label_input}
                             name='password'
-                            required
                             placeholder='Введіть опис'
                             rows="20"
                             cols="70"
                         />
                     </label>
                 </div>
-                <ColorPicker/>
-                
+                <TablePrice onClick={fetchData}/>
             </form>
+
         </div>
     );
   };

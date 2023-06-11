@@ -26,6 +26,7 @@ const LoginPage = () => {
       return <Navigate to="/"/>;
     }
   };
+  
   return (
     <>
       {loading && (<Loader/>)}
