@@ -21,7 +21,27 @@ const initialState = {
         "small": "",
         "middle": "",
         "big": "",
-    },    
+    },
+    grey: {
+        "small": "",
+        "middle": "",
+        "big": "",
+    },
+    green: {
+        "small": "",
+        "middle": "",
+        "big": "",
+    },
+    brown: {
+        "small": "",
+        "middle": "",
+        "big": "",
+    },
+    blue: {
+        "small": "",
+        "middle": "",
+        "big": "",
+    },
 };
 
 const TablePrice= ({onClick}) => {
@@ -160,9 +180,117 @@ const TablePrice= ({onClick}) => {
                             />
                         </td>   
                     </tr>
+                    <tr>
+                        <td className={scss.table} style={{backgroundColor: "#808080"}}></td>
+                        <td className={scss.table}>
+                            <input
+                                onChange={handleChange}
+                                name="small"
+                                value={small}
+                                id='grey'
+                            />
+                        </td>
+                        <td className={scss.table}>
+                            <input
+                                onChange={handleChange}
+                                name="middle"
+                                value={middle}
+                                id='grey'
+                            />
+                        </td>
+                        <td className={scss.table}>
+                            <input
+                                onChange={handleChange}
+                                name="big"
+                                value={big}
+                                id='grey'
+                            />
+                        </td>   
+                    </tr>
+                    <tr>
+                        <td className={scss.table} style={{backgroundColor: "#008000"}}></td>
+                        <td className={scss.table}>
+                            <input
+                                onChange={handleChange}
+                                name="small"
+                                value={small}
+                                id='green'
+                            />
+                        </td>
+                        <td className={scss.table}>
+                            <input
+                                onChange={handleChange}
+                                name="middle"
+                                value={middle}
+                                id='green'
+                            />
+                        </td>
+                        <td className={scss.table}>
+                            <input
+                                onChange={handleChange}
+                                name="big"
+                                value={big}
+                                id='green'
+                            />
+                        </td>   
+                    </tr>
+                    <tr>
+                        <td className={scss.table} style={{backgroundColor: "#8B4513"}}></td>
+                        <td className={scss.table}>
+                            <input
+                                onChange={handleChange}
+                                name="small"
+                                value={small}
+                                id='brown'
+                            />
+                        </td>
+                        <td className={scss.table}>
+                            <input
+                                onChange={handleChange}
+                                name="middle"
+                                value={middle}
+                                id='brown'
+                            />
+                        </td>
+                        <td className={scss.table}>
+                            <input
+                                onChange={handleChange}
+                                name="big"
+                                value={big}
+                                id='brown'
+                            />
+                        </td>   
+                    </tr>
+                    <tr>
+                        <td className={scss.table} style={{backgroundColor: "#0000FF"}}></td>
+                        <td className={scss.table}>
+                            <input
+                                onChange={handleChange}
+                                name="small"
+                                value={small}
+                                id='blue'
+                            />
+                        </td>
+                        <td className={scss.table}>
+                            <input
+                                onChange={handleChange}
+                                name="middle"
+                                value={middle}
+                                id='blue'
+                            />
+                        </td>
+                        <td className={scss.table}>
+                            <input
+                                onChange={handleChange}
+                                name="big"
+                                value={big}
+                                id='blue'
+                            />
+                        </td>   
+                    </tr>
                 </tbody>
             </table>
-    </div>     
+        </div>     
     );
   };
   
