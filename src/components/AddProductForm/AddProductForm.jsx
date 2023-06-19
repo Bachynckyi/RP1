@@ -1,42 +1,52 @@
 import scss from './AddProductForm.module.scss';
-import { useEffect, useState, useCallback } from 'react';
-import dafaultPicture from '../../images/images.png';
-import TablePrice from 'components/TablePrice/TablePrice';
+import { useState, useCallback } from 'react';
+import defaultPicture from '../../images/images.png';
+import { addProduct } from 'redux/product/product-operations';
+import { useDispatch, useSelector } from 'react-redux';
+import { userToken } from 'redux/auth/auth-selectors';
 
 const initialState = {
     title: "",
     description: "",
     category: "",
+    price: "",
+    type: "",
+    color: "",
+    photo: "",
   };
 
 const AddProductForm = () => {
-    const [photo, setPhoto] = useState("");
-    const [prices, setPrices] = useState({});
-    const [details, setDetails] = useState({...initialState});
-    const [card, setCard] = useState({});
-    const { title, description } = details;
-
-    const fetchData = (data) => {
-        setPrices(data.price);
-    };
+    const dispatch = useDispatch();
+    const token = useSelector(userToken);
+    const [product, setProduct] = useState({...initialState});
+    const { title, description, price, color, type, photo} = product;
 
     const onSubmit = event => {
         event.preventDefault();
-        setCard({photo, prices, details})
+        const sendData = async ({token, product}) => {
+            try {
+              dispatch(addProduct({token, product}));
+            } catch (error) {
+            }
+          };
+        sendData({token, product});
+        setProduct(initialState);
     };
 
     const handleChangeDetails = useCallback(({ target }) => {
         const {name, value } = target;
-        setDetails(prevState => {
-          return {...prevState, [name]: value};
-        });
+        if(name === "photo"){
+            setProduct(prevState => {
+                return{...prevState, photo: target.files[0]}}) 
+        }
+        else {
+            setProduct(prevState => {
+                return {...prevState, [name]: value};
+              });
+        }
     },
-      [setDetails]
+      [setProduct]
     );
-
-    useEffect(() => {
-        console.log(card)
-    });
 
     return (
         <div className={scss.container}>
@@ -50,15 +60,17 @@ const AddProductForm = () => {
                         />)
                     :
                     (<img 
-                        src={dafaultPicture} 
+                        src={defaultPicture} 
                         alt="defaultPicture"
                         className={scss.product_picture}
                         />)}                      
                     <p className={scss.title_picture}>Фотографія товару</p>
                         <input
                             type='file'
+                            name="photo"
+                            required
                             accept="image/png, image/jpeg"
-                            onChange={e => setPhoto(e.target.files[0])}
+                            onChange={handleChangeDetails}
                         />
                 </div> 
                 <div> 
@@ -84,9 +96,37 @@ const AddProductForm = () => {
                             onChange={handleChangeDetails}
                         />
                     </label>
+                    <label className={scss.label_input}>Фасовка
+                        <input
+                            className={scss.input}
+                            name='type'
+                            placeholder='Введіть фасовку'
+                            required
+                            value={type}
+                            onChange={handleChangeDetails}
+                        />
+                    </label>
+                    <label className={scss.label_input}>Колір
+                        <input
+                            className={scss.input}
+                            name='color'
+                            placeholder='Введіть колір'
+                            required
+                            value={color}
+                            onChange={handleChangeDetails}
+                        />
+                    </label>
+                    <label className={scss.label_input}>Ціна
+                        <input
+                            className={scss.input}
+                            name='price'
+                            placeholder='Введіть ціну'
+                            required
+                            value={price}
+                            onChange={handleChangeDetails}
+                        />
+                    </label>
                 </div>
-                <TablePrice onClick={fetchData}/> 
-                <button type='submit'>Добавить товар</button>
                 <div>
                     <div>
                         <input 
@@ -121,9 +161,9 @@ const AddProductForm = () => {
                             />
                         <label htmlFor="Emali-gruntovki-3v1">Грунт&Емаль 3в1</label>
                     </div>
-                </div>   
+                </div>
+                <button type='submit'>Добавить товар</button>
             </form>
-
         </div>
     );
   };
