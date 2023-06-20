@@ -1,9 +1,11 @@
 import scss from './AddProductForm.module.scss';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import defaultPicture from '../../images/images.png';
-import { addProduct } from 'redux/product/product-operations';
+import { getAllCategories } from '../../redux/category/category-operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { userToken } from 'redux/auth/auth-selectors';
+import { addProduct } from '../../redux/product/product-operations';
+
 
 const initialState = {
     title: "",
@@ -20,7 +22,11 @@ const AddProductForm = () => {
     const token = useSelector(userToken);
     const [product, setProduct] = useState({...initialState});
     const { title, description, price, color, type, photo, category} = product;
-    
+
+    useEffect(() => {
+        dispatch(getAllCategories(token))
+    })
+
     const onSubmit = event => {
         event.preventDefault();
         const formData = new FormData();
@@ -35,7 +41,6 @@ const AddProductForm = () => {
         const sendData = async ({token, data}) => {
             try {
             dispatch(addProduct({token, data}));
-            
             } 
             catch (error) {
               console.log(error)
@@ -62,7 +67,7 @@ const AddProductForm = () => {
 
     return (
         <div className={scss.container}>
-            <form className={scss.product_form} onSubmit={onSubmit} id='product'>
+            <form className={scss.product_form} onSubmit={onSubmit}>
                 <div>
                     {photo ? 
                     (<img 
@@ -140,39 +145,6 @@ const AddProductForm = () => {
                     </label>
                 </div>
                 <div>
-                    <div>
-                        <input 
-                            type="radio" 
-                            id="Emali" 
-                            name="category" 
-                            value="Emali" 
-                            onChange={handleChangeDetails}
-                            required
-                            />
-                        <label htmlFor="Emali">Емалі</label>
-                    </div>
-                    <div>
-                        <input 
-                            type="radio" 
-                            id="Gruntovki" 
-                            name="category" 
-                            value="Gruntovki" 
-                            onChange={handleChangeDetails}
-                            required
-                            />
-                        <label htmlFor="Gruntovki">Грунт</label>
-                    </div>
-                    <div>
-                        <input 
-                            type="radio" 
-                            id="Emali&gruntovki3v1" 
-                            name="category" 
-                            value="Emali&gruntovki3v1" 
-                            onChange={handleChangeDetails}
-                            required
-                            />
-                        <label htmlFor="Emali&gruntovki3v1">Грунт&Емаль 3в1</label>
-                    </div>
                 </div>
                 <button type='submit'>Добавить товар</button>
             </form>

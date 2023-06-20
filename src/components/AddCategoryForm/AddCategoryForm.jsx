@@ -1,7 +1,7 @@
 import scss from './AddCategoryForm.module.scss';
-import { useState, useCallback } from 'react';
+import { useState, useCallback} from 'react';
 import defaultPicture from '../../images/images.png';
-import { addCategory } from 'redux/product/product-operations';
+import { addCategory } from 'redux/category/category-operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { userToken } from 'redux/auth/auth-selectors';
 
@@ -38,7 +38,8 @@ const AddCategoryForm = () => {
         const {name, value } = target;
         if(name === "photo"){
             setProduct(prevState => {
-                return{...prevState, photo: target.files[0]}}) 
+                return {...prevState, photo: target.files[0]} 
+            })
         }
         else {
             setProduct(prevState => {
@@ -51,7 +52,7 @@ const AddCategoryForm = () => {
 
     return (
         <div className={scss.container}>
-            <form className={scss.product_form} onSubmit={onSubmit} id='product'>
+            <form className={scss.product_form} onSubmit={onSubmit}>
                 <div>
                     {photo ? 
                     (<img 
