@@ -19,17 +19,29 @@ const AddProductForm = () => {
     const dispatch = useDispatch();
     const token = useSelector(userToken);
     const [product, setProduct] = useState({...initialState});
-    const { title, description, price, color, type, photo} = product;
-
+    const { title, description, price, color, type, photo, category} = product;
+    
     const onSubmit = event => {
         event.preventDefault();
-        const sendData = async ({token, product}) => {
+        const formData = new FormData();
+        formData.append("photo", photo);
+        formData.append("title", title);
+        formData.append("type", type);
+        formData.append("color", color);
+        formData.append("price", price);
+        formData.append("description", description);
+        formData.append("category", category);
+        const data = formData;
+        const sendData = async ({token, data}) => {
             try {
-              dispatch(addProduct({token, product}));
-            } catch (error) {
+            dispatch(addProduct({token, data}));
+            
+            } 
+            catch (error) {
+              console.log(error)
             }
           };
-        sendData({token, product});
+        sendData({token, data});
         setProduct(initialState);
     };
 
@@ -42,7 +54,7 @@ const AddProductForm = () => {
         else {
             setProduct(prevState => {
                 return {...prevState, [name]: value};
-              });
+            });
         }
     },
       [setProduct]
@@ -50,9 +62,9 @@ const AddProductForm = () => {
 
     return (
         <div className={scss.container}>
-            <form className={scss.product_form} onSubmit={onSubmit}>
+            <form className={scss.product_form} onSubmit={onSubmit} id='product'>
                 <div>
-                    {photo !== "" ? 
+                    {photo ? 
                     (<img 
                         src={URL.createObjectURL(photo)} 
                         alt="productPhoto" 
@@ -153,13 +165,13 @@ const AddProductForm = () => {
                     <div>
                         <input 
                             type="radio" 
-                            id="Emali-gruntovki-3v1" 
+                            id="Emali&gruntovki3v1" 
                             name="category" 
-                            value="Emali-gruntovki-3v1" 
+                            value="Emali&gruntovki3v1" 
                             onChange={handleChangeDetails}
                             required
                             />
-                        <label htmlFor="Emali-gruntovki-3v1">Грунт&Емаль 3в1</label>
+                        <label htmlFor="Emali&gruntovki3v1">Грунт&Емаль 3в1</label>
                     </div>
                 </div>
                 <button type='submit'>Добавить товар</button>

@@ -11,8 +11,14 @@ const setToken = token => {
   instance.defaults.headers.authorization = '';
 };
 
-export const addProduct = async ({token, product}) => {
+export const addProduct = async ({token, data}) => {
   setToken(token);
-  const { product: result } = await instance.post('/api/product/addproduct', product);
+  const { data: result } = await instance.post('/api/product/addproduct', data);
+  return result;
+};
+
+export const addCategory = async ({token, data}) => {
+  setToken(token);
+  const { data: result } = await instance.post('/api/product/addcategory', data);
   return result;
 };

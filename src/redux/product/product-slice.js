@@ -1,11 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addProduct } from './product-operations';
+import { addProduct, addCategory } from './product-operations';
 
 const initialState = {
   loading: false,
   error: null,
-  token: "",
-  data: {},
 };
 
 const authSlice = createSlice({
@@ -20,6 +18,16 @@ const authSlice = createSlice({
         state.loading = false;
       })
       .addCase(addProduct.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(addCategory.pending, state => {
+        state.loading = true;
+      })
+      .addCase(addCategory.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(addCategory.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       })

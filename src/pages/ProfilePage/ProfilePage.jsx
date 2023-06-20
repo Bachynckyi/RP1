@@ -12,8 +12,10 @@ const ProfilePage = () => {
             <UserProfile/>
             <OrderList/>
             <ButtonLogOut/>
+            <div className={scss.menu_buttons}>
             <NavLink to="/addproduct" className={scss.button_addproduct}>Додати товар</NavLink>
-
+            <NavLink to="/addcategory" className={scss.button_addproduct}>Додати категорію</NavLink>
+            </div>
         </div>
     );
   };

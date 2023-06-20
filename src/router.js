@@ -18,6 +18,7 @@ const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage/ProfilePage'));
 const EmaliGruntovki = lazy(() => import('./pages/CatalogPage/Emali-GruntovkiPage/Emali-GruntovkiPage'));
 const AddProduct = lazy(() => import('./pages/AddProductPage/AddProductPage')); 
+const AddCategory = lazy(() => import('./pages/AddCategoryPage/AddCategoryPage')); 
 
 const UserRoutes = () => {
   return (
@@ -43,6 +44,7 @@ const UserRoutes = () => {
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<ProfilePage/>}/>
             <Route path="/addproduct" element={<AddProduct/>}/>
+            <Route path="/addcategory" element={<AddCategory/>}/>
           </Route>
 
           <Route path="*" element={<PageNotFound/>}/>

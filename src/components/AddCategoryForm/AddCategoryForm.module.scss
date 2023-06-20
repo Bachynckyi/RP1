@@ -1,0 +1,32 @@
+.container {
+    width: 100%;
+};
+
+.product_form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+};
+
+.label_input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+};
+
+.product_picture {
+    width: 400px;
+    height: 400px;
+    display: block;
+};
+
+.title_picture {
+    margin-bottom: 20px;
+    margin-top: 20px;
+};
+
+
+
+
+
