@@ -39,7 +39,7 @@ const AddCategoryForm = () => {
         if(name === "photo"){
             setProduct(prevState => {
                 return {...prevState, photo: target.files[0]} 
-            })
+            });
         }
         else {
             setProduct(prevState => {
@@ -87,7 +87,7 @@ const AddCategoryForm = () => {
                         />
                     </label>
                 </div>
-                <button type='submit'>Добавить товар</button>
+                <button type='submit'>Додати категорію</button>
             </form>
         </div>
     );

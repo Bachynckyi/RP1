@@ -4,7 +4,6 @@ import { getAllCategories, addCategory } from './category-operations';
 const initialState = {
   loading: false,
   error: null,
-  categories: {},
 };
 
 const categorySlice = createSlice({
@@ -17,7 +16,6 @@ const categorySlice = createSlice({
       })
       .addCase(getAllCategories.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.categories = payload.data;
       })
       .addCase(getAllCategories.rejected, (state, { payload }) => {
         state.loading = false;
