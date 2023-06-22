@@ -22,5 +22,3 @@ const CategoriesItem = ({title, name, pickCategory}) => {
   };
   
 export default CategoriesItem;
-
-

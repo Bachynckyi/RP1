@@ -1,31 +1,47 @@
-import { NavLink } from 'react-router-dom';
-import scss from './CatalogPage.module.scss';
 import Footer from "components/Footer/Footer";
-import imageDefault from "../../images/photo_default.jpg";
+import { useState, useEffect } from 'react';
+import { getAllCategories } from '../../redux/category/category-operations';
+import { useDispatch, useSelector } from 'react-redux';
+import { isLoading } from '../../redux/category/category-selectors';
+import Loader  from '../../components/Loader/Loader';
+import CatalogList from './CatalogList/CatalogList';
+import scss from './CatalogPage.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 const CatalogPage = () => {
-    return (
-      <>
-        <div className={scss.container}>
-          <h1 className={scss.title}>Каталог товарів</h1>
-          <div className={scss.catalog_list}>
-            <NavLink to="/emali" className={scss.catalog_link}>
-              <img className={scss.image_link} src={imageDefault} alt="default"/>
-              <p className={scss.image_title}>Емаль</p>
-            </NavLink>
-            <NavLink to="/gruntovki" className={scss.catalog_link}>
-            <img className={scss.image_link} src={imageDefault} alt="default"/>
-              <p className={scss.image_title}>Грунт</p>
-            </NavLink>
-            <NavLink to="/emali-gruntovki-3v1" className={scss.catalog_link}>
-            <img className={scss.image_link} src={imageDefault} alt="default"/>
-              <p className={scss.image_title}>Грунт&Емаль 3в1</p>
-            </NavLink>
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const loading = useSelector(isLoading);
+  const [categories, setCategories] = useState(null);
+
+  useEffect(() => {
+    try{
+        dispatch(getAllCategories())
+        .then(response => setCategories(response.payload.data))
+    }
+    catch(error){
+        console.log(error)
+    };
+  }, [dispatch]);
+
+  const fetchCategory = (pickedCategory) => {
+    console.log(pickedCategory);
+    navigate(`/catalog/${pickedCategory}`);
+  };
+
+  return (
+    <div>
+      {loading === true ? (<Loader/>) : (
+        <div>
+          <div className={scss.container}>
+              <h1 className={scss.title}>Каталог товарів</h1>
+              {categories !== null && (<CatalogList categories={categories} fetchCategory={fetchCategory}/>)}
           </div>
+          <Footer/>
         </div>
-        <Footer/>
-      </>
-    );
+      )} 
+    </div>
+  );
   };
   
   export default CatalogPage;

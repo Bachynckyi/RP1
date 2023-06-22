@@ -8,19 +8,21 @@ import { userToken } from 'redux/auth/auth-selectors';
 const initialState = {
     title: "",
     photo: "",
+    name: "",
   };
 
 const AddCategoryForm = () => {
     const dispatch = useDispatch();
     const token = useSelector(userToken);
     const [product, setProduct] = useState({...initialState});
-    const { title, photo} = product;
+    const { title, photo, name} = product;
     
     const onSubmit = event => {
         event.preventDefault();
         const formData = new FormData();
         formData.append("photo", photo);
         formData.append("title", title);
+        formData.append("name", name);
         const data = formData;
         const sendData = async ({token, data}) => {
             try {
@@ -39,6 +41,11 @@ const AddCategoryForm = () => {
         if(name === "photo"){
             setProduct(prevState => {
                 return {...prevState, photo: target.files[0]} 
+            });
+        }
+        else if(name === "name"){
+            setProduct(prevState => {
+                return {...prevState, [name]: value.toLowerCase()};
             });
         }
         else {
@@ -83,6 +90,16 @@ const AddCategoryForm = () => {
                             placeholder='Введіть назву категорії'
                             required
                             value={title}
+                            onChange={handleChangeDetails}
+                        />
+                    </label>
+                    <label className={scss.label_input}>Назва категорії англійською мовою
+                        <input
+                            className={scss.input}
+                            name='name'
+                            placeholder='Введіть назву категорії англійською мовою'
+                            required
+                            value={name}
                             onChange={handleChangeDetails}
                         />
                     </label>

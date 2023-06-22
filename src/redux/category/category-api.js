@@ -17,8 +17,7 @@ export const addCategory = async ({token, data}) => {
   return result;
 };
 
-export const getAllCategories = async ({token}) => {
-  setToken(token);
+export const getAllCategories = async () => {
   const result = await instance.get('/api/product/getallcategories');
   return result;
 };

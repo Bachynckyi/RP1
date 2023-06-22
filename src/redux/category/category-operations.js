@@ -16,9 +16,9 @@ import * as api from './category-api';
 
   export const getAllCategories = createAsyncThunk(
     'api/product/getallcategories',
-    async (token, { rejectWithValue }) => {
+    async (_, { rejectWithValue }) => {
       try {
-        const result = await api.getAllCategories({token});
+        const result = await api.getAllCategories();
         return result;
       } catch (error) {
         return rejectWithValue(error.response.request.status);

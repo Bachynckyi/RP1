@@ -18,29 +18,30 @@ const initialState = {
     type: "",
     color: "",
     photo: "",
+    code: "",
   };
 
 const AddProductForm = () => {
     const dispatch = useDispatch();
     const token = useSelector(userToken);
     const [product, setProduct] = useState({...initialState});
-    const { title, description, price, color, type, photo, category} = product;
+    const { title, description, price, color, type, photo, category, code} = product;
     const [categories, setCategories] = useState(null);
     const loading = useSelector(isLoading);
 
     useEffect(() => {
         try{
-            dispatch(getAllCategories(token))
+            dispatch(getAllCategories())
             .then(response => setCategories(response.payload.data))
+            // .then(response => console.log(response))
         }
         catch(error){
             console.log(error)
         };
-    }, [dispatch, token])
+    }, [dispatch])
 
     const onSubmit = event => {
         event.preventDefault();
-        console.log(product)
         const formData = new FormData();
         formData.append("photo", photo);
         formData.append("title", title);
@@ -49,6 +50,7 @@ const AddProductForm = () => {
         formData.append("price", price);
         formData.append("description", description);
         formData.append("category", category);
+        formData.append("code", code);
         const data = formData;
         const sendData = async ({token, data}) => {
             try {
@@ -76,7 +78,6 @@ const AddProductForm = () => {
     },[setProduct]);
 
     const fetchCategory = (pickedCategory) => {
-        console.log(pickedCategory)
         setProduct(prevState => {
             return {...prevState, category: pickedCategory};
         });
@@ -159,6 +160,16 @@ const AddProductForm = () => {
                                 placeholder='Введіть ціну'
                                 required
                                 value={price}
+                                onChange={handleChangeDetails}
+                            />
+                        </label>
+                        <label className={scss.label_input}>Код товару
+                            <input
+                                className={scss.input}
+                                name='code'
+                                placeholder='Введіть код товару'
+                                required
+                                value={code}
                                 onChange={handleChangeDetails}
                             />
                         </label>
