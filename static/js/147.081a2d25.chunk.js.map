@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/147.081a2d25.chunk.js","mappings":"2JAQA,UAPkB,WAEhB,OACE,yBAAK,SAER,C","sources":["pages/CatalogPage/EmaliPage/EmaliPage.jsx"],"sourcesContent":["\nconst EmaliPage = () => {\n\n  return (\n    <div>Emali</div>\n  );\n};\n\nexport default EmaliPage;"],"names":[],"sourceRoot":""}

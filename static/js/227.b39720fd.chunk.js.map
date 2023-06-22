@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/227.b39720fd.chunk.js","mappings":"2JAOE,UAPoB,WAElB,OACE,yBAAK,aAER,C","sources":["pages/CatalogPage/GruntovkiPage/GruntovkiPage.jsx"],"sourcesContent":["const GruntovkiPage = () => {\n\n    return (\n      <div>Gruntovki</div>\n    );\n  };\n  \n  export default GruntovkiPage;"],"names":[],"sourceRoot":""}

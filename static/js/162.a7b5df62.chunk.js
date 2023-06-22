@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkreact_homework_template=self.webpackChunkreact_homework_template||[]).push([[162],{5162:function(e,t,r){r.r(t);var a=r(3329);t.default=function(){return(0,a.jsx)("div",{children:"Emali-Gruntovki"})}}}]);
-//# sourceMappingURL=162.a7b5df62.chunk.js.map
