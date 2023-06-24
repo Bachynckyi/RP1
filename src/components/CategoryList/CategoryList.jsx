@@ -1,6 +1,6 @@
-import CategoriesItem from '../CategoriesItem/CategoriesItem';
+import CategoryItem from './CategoryItem/CategoryItem';
 
-const CategoriesList = ({ categories, fetchCategory }) => {
+const CategoryList = ({ categories, fetchCategory }) => {
 
     const pickCategory = (pickedCategory) => {
         fetchCategory(pickedCategory);
@@ -8,7 +8,7 @@ const CategoriesList = ({ categories, fetchCategory }) => {
 
     const elements = categories.map(({ _id, ...props }) => {
             return (
-                <CategoriesItem key={_id} {...props} _id={_id} pickCategory={pickCategory}/>
+                <CategoryItem key={_id} {...props} _id={_id} pickCategory={pickCategory}/>
             );
     });
     
@@ -20,4 +20,4 @@ const CategoriesList = ({ categories, fetchCategory }) => {
     );
 };
 
-export default CategoriesList;
+export default CategoryList;

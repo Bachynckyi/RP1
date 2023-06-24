@@ -5,10 +5,11 @@ import { getAllCategories } from '../../redux/category/category-operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { userToken } from 'redux/auth/auth-selectors';
 import { addProduct } from '../../redux/product/product-operations';
-import CategoriesList from './CategoriesList/CategoriesList';
+import CategoriesList from '../CategoryList/CategoryList';
 import { isLoading } from '../../redux/category/category-selectors';
 import Loader  from '../../components/Loader/Loader';
-
+import { getAllSubcategories } from '../../redux/subcategory/subcategory-operations';
+import SubcategoriesList from 'components/SubcategoryList/SubcategoryList';
 
 const initialState = {
     title: "",
@@ -19,21 +20,24 @@ const initialState = {
     color: "",
     photo: "",
     code: "",
+    subcategory: "",
   };
 
 const AddProductForm = () => {
     const dispatch = useDispatch();
     const token = useSelector(userToken);
     const [product, setProduct] = useState({...initialState});
-    const { title, description, price, color, type, photo, category, code} = product;
+    const { title, description, price, color, type, photo, category, code, subcategory} = product;
     const [categories, setCategories] = useState(null);
+    const [subCategories, setSubcategories] = useState(null);
     const loading = useSelector(isLoading);
 
     useEffect(() => {
         try{
             dispatch(getAllCategories())
             .then(response => setCategories(response.payload.data))
-            // .then(response => console.log(response))
+            dispatch(getAllSubcategories())
+            .then(response => setSubcategories(response.payload.data))
         }
         catch(error){
             console.log(error)
@@ -51,6 +55,9 @@ const AddProductForm = () => {
         formData.append("description", description);
         formData.append("category", category);
         formData.append("code", code);
+        if(subcategory !== null){
+            formData.append("subcategory", subcategory);
+        };
         const data = formData;
         const sendData = async ({token, data}) => {
             try {
@@ -80,6 +87,12 @@ const AddProductForm = () => {
     const fetchCategory = (pickedCategory) => {
         setProduct(prevState => {
             return {...prevState, category: pickedCategory};
+        });
+    };
+
+    const fetchSubcategory = (pickedSubcategory) => {
+        setProduct(prevState => {
+            return {...prevState, subcategory: pickedSubcategory};
         });
     };
 
@@ -175,6 +188,7 @@ const AddProductForm = () => {
                         </label>
                     </div>
                     {categories !== null && (<CategoriesList categories={categories} fetchCategory={fetchCategory}/>)}
+                    {subCategories !== null && (<SubcategoriesList subCategories={subCategories} fetchSubcategory={fetchSubcategory}/>)}
                     <button type='submit'>Додати товар</button>
                 </form>
             </div>

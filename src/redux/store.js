@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import authReducer from './auth/auth-slice';
 import productReducer from './product/product-slice';
 import categoryReducer from './category/category-slice';
+import subcCategoryReducer from './subcategory/subcategory-slice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -16,7 +17,12 @@ const ProductPersistConfig = {
 };
 
 const CategoryPersistConfig = {
-  key: 'product',
+  key: 'category',
+  storage,
+};
+
+const SubcategoryPersistConfig = {
+  key: 'subcategory',
   storage,
 };
 
@@ -25,6 +31,7 @@ export const store = configureStore({
     auth: persistReducer(authPersistConfig, authReducer),
     product: persistReducer(ProductPersistConfig, productReducer),
     category: persistReducer(CategoryPersistConfig, categoryReducer),
+    subcategory: persistReducer(SubcategoryPersistConfig, subcCategoryReducer),
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

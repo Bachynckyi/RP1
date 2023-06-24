@@ -1,10 +1,10 @@
 import AddCategoryForm from "components/AddCategoryForm/AddCategoryForm";
-import { isLoading } from '../../redux/product/product-selectors';
+import { isLoading } from '../../redux/category/category-selectors';
 import Loader  from '../../components/Loader/Loader';
 import { useSelector } from 'react-redux';
 import scss from './AddCategoryPage.module.scss';
 
-const AddProduct = () => {
+const AddCategory = () => {
     const loading = useSelector(isLoading);
     return (
         <div className={scss.container}>
@@ -14,4 +14,4 @@ const AddProduct = () => {
     );
 };
   
-export default AddProduct;
+export default AddCategory;

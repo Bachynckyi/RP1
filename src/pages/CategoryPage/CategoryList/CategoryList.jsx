@@ -1,5 +1,5 @@
-import CatalogItem from '../CatalogItem/CatalogItem';
-import scss from './CatalogList.module.scss';
+import CategoryItem from '../CategoryItem/CategoryItem';
+import scss from './CategoryList.module.scss';
 
 const CategoriesList = ({ categories, fetchCategory }) => {
 
@@ -9,7 +9,7 @@ const CategoriesList = ({ categories, fetchCategory }) => {
 
     const elements = categories.map(({ _id, ...props }) => {
         return (
-            <CatalogItem key={_id} {...props} _id={_id} pickCategory={pickCategory}/>
+            <CategoryItem key={_id} {...props} _id={_id} pickCategory={pickCategory}/>
         );
     });
     

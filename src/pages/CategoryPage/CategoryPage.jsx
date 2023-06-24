@@ -4,11 +4,11 @@ import { getAllCategories } from '../../redux/category/category-operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { isLoading } from '../../redux/category/category-selectors';
 import Loader  from '../../components/Loader/Loader';
-import CatalogList from './CatalogList/CatalogList';
-import scss from './CatalogPage.module.scss';
+import CategoryList from './CategoryList/CategoryList';
+import scss from './CategoryPage.module.scss';
 import { useNavigate } from 'react-router-dom';
 
-const CatalogPage = () => {
+const CategoryPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loading = useSelector(isLoading);
@@ -25,7 +25,6 @@ const CatalogPage = () => {
   }, [dispatch]);
 
   const fetchCategory = (pickedCategory) => {
-    console.log(pickedCategory);
     navigate(`/catalog/${pickedCategory}`);
   };
 
@@ -35,7 +34,7 @@ const CatalogPage = () => {
         <div>
           <div className={scss.container}>
               <h1 className={scss.title}>Каталог товарів</h1>
-              {categories !== null && (<CatalogList categories={categories} fetchCategory={fetchCategory}/>)}
+              {categories !== null && (<CategoryList categories={categories} fetchCategory={fetchCategory}/>)}
           </div>
           <Footer/>
         </div>
@@ -44,4 +43,4 @@ const CatalogPage = () => {
   );
   };
   
-  export default CatalogPage;
+  export default CategoryPage;

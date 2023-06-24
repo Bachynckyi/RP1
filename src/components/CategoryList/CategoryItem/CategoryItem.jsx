@@ -1,5 +1,4 @@
-
-const CategoriesItem = ({title, name, pickCategory}) => {
+const CategoryItem = ({nameCategory, routeCategory, pickCategory}) => {
 
     const handlePicker = ({target}) => {
         const { value } = target;
@@ -10,17 +9,17 @@ const CategoriesItem = ({title, name, pickCategory}) => {
         <li>
             <input 
                 type="radio" 
-                id={name} 
+                id={routeCategory} 
                 name="category" 
-                value={name} 
+                value={nameCategory} 
                 onChange={handlePicker}
                 required
             />
-            <label htmlFor={name}>{title}</label>
+            <label htmlFor={routeCategory}>{nameCategory}</label>
         </li>
     );
   };
   
-export default CategoriesItem;
+export default CategoryItem;
 
 

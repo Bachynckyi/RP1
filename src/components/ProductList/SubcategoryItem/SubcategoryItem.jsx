@@ -1,5 +1,5 @@
 
-const CategoriesItem = ({title, name, pickCategory}) => {
+const SubcategoryItem = ({title, name, pickCategory}) => {
 
     const handlePicker = ({target}) => {
         const { value } = target;
@@ -21,4 +21,4 @@ const CategoriesItem = ({title, name, pickCategory}) => {
     );
   };
   
-export default CategoriesItem;
+export default SubcategoryItem;
