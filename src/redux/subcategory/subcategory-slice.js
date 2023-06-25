@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllSubcategories, addSubcategory } from './subcategory-operations';
+import { getAllSubcategories, addSubcategory, getSubcategoryByCategory } from './subcategory-operations';
 
 const initialState = {
   loading: false,
@@ -31,6 +31,17 @@ const subCategorySlice = createSlice({
         state.loading = false;
         state.error = payload;
       })
+      .addCase(getSubcategoryByCategory.pending, state => {
+        state.loading = true;
+      })
+      .addCase(getSubcategoryByCategory.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(getSubcategoryByCategory.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      
   },
 });
 

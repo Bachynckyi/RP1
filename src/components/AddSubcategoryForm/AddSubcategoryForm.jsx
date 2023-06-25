@@ -12,9 +12,10 @@ import Loader  from '../../components/Loader/Loader';
 const initialState = {
     nameSubcategory: "",
     photoSubcategory: "",
-    routeSubcategory: "",
+    subcategory: "",
     descriptionSubcategory: "",
     category: "",
+    nameCategory: "",
   };
 
 const AddSubCategoryForm = () => {
@@ -22,8 +23,8 @@ const AddSubCategoryForm = () => {
     const token = useSelector(userToken);
     const loading = useSelector(isLoading);
     const [categories, setCategories] = useState(null);
-    const [subCategory, setsubCategory] = useState({...initialState});
-    const { nameSubcategory, photoSubcategory, routeSubcategory, descriptionSubcategory, category} = subCategory;
+    const [SubCategory, setsubCategory] = useState({...initialState});
+    const { nameSubcategory, photoSubcategory, subcategory, descriptionSubcategory, category, nameCategory} = SubCategory;
 
     useEffect(() => {
         try{
@@ -35,9 +36,9 @@ const AddSubCategoryForm = () => {
         };
     }, [dispatch]);
 
-    const fetchCategory = (pickedCategory) => {
+    const fetchCategory = (nameCategory, category) => {
         setsubCategory(prevState => {
-            return {...prevState, category: pickedCategory};
+            return {...prevState, nameCategory: nameCategory, category: category};
         });
     };
     
@@ -46,8 +47,9 @@ const AddSubCategoryForm = () => {
         const formData = new FormData();
         formData.append("photoSubcategory", photoSubcategory);
         formData.append("nameSubcategory", nameSubcategory);
-        formData.append("routeSubcategory", routeSubcategory);
+        formData.append("subcategory", subcategory);
         formData.append("descriptionSubcategory", descriptionSubcategory);
+        formData.append("nameCategory", nameCategory);
         formData.append("category", category);
         const data = formData;
         const sendData = async ({token, data}) => {
@@ -69,9 +71,9 @@ const AddSubCategoryForm = () => {
                 return {...prevState, photoSubcategory: target.files[0]} 
             });
         }
-        else if(name === "routeSubcategory"){
+        else if(name === "subcategory"){
             setsubCategory(prevState => {
-                return {...prevState, [name]: value.toLowerCase()};
+                return {...prevState, [name]: value.toLowerCase().split(/\s+/).join('-')};
             });
         }
         else {
@@ -124,10 +126,10 @@ const AddSubCategoryForm = () => {
                         <label className={scss.label_input}>Назва категорії англійською мовою
                             <input
                                 className={scss.input}
-                                name='routeSubcategory'
+                                name='subcategory'
                                 placeholder='Введіть назву категорії англійською мовою'
                                 required
-                                value={routeSubcategory}
+                                value={subcategory}
                                 onChange={handleChangeDetails}
                             />
                         </label>

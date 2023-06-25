@@ -8,22 +8,22 @@ import { userToken } from 'redux/auth/auth-selectors';
 const initialState = {
     nameCategory: "",
     photoCategory: "",
-    routeCategory: "",
+    category: "",
     descriptionCategory: "",
   };
 
 const AddCategoryForm = () => {
     const dispatch = useDispatch();
     const token = useSelector(userToken);
-    const [category, setCategory] = useState({...initialState});
-    const { nameCategory, routeCategory, descriptionCategory, photoCategory} = category;
+    const [Category, setCategory] = useState({...initialState});
+    const { nameCategory, category, descriptionCategory, photoCategory} = Category;
     
     const onSubmit = event => {
         event.preventDefault();
         const formData = new FormData();
         formData.append("photoCategory", photoCategory);
         formData.append("nameCategory", nameCategory);
-        formData.append("routeCategory", routeCategory);
+        formData.append("category", category);
         formData.append("descriptionCategory", descriptionCategory);
         const data = formData;
         const sendData = async ({token, data}) => {
@@ -45,9 +45,9 @@ const AddCategoryForm = () => {
                 return {...prevState, photoCategory: target.files[0]} 
             });
         }
-        else if(name === "routeCategory"){
+        else if(name === "category"){
             setCategory(prevState => {
-                return {...prevState, [name]: value.toLowerCase()};
+                return {...prevState, [name]: value.toLowerCase().split(/\s+/).join('-')};
             });
         }
         else {
@@ -98,10 +98,10 @@ const AddCategoryForm = () => {
                     <label className={scss.label_input}>Назва категорії англійською мовою
                         <input
                             className={scss.input}
-                            name='routeCategory'
+                            name='category'
                             placeholder='Введіть назву категорії англійською мовою'
                             required
-                            value={routeCategory}
+                            value={category}
                             onChange={handleChangeDetails}
                         />
                     </label>

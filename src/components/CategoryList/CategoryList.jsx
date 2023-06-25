@@ -2,8 +2,8 @@ import CategoryItem from './CategoryItem/CategoryItem';
 
 const CategoryList = ({ categories, fetchCategory }) => {
 
-    const pickCategory = (pickedCategory) => {
-        fetchCategory(pickedCategory);
+    const pickCategory = (nameCategory, category) => {
+        fetchCategory(nameCategory, category);
     };
 
     const elements = categories.map(({ _id, ...props }) => {

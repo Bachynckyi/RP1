@@ -21,3 +21,8 @@ export const getAllSubcategories = async () => {
   const result = await instance.get('/api/product/getallsubcategories');
   return result;
 };
+
+export const getSubcategorybyCategory = async (category) => {
+  const result = await instance.get(`/api/product/getsubcategorybycategory/${category}`);
+  return result;
+};

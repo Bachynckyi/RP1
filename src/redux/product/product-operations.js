@@ -13,3 +13,15 @@ export const addProduct = createAsyncThunk(
       }
     }
   );
+
+  export const getProductByCategory = createAsyncThunk(
+    'api/product/getproductbycategory/:id',
+    async (category, { rejectWithValue }) => {
+      try {
+        const result = await api.getProductByCategory(category);
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );

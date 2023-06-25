@@ -1,21 +1,22 @@
-const CategoryItem = ({nameCategory, routeCategory, pickCategory}) => {
+const CategoryItem = ({nameCategory, category, pickCategory}) => {
 
     const handlePicker = ({target}) => {
         const { value } = target;
-        pickCategory(value);
+        category = target.id;
+        pickCategory(value, category);
     };
 
     return (
         <li>
             <input 
                 type="radio" 
-                id={routeCategory} 
+                id={category} 
                 name="category" 
-                value={nameCategory} 
+                value={category} 
                 onChange={handlePicker}
                 required
             />
-            <label htmlFor={routeCategory}>{nameCategory}</label>
+            <label htmlFor={category}>{nameCategory}</label>
         </li>
     );
   };

@@ -1,14 +1,13 @@
-
 import scss from './CategoryItem.module.scss';
 
-const CategoryItem = ({nameCategory, photoCategory, routeCategory, pickCategory}) => {
+const CategoryItem = ({nameCategory, photoCategory, category, pickCategory}) => {
 
     const handlePicker = (event) => {
         pickCategory(event.currentTarget.id);
     };
 
     return (
-        <li onClick={handlePicker} className={scss.catalog_link} id={routeCategory} >
+        <li onClick={handlePicker} className={scss.catalog_link} id={category} >
             <img
                 className={scss.image_link}
                 src={photoCategory}

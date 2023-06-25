@@ -25,3 +25,15 @@ import * as api from './subcategory-api';
       }
     }
   );
+
+  export const getSubcategoryByCategory = createAsyncThunk(
+    'api/product/getsubcategorybycategory/:id',
+    async (category, { rejectWithValue }) => {
+      try {
+        const result = await api.getSubcategorybyCategory(category);
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );

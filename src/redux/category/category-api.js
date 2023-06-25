@@ -21,3 +21,4 @@ export const getAllCategories = async () => {
   const result = await instance.get('/api/product/getallcategories');
   return result;
 };
+

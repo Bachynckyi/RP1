@@ -1,0 +1,19 @@
+.container {
+    padding: 0px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+
+    @media screen and (min-width: 1280px) {
+        padding: 0px 100px;
+    };
+};
+
+.title {
+    margin-top: 0px;
+    margin-bottom: 30px;
+};
+
+

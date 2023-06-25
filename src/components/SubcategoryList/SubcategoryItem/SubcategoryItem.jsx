@@ -1,4 +1,4 @@
-const CategoriesItem = ({nameSubcategory, routeSubcategory, pickSubcategory}) => {
+const CategoriesItem = ({nameSubcategory, subcategory, pickSubcategory}) => {
 
     const handlePicker = ({target}) => {
         const { value } = target;
@@ -9,12 +9,12 @@ const CategoriesItem = ({nameSubcategory, routeSubcategory, pickSubcategory}) =>
         <li>
             <input 
                 type="radio" 
-                id={routeSubcategory} 
+                id={subcategory} 
                 name="subcategory" 
-                value={nameSubcategory} 
+                value={subcategory} 
                 onChange={handlePicker}
             />
-            <label htmlFor={routeSubcategory}>{nameSubcategory}</label>
+            <label htmlFor={subcategory}>{nameSubcategory}</label>
         </li>
     );
   };

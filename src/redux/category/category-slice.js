@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllCategories, addCategory } from './category-operations';
+import { getAllCategories, addCategory} from './category-operations';
 
 const initialState = {
   loading: false,

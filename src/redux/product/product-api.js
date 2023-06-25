@@ -16,3 +16,9 @@ export const addProduct = async ({token, data}) => {
   const { data: result } = await instance.post('/api/product/addproduct', data);
   return result;
 };
+
+export const getProductByCategory = async (category) => {
+  const result = await instance.get(`/api/product/getproductbycategory/${category}`);
+  return result;
+};
+
