@@ -1,15 +1,20 @@
 import ProductItem from '../ProductItem/ProductItem';
+import scss from './ProductList.module.scss';
 
-const ProductList = ({product}) => {
+const ProductList = ({productList, fetchProduct}) => {
     
-    const elements = product.map(({ _id, ...props }) => {
+    const pickedProduct = (product) => {
+        fetchProduct(product)
+    };
+    
+    const elements = productList.map(({ _id, ...props }) => {
         return (
-            <ProductItem key={_id} {...props} _id={_id}/>
+            <ProductItem key={_id} {...props} _id={_id} pickedProduct={pickedProduct}/>
     )})
 
     return (
         <div>
-            <ul>{elements}</ul>
+            <ul className={scss.catalog_list}>{elements}</ul>
         </div>
     );
 };

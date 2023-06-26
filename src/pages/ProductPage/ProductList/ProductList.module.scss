@@ -1,0 +1,16 @@
+.catalog_list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    @media screen and (min-width: 1280px) {
+        // width: 100%;
+        justify-content: center;
+        flex-direction: row;
+        margin-top: 30px;
+
+        :nth-child(n + 2) {
+            margin-left: 60px;
+        }
+    };
+};
