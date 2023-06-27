@@ -1,12 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import scss from './AuthNav.module.scss';
-import { isLogin, userName } from 'redux/auth/auth-selectors';
+import { isLogin } from 'redux/auth/auth-selectors';
 import { useSelector } from 'react-redux';
 import userIcon from '../../images/iconUser.svg';
 
 const AuthNav = () => {
   const userStatus = useSelector(isLogin);
-  const name = useSelector(userName);
+  // const name = useSelector(userName);
   return (
     <div>
         {!userStatus ? (
@@ -21,11 +21,11 @@ const AuthNav = () => {
         ) : (
           <>
           <NavLink to="/profile" className={scss.user} >
-          {name ?   
+          {/* {name ?   
           (<p className={scss.name}>{name}</p>)
           : 
           (<p className={scss.name}>User</p>)
-          }  
+          }   */}
           <img className={scss.icon} src={userIcon} alt="userIcon" /> 
           </NavLink>
           </>  

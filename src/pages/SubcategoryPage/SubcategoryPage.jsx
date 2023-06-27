@@ -9,6 +9,7 @@ import scss from './Subcategory.module.scss';
 import Footer from "components/Footer/Footer";
 import { useParams } from "react-router-dom";
 import ProductPage from "pages/ProductPage/ProductPage";
+import Search from "components/Search/Search";
 
 const SubcategoryPage = () => {
     const navigate = useNavigate();
@@ -34,6 +35,7 @@ const SubcategoryPage = () => {
 
     return (
         <div>
+            <Search/>
             {loading === true ? (<Loader/>) : (
             <div>
                 <div className={scss.container}>

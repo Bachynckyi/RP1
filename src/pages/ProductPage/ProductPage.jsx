@@ -5,17 +5,17 @@ import { getProductByCategory } from '../../redux/product/product-operations';
 import Loader  from '../../components/Loader/Loader';
 import ProductList from './ProductList/ProductList';
 import { useParams } from "react-router-dom";
-// import Footer from 'components/Footer/Footer';
 import Modal from '../../components/Modal/Modal';
+import Search from 'components/Search/Search';
 
 const SubcategoryPage = () => {
+    const category = useParams();
     const dispatch = useDispatch();
     const loading = useSelector(isLoading);
-    const [productList, setProductList] = useState({});
-    const category = useParams();
     const categorySearch = category.category;
-    const [modalActive, setModalActive] = useState(false);
     const [product, setProduct] = useState({});
+    const [productList, setProductList] = useState({});
+    const [modalActive, setModalActive] = useState(false);
 
     useEffect(() => {
         try {
@@ -34,6 +34,7 @@ const SubcategoryPage = () => {
 
     return (
       <div>
+          <Search/>
           {loading ? (<Loader/>) :
           (<div>
             {Object.keys(productList).length !== 0 ?
