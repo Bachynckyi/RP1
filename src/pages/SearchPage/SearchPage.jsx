@@ -1,6 +1,5 @@
 import Footer from "components/Footer/Footer";
 import Search from "components/Search/Search";
-import { useSearchParams } from "react-router-dom";
 
 const SearchPage = () => {
 
