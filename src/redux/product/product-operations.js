@@ -25,3 +25,15 @@ export const addProduct = createAsyncThunk(
       }
     }
   );
+
+  export const getProductBySearch = createAsyncThunk(
+    'api/product/getproductbysearch/',
+    async (search, { rejectWithValue }) => {
+      try {
+        const result = await api.getProductBySearch(search);
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );

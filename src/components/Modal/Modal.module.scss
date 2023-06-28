@@ -32,20 +32,18 @@
     padding: 20px;
     border-radius: 12px;
     background-color: white;
-    height: 400px;
-    width: 400px;
     transform: scale(0.5);
     transition: 0.4s;
+    width: 50vw;
 };
 
 .modal_content_active {
     padding: 20px;
     border-radius: 12px;
     background-color: white;
-    height: 400px;
-    width: 400px;
     transform: scale(1);
     transition: 0.4s;
+    width: 50vw;
 };
 
 .photo {

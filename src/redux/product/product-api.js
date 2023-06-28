@@ -22,3 +22,8 @@ export const getProductByCategory = async (category) => {
   return result;
 };
 
+export const getProductBySearch = async (search) => {
+  const result = await instance.get(`/api/product/getproductbysearch?search=${search}`);
+  return result;
+};
+

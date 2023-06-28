@@ -7,8 +7,9 @@ import ProductList from './ProductList/ProductList';
 import { useParams } from "react-router-dom";
 import Modal from '../../components/Modal/Modal';
 import Search from 'components/Search/Search';
+import Footer from 'components/Footer/Footer';
 
-const SubcategoryPage = () => {
+const ProductPage = () => {
     const category = useParams();
     const dispatch = useDispatch();
     const loading = useSelector(isLoading);
@@ -43,11 +44,12 @@ const SubcategoryPage = () => {
               (<p></p>)}
           </div>)}
           <Modal active={modalActive} setActive={setModalActive} product={product}/>
+          <Footer/>
       </div>
     );
   };
   
-export default SubcategoryPage;
+export default ProductPage;
 
 
 

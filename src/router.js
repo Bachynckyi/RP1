@@ -19,6 +19,7 @@ const AddCategory = lazy(() => import('./pages/AddCategoryPage/AddCategoryPage')
 const SubcategoryPage = lazy(() => import('./pages/SubcategoryPage/SubcategoryPage'));
 const AddSubcategory = lazy(() => import('./pages/AddSubcategoryPage/AddSubcategoryPage'));
 const ProductPage = lazy(() => import('./pages/ProductPage/ProductPage'));
+const SearchPage = lazy(() => import('./pages/SearchPage/SearchPage'));
 
 const UserRoutes = () => {
   return (
@@ -32,6 +33,7 @@ const UserRoutes = () => {
           <Route path="/company" element={<CompanyPage/>} ></Route>
           <Route path="/contacts" element={<ContactsPage/>} ></Route>
           <Route path="/catalog" element={<CategoryPage/>}></Route>
+          <Route path='/products' Component={SearchPage}></Route>
           <Route path='/catalog/:category' Component={SubcategoryPage}></Route>
           <Route path='/catalog/:category/:category' Component={ProductPage}></Route>
 
