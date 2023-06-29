@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import scss from './Modal.module.scss';
+
 
 const Modal = ({active, setActive, product}) => {
     const {title, photo, price, type, color, code, description} = product;
@@ -14,6 +15,18 @@ const Modal = ({active, setActive, product}) => {
     const {quantity} = order;
 
 
+    useEffect(() => {
+        const handleDownInEscape = e => {
+          if (e.code === 'Escape') {
+            closeModal();
+          }
+        };
+        window.addEventListener('keydown', handleDownInEscape);
+        return () => {
+          return window.removeEventListener('keydown', handleDownInEscape);
+        };
+      },);
+    
     const handleChange = (event) => {
         if(event.target.name === "increment"){
             setOrder(order => {
@@ -28,17 +41,24 @@ const Modal = ({active, setActive, product}) => {
             };
         }
         else if(event.target.name === "quantity"){
-            setOrder(order => {
-                return {quantity: Number(event.target.value)} 
-            });
-        }
+            if(event.target.value.length === 0){
+                setOrder(order => {
+                    return {quantity: ""} 
+                });
+            }
+            else {
+                setOrder(order => {
+                    return {quantity: Number(event.target.value)} 
+                });
+            }
+
+        };
     };
 
     const closeModal = () => {
         setActive(false);
         setOrder({...initialState});
     };
-
 
     return (
         <div className={!active ? (scss.modal) : (scss.modal_active)} onClick={closeModal}>
@@ -59,9 +79,8 @@ const Modal = ({active, setActive, product}) => {
                 <input
                     value={quantity}
                     name="quantity"
-                    min="1"
-                    max="100"
                     onChange={handleChange}
+                    type='number'
                     />
                 <button type="button" onClick={handleChange} name='increment'>+</button>
             </div>
