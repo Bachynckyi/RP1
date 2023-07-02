@@ -1,19 +1,13 @@
 import { useState, useEffect } from 'react';
 import scss from './Modal.module.scss';
+import ModalOneClick from 'components/ModalOneClick/ModalOneClick';
 
 
-const Modal = ({active, setActive, product}) => {
+const Modal = ({modalActive, setModalActive, product}) => {
     const {title, photo, price, type, color, code, description} = product;
-    const initialState = {
-        title: title,
-        price: price,
-        color: color,
-        code: code,
-        quantity: 1,
-    };
-    const [order, setOrder] = useState({...initialState});
-    const {quantity} = order;
-
+    const [order, setOrder] = useState({});
+    const [quantity, setQuantity] = useState(1);
+    const [activeModalOneClick, setModalOneClickActive] = useState(false);
 
     useEffect(() => {
         const handleDownInEscape = e => {
@@ -25,68 +19,78 @@ const Modal = ({active, setActive, product}) => {
         return () => {
           return window.removeEventListener('keydown', handleDownInEscape);
         };
-      },);
+    },);
     
     const handleChange = (event) => {
         if(event.target.name === "increment"){
-            setOrder(order => {
-                return {quantity: order.quantity + 1} 
-            });
+            if(quantity === ""){
+                setQuantity(1)
+            }
+            else {
+                setQuantity(quantity + 1)
+            }
         }
         else if(event.target.name === "decrement"){
-            if(quantity > 1){
-                setOrder(order => {
-                    return {quantity: order.quantity - 1} 
-                });
+            if(quantity > 0){
+                setQuantity(quantity - 1);
             };
         }
         else if(event.target.name === "quantity"){
             if(event.target.value.length === 0){
-                setOrder(order => {
-                    return {quantity: ""} 
-                });
+                setQuantity("");
             }
             else {
-                setOrder(order => {
-                    return {quantity: Number(event.target.value)} 
-                });
+                setQuantity(event.target.value);
             }
-
         };
     };
 
     const closeModal = () => {
-        setActive(false);
-        setOrder({...initialState});
+        setModalActive(false);
+        setOrder({});
+        setQuantity(1)
+    };
+
+    const openModalOneClick = () => {
+        setOrder({title, price, code, color, type, quantity});
+        setModalOneClickActive(true)
     };
 
     return (
-        <div className={!active ? (scss.modal) : (scss.modal_active)} onClick={closeModal}>
-            <div className={!active ? (scss.modal_content) : (scss.modal_content_active)} onClick={e => e.stopPropagation()}>
-                <h1>{title}</h1>
-                <img 
-                    className={scss.photo}
-                    src={photo}
-                    alt={title}
-                />
-                <p>Ціна: {price} грн</p>
-                <p>Фасовка: {type}</p>
-                <p>Колір: {color}</p>
-                <p>Код товару: {code}</p>
-                <p>Опис: {description}</p>
-            <div>
-                <button type="button" onClick={handleChange} name="decrement">-</button>
-                <input
-                    value={quantity}
-                    name="quantity"
-                    onChange={handleChange}
-                    type='number'
+        <div>
+            <div className={!modalActive ? (scss.modal) : (scss.modal_active)} onClick={closeModal}>
+                <div className={!modalActive ? (scss.modal_content) : (scss.modal_content_active)} onClick={e => e.stopPropagation()}>
+                    <h1>{title}</h1>
+                    <img 
+                        className={scss.photo}
+                        src={photo}
+                        alt={title}
                     />
-                <button type="button" onClick={handleChange} name='increment'>+</button>
+                    <p>Ціна: {price} грн</p>
+                    <p>Фасовка: {type}</p>
+                    <p>Колір: {color}</p>
+                    <p>Код товару: {code}</p>
+                    <p>Опис: {description}</p>
+                <div>
+                    <button type="button" onClick={handleChange} name="decrement">-</button>
+                    <input
+                        value={quantity}
+                        name="quantity"
+                        onChange={handleChange}
+                        type='number'
+                        />
+                    <button type="button" onClick={handleChange} name='increment'>+</button>
+                </div>
+                <button type="button" onClick={closeModal}>закрыть</button>
+                <button type="button" onClick={openModalOneClick}>Заказ в 1 клик</button>
+                </div>
             </div>
-            <button type="button" onClick={closeModal}>закрыть</button>
-            <button type="button">Заказ в 1 клик</button>
-            </div>
+        <ModalOneClick 
+            activeModalOneClick={activeModalOneClick} 
+            setModalOneClickActive={setModalOneClickActive} 
+            order={order}
+            closeModal={closeModal}
+        />
         </div>
     )
   };

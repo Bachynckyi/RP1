@@ -43,7 +43,7 @@ const ProductPage = () => {
             : 
               (<p></p>)}
           </div>)}
-          <Modal active={modalActive} setActive={setModalActive} product={product}/>
+          <Modal modalActive={modalActive} setModalActive={setModalActive} product={product}/>
           <Footer/>
       </div>
     );
