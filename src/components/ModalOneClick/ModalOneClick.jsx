@@ -1,8 +1,11 @@
 import scss from './ModalOneClick.module.scss';
 import { useState, useEffect, useCallback } from 'react';
+import {addOrderOneClick} from '../../redux/order/order-operations';
+import { useDispatch } from 'react-redux';
 
 const ModalOneClick = ({activeModalOneClick, setModalOneClickActive, closeModal, order}) => {
-    const {title, price, type, color, code, quantity} = order;
+    const dispatch = useDispatch();
+    const {title, price, type, color, code} = order;
     const initialState = {
         customerName: "",
         customerPhone: "",
@@ -11,8 +14,12 @@ const ModalOneClick = ({activeModalOneClick, setModalOneClickActive, closeModal,
     const [customer, setCustomer] = useState({...initialState});
     const {customerName, customerPhone} = customer;
 
+    const today = new Date();
+    const date = today.toLocaleString();
+
     useEffect(() => {
-      setOrderOneClick({title, price, type, color, code, quantity, customerName, customerPhone})
+      const quantity = String(order.quantity)
+      setOrderOneClick({title, price, type, color, code, quantity, customerName, customerPhone, date})
         const handleDownInEscape = e => {
           if (e.code === 'Escape') {
             closeModalOneClick();
@@ -26,7 +33,7 @@ const ModalOneClick = ({activeModalOneClick, setModalOneClickActive, closeModal,
     }, [activeModalOneClick, customerName, customerPhone]);
 
     const orderSubmit = () => {
-        console.log(orderOneClick)
+        dispatch(addOrderOneClick(orderOneClick))
         setModalOneClickActive(false);
         setOrderOneClick({})
         setCustomer({...initialState})

@@ -5,6 +5,7 @@ import authReducer from './auth/auth-slice';
 import productReducer from './product/product-slice';
 import categoryReducer from './category/category-slice';
 import subcCategoryReducer from './subcategory/subcategory-slice';
+import orderSliceReducer from './order/order-slice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -26,12 +27,18 @@ const SubcategoryPersistConfig = {
   storage,
 };
 
+const OrderPersistConfig = {
+  key: 'order',
+  storage,
+};
+
 export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
     product: persistReducer(ProductPersistConfig, productReducer),
     category: persistReducer(CategoryPersistConfig, categoryReducer),
     subcategory: persistReducer(SubcategoryPersistConfig, subcCategoryReducer),
+    order: persistReducer(OrderPersistConfig, orderSliceReducer),
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
