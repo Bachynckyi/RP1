@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 import scss from './Modal.module.scss';
 import ModalOneClick from 'components/ModalOneClick/ModalOneClick';
+import { BsFillBasketFill } from "react-icons/bs";
+import { isLogin } from 'redux/auth/auth-selectors';
+import { useSelector } from 'react-redux';
 
-
-const Modal = ({modalActive, setModalActive, product}) => {
+const Modal = ({modalActive, setModalActive, product, orderToBasket}) => {
     const {title, photo, price, type, color, code, description} = product;
     const [order, setOrder] = useState({});
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState("1");
     const [activeModalOneClick, setModalOneClickActive] = useState(false);
+    const isUserLogin = useSelector(isLogin);
 
     useEffect(() => {
+        setOrder({title, price, code, color, type, quantity});
         const handleDownInEscape = e => {
           if (e.code === 'Escape') {
             closeModal();
@@ -19,20 +23,21 @@ const Modal = ({modalActive, setModalActive, product}) => {
         return () => {
           return window.removeEventListener('keydown', handleDownInEscape);
         };
-    },);
+        // eslint-disable-next-line
+    }, [modalActive, quantity]);
     
     const handleChange = (event) => {
         if(event.target.name === "increment"){
             if(quantity === ""){
-                setQuantity(1)
+                setQuantity("1")
             }
             else {
-                setQuantity(quantity + 1)
+                setQuantity(String(Number(quantity) + 1))
             }
         }
         else if(event.target.name === "decrement"){
             if(quantity > 0){
-                setQuantity(quantity - 1);
+                setQuantity(String(Number(quantity) - 1));
             };
         }
         else if(event.target.name === "quantity"){
@@ -40,7 +45,7 @@ const Modal = ({modalActive, setModalActive, product}) => {
                 setQuantity("");
             }
             else {
-                setQuantity(event.target.value);
+                setQuantity(String(event.target.value));
             }
         };
     };
@@ -52,8 +57,17 @@ const Modal = ({modalActive, setModalActive, product}) => {
     };
 
     const openModalOneClick = () => {
-        setOrder({title, price, code, color, type, quantity});
         setModalOneClickActive(true)
+    };
+
+    const addToBasket = () => {
+        if(isUserLogin === true)
+        {
+            console.log("Запись")
+        }
+        else {
+            
+        }
     };
 
     return (
@@ -83,6 +97,9 @@ const Modal = ({modalActive, setModalActive, product}) => {
                 </div>
                 <button type="button" onClick={closeModal}>закрыть</button>
                 <button type="button" onClick={openModalOneClick}>Заказ в 1 клик</button>
+                <button onClick={addToBasket} type="button">
+                    <BsFillBasketFill/>
+                </button>
                 </div>
             </div>
         <ModalOneClick 

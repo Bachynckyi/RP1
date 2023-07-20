@@ -10,7 +10,7 @@ import { isLoading } from '../../redux/product/product-selectors';
 import Modal from "components/Modal/Modal";
 
 
-const SearchPage = () => {
+const SearchPage = (order) => {
   const loading = useSelector(isLoading);
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
@@ -44,7 +44,11 @@ const SearchPage = () => {
             : 
               (<p></p>)}
           </div>)}
-          <Modal active={modalActive} setActive={setModalActive} product={product}/>
+          <Modal 
+            modalActive={modalActive} 
+            setModalActive={setModalActive} 
+            product={product} 
+          />
         <Footer/>
       </div>
     );

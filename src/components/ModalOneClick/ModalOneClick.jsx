@@ -42,7 +42,6 @@ const ModalOneClick = ({activeModalOneClick, setModalOneClickActive, closeModal,
 
     const closeModalOneClick = () => {
       setModalOneClickActive(false);
-      orderOneClick({});
       setCustomer({...initialState})
     };
 
