@@ -5,15 +5,15 @@ import { BsFillBasketFill } from "react-icons/bs";
 import { isLogin } from 'redux/auth/auth-selectors';
 import { useSelector } from 'react-redux';
 
-const Modal = ({modalActive, setModalActive, product, orderToBasket}) => {
-    const {title, photo, price, type, color, code, description} = product;
+const Modal = ({modalActive, setModalActive, product}) => {
+    const {title, photo, price, type, color, code, description, _id} = product;
     const [order, setOrder] = useState({});
     const [quantity, setQuantity] = useState("1");
     const [activeModalOneClick, setModalOneClickActive] = useState(false);
     const isUserLogin = useSelector(isLogin);
 
     useEffect(() => {
-        setOrder({title, price, code, color, type, quantity});
+        setOrder({title, price, code, color, type, quantity, _id, photo});
         const handleDownInEscape = e => {
           if (e.code === 'Escape') {
             closeModal();
@@ -63,10 +63,12 @@ const Modal = ({modalActive, setModalActive, product, orderToBasket}) => {
     const addToBasket = () => {
         if(isUserLogin === true)
         {
-            console.log("Запись")
+            console.log("Запись в базу")
         }
         else {
-            
+            const currentOrder = localStorage.getItem("order") || "[]";
+            const cards = JSON.parse(currentOrder);
+            localStorage.setItem("order", JSON.stringify([...cards, order]))
         }
     };
 

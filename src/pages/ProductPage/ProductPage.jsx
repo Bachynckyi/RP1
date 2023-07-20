@@ -8,7 +8,6 @@ import { useParams } from "react-router-dom";
 import Modal from '../../components/Modal/Modal';
 import Search from 'components/Search/Search';
 import Footer from 'components/Footer/Footer';
-// import Basket from 'components/Basket/Basket';
 import scss from "./ProductPage.module.scss";
 
 const ProductPage = () => {
@@ -19,7 +18,6 @@ const ProductPage = () => {
     const [product, setProduct] = useState({});
     const [productList, setProductList] = useState({});
     const [modalActive, setModalActive] = useState(false);
-    const [order, setOrder] = useState({});
 
     useEffect(() => {
         try {
@@ -36,15 +34,10 @@ const ProductPage = () => {
       setModalActive(true);
     };
 
-    const orderToBasket = (order) => {
-      setOrder({order})
-    };
-
     return (
       <div>
           <div className={scss.container}>
             <Search/>
-            {/* <Basket order={order}/> */}
           </div>
           {loading ? (<Loader/>) :
           (<div>
@@ -57,8 +50,7 @@ const ProductPage = () => {
             modalActive={modalActive} 
             setModalActive={setModalActive} 
             product={product} 
-            orderToBasket={orderToBasket}
-            order={order}/>
+          />
           <Footer/>
       </div>
     );
