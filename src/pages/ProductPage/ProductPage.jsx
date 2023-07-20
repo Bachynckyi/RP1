@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import Modal from '../../components/Modal/Modal';
 import Search from 'components/Search/Search';
 import Footer from 'components/Footer/Footer';
-import Basket from 'components/Basket/Basket';
+// import Basket from 'components/Basket/Basket';
 import scss from "./ProductPage.module.scss";
 
 const ProductPage = () => {
@@ -57,7 +57,8 @@ const ProductPage = () => {
             modalActive={modalActive} 
             setModalActive={setModalActive} 
             product={product} 
-            orderToBasket={orderToBasket}/>
+            orderToBasket={orderToBasket}
+            order={order}/>
           <Footer/>
       </div>
     );
