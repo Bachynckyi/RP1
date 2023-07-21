@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 
-const BasketItem = (product) => {
-  const {title, photo, price, type, color, code, quantity, _id} = product;
+const BasketItem = ({product, updateOrder, _id}) => {
+  const {title, photo, price, type, color, code, quantity} = product;
   const [quantityOfItem, setQuantityOfItem] = useState({});
   const amount = price * quantityOfItem;
 
   useEffect(() => {
-    setQuantityOfItem(quantity)
-    // eslint-disable-next-line 
-  }, []);
+    setQuantityOfItem(quantity);
+  }, [quantity]);
 
   const handleChange = (event) => {
     if(event.target.name === "increment"){
@@ -25,22 +24,21 @@ const BasketItem = (product) => {
         };
     }
     else if(event.target.name === "quantity"){
-        if(event.target.value.length === 0){
+      const value = event.target.value.replace(/\D+/g, '');
+        if(value === 0){
           setQuantityOfItem("");
         }
         else {
-          setQuantityOfItem(String(event.target.value));
+          setQuantityOfItem(String(value));
         }
     };
   };
 
-    const deleteItemFromBasket = () => {
-      const order = JSON.parse(localStorage.getItem("order"));
-      console.log(order)
-      console.log(_id)
-      const A = order.filter(order => order._id !== _id)
-      console.log(A)
-    }
+  const deleteItemFromBasket = () => {
+    const order = JSON.parse(localStorage.getItem("order"));
+    const updatedOrder = order.filter(order => order._id !== _id);
+    updateOrder(updatedOrder)
+  };
 
     return (
         <li>
@@ -59,7 +57,7 @@ const BasketItem = (product) => {
                   value={quantityOfItem}
                   name="quantity"
                   onChange={handleChange}
-                  type='number'
+                  type='text'
                   />
               <button type="button" onClick={handleChange} name='increment'>+</button>
           </div>

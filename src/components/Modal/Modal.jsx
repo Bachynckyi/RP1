@@ -41,13 +41,14 @@ const Modal = ({modalActive, setModalActive, product}) => {
             };
         }
         else if(event.target.name === "quantity"){
-            if(event.target.value.length === 0){
+            const value = event.target.value.replace(/\D+/g, '');
+              if(value === 0){
                 setQuantity("");
-            }
-            else {
-                setQuantity(String(event.target.value));
-            }
-        };
+              }
+              else {
+                setQuantity(String(value));
+              }
+          };
     };
 
     const closeModal = () => {
@@ -93,7 +94,7 @@ const Modal = ({modalActive, setModalActive, product}) => {
                         value={quantity}
                         name="quantity"
                         onChange={handleChange}
-                        type='number'
+                        type='text'
                         />
                     <button type="button" onClick={handleChange} name='increment'>+</button>
                 </div>

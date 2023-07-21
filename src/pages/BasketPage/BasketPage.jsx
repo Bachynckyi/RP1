@@ -18,10 +18,15 @@ const BasketPage = () => {
     // eslint-disable-next-line
     }, [])
 
+    const newOrder = (updatedOrder) => {
+      setBasket(updatedOrder);
+      localStorage.setItem("order", JSON.stringify(updatedOrder))
+    };
+
     return (
         <div>
             {Object.keys(basket).length !== 0 ?
-              (<BasketList basket={basket}/>)
+              (<BasketList basket={basket} newOrder={newOrder}/>)
             : 
               (<p>Нічого немає в кошику</p>)}
         </div>
