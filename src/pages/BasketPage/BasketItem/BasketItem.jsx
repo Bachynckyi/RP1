@@ -9,7 +9,6 @@ const BasketItem = ({product, updateOrder, _id}) => {
     setQuantityOfItem(quantity);
   }, [quantity]);
 
-  
   const handleChange = (event) => {
     if(event.target.name === "increment"){
         if(quantityOfItem === ""){

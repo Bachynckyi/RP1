@@ -34,7 +34,7 @@
     background-color: white;
     transform: scale(0.5);
     transition: 0.4s;
-    width: 50vw;
+    width: 80vw;
 };
 
 .modal_content_active {
@@ -43,10 +43,18 @@
     background-color: white;
     transform: scale(1);
     transition: 0.4s;
-    width: 50vw;
+    width: 80vw;
 };
 
 .photo {
     width: 100px;
     height: 100px;
+};
+
+.title {
+    margin-top: 5px;
+};
+
+.description {
+    font-size: 10px;
 }

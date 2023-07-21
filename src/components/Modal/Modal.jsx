@@ -77,17 +77,19 @@ const Modal = ({modalActive, setModalActive, product}) => {
         <div>
             <div className={!modalActive ? (scss.modal) : (scss.modal_active)} onClick={closeModal}>
                 <div className={!modalActive ? (scss.modal_content) : (scss.modal_content_active)} onClick={e => e.stopPropagation()}>
-                    <h1>{title}</h1>
-                    <img 
-                        className={scss.photo}
-                        src={photo}
-                        alt={title}
-                    />
-                    <p>Ціна: {price} грн</p>
-                    <p>Фасовка: {type}</p>
-                    <p>Колір: {color}</p>
-                    <p>Код товару: {code}</p>
-                    <p>Опис: {description}</p>
+                    <h1 className={scss.title}>{title}</h1>
+                    <div>
+                        <img 
+                            className={scss.photo}
+                            src={photo}
+                            alt={title}
+                        />
+                        <p>Ціна: {price} грн</p>
+                        <p>Фасовка: {type}</p>
+                        <p>Колір: {color}</p>
+                        <p>Код товару: {code}</p>
+                    </div>
+                    <p className={scss.description}>Опис: {description}</p>
                 <div>
                     <button type="button" onClick={handleChange} name="decrement">-</button>
                     <input
