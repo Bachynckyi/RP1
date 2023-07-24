@@ -2,15 +2,12 @@ import { useState, useEffect } from 'react';
 import scss from './Modal.module.scss';
 import ModalOneClick from 'components/ModalOneClick/ModalOneClick';
 import { BsFillBasketFill } from "react-icons/bs";
-import { isLogin } from 'redux/auth/auth-selectors';
-import { useSelector } from 'react-redux';
 
 const Modal = ({modalActive, setModalActive, product}) => {
     const {title, photo, price, type, color, code, description, _id} = product;
     const [order, setOrder] = useState({});
     const [quantity, setQuantity] = useState("1");
     const [activeModalOneClick, setModalOneClickActive] = useState(false);
-    const isUserLogin = useSelector(isLogin);
 
     useEffect(() => {
         setOrder({title, price, code, color, type, quantity, _id, photo});
@@ -62,15 +59,15 @@ const Modal = ({modalActive, setModalActive, product}) => {
     };
 
     const addToBasket = () => {
-        if(isUserLogin === true)
-        {
-            console.log("Запись в базу")
-        }
-        else {
             const currentOrder = localStorage.getItem("order") || "[]";
             const cards = JSON.parse(currentOrder);
-            localStorage.setItem("order", JSON.stringify([...cards, order]))
-        }
+            const basketCheck = cards.map(item => item._id);
+            if(basketCheck.includes(_id)){
+                console.log("Уже есть в корзине");
+            }
+            else {
+                localStorage.setItem("order", JSON.stringify([...cards, order]));
+            }
     };
 
     return (

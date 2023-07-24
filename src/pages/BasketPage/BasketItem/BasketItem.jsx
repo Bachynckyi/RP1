@@ -1,35 +1,66 @@
 import { useState, useEffect } from 'react';
 
-const BasketItem = ({product, updateOrder, _id}) => {
-  const {title, photo, price, type, color, code, quantity} = product;
+const BasketItem = ({product, updateOrder, _id, updatedQuantity}) => {
+  const {title, photo, price, type, color, code} = product;
   const [quantityOfItem, setQuantityOfItem] = useState({});
-  const amount = price * quantityOfItem;
+  const [amount, setAmount] = useState();
+  const currentOrder = JSON.parse(localStorage.getItem("order"));
 
   useEffect(() => {
-    setQuantityOfItem(quantity);
-  }, [quantity]);
+    const currentItemOfOrder = currentOrder.filter(order => order._id === _id);
+    const currentQuantity = (Number(currentItemOfOrder[0].quantity));
+    setQuantityOfItem(currentQuantity);
+    setAmount(price * currentQuantity);
+  }, [currentOrder, price, _id]);
 
   const handleChange = (event) => {
     if(event.target.name === "increment"){
         if(quantityOfItem === ""){
-          setQuantityOfItem("1")
+          const updatedOrder = currentOrder.map((item) => (
+            item._id === _id ? { ...item, quantity: ""} : item
+          ));
+          localStorage.setItem("order", JSON.stringify(updatedOrder));
+          setQuantityOfItem("");
+          updatedQuantity();
         }
         else {
-          setQuantityOfItem(String(Number(quantityOfItem) + 1))
+          const updatedOrder = currentOrder.map((item) => (
+            item._id === _id
+              ? { ...item, quantity: String(Number(item.quantity) + 1)} : item
+          ));
+          localStorage.setItem("order", JSON.stringify(updatedOrder));
+          setQuantityOfItem(String(Number(quantityOfItem) + 1));
+          updatedQuantity()
         }
     }
     else if(event.target.name === "decrement"){
         if(quantityOfItem > 0){
+          const updatedOrder = currentOrder.map((item) => (
+            item._id === _id
+              ? { ...item, quantity: String(Number(item.quantity) - 1)} : item
+          ));
+          localStorage.setItem("order", JSON.stringify(updatedOrder))
           setQuantityOfItem(String(Number(quantityOfItem) - 1));
+          updatedQuantity()
         };
     }
     else if(event.target.name === "quantity"){
       const value = event.target.value.replace(/\D+/g, '');
         if(value === 0){
+          const updatedOrder = currentOrder.map((item) => (
+            item._id === _id ? { ...item, quantity: ""} : item
+          ));
+          localStorage.setItem("order", JSON.stringify(updatedOrder))
           setQuantityOfItem("");
+          updatedQuantity()
         }
         else {
+          const updatedOrder = currentOrder.map((item) => (
+            item._id === _id ? { ...item, quantity: String(value)} : item
+          ));
+          localStorage.setItem("order", JSON.stringify(updatedOrder))
           setQuantityOfItem(String(value));
+          updatedQuantity()
         }
     };
   };
@@ -48,7 +79,7 @@ const BasketItem = ({product, updateOrder, _id}) => {
               alt={title}
           />
           <p>Ціна: {price} грн</p>
-          <p>Фасовка: {type}</p>
+          <p>Фасування: {type}</p>
           <p>Колір: {color}</p>
           <p>Код товару: {code}</p>
           <div>
@@ -62,7 +93,7 @@ const BasketItem = ({product, updateOrder, _id}) => {
               <button type="button" onClick={handleChange} name='increment'>+</button>
           </div>
           <button onClick={deleteItemFromBasket}>Видалити з кошика</button>
-          <p>Сумма: {amount} грн</p>
+          <p>Сума: {amount} грн</p>
         </li>
     );
   };

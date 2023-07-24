@@ -1,20 +1,18 @@
 // import scss from './BasketPage.module.scss';
-import { isLogin } from 'redux/auth/auth-selectors';
-import { useSelector} from 'react-redux';
 import { useEffect, useState } from 'react';
 import BasketList from './BasketList/BasketList';
+import OrderConfirmation from 'components/OrderConfirmation/OrderConfirmation';
 
 const BasketPage = () => {
-    const isUserLogin = useSelector(isLogin);
     const [basket, setBasket] = useState({});
+    const [confirmedOrder, setConfirmedOrder] = useState({});
+    const [statusOrder, setStatusOrder] = useState(false);
 
     useEffect(() => {
-      if(isUserLogin === false){
         const order = JSON.parse(localStorage.getItem("order"));
         if(order !== null) {
         setBasket(order)
         }
-      }
     // eslint-disable-next-line
     }, [])
 
@@ -22,11 +20,28 @@ const BasketPage = () => {
       setBasket(updatedOrder);
       localStorage.setItem("order", JSON.stringify(updatedOrder))
     };
+    
+    const handleClick = () => {
+      const currentOrder = JSON.parse(localStorage.getItem("order"));
+      setConfirmedOrder(currentOrder);
+      setStatusOrder(true);
+    };
+    
+    // Удалить
+    console.log(confirmedOrder);
 
     return (
         <div>
             {Object.keys(basket).length !== 0 ?
-              (<BasketList basket={basket} newOrder={newOrder}/>)
+              (
+              <div>
+                <BasketList basket={basket} newOrder={newOrder}/>
+                {!statusOrder && <button onClick={handleClick}>Оформити замовлення</button>}
+              {statusOrder && 
+                (<div>
+                  <OrderConfirmation/>
+                </div>)}
+              </div>)
             : 
               (<p>Нічого немає в кошику</p>)}
         </div>
