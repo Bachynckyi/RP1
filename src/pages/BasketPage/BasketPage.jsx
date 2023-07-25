@@ -30,6 +30,10 @@ const BasketPage = () => {
     // Удалить
     console.log(confirmedOrder);
 
+    const fetchOrderDetails = (orderDetails) => {
+      console.log(orderDetails)
+    }
+
     return (
         <div>
             {Object.keys(basket).length !== 0 ?
@@ -39,7 +43,7 @@ const BasketPage = () => {
                 {!statusOrder && <button onClick={handleClick}>Оформити замовлення</button>}
               {statusOrder && 
                 (<div>
-                  <OrderConfirmation/>
+                  <OrderConfirmation fetchOrderDetails={fetchOrderDetails}/>
                 </div>)}
               </div>)
             : 
