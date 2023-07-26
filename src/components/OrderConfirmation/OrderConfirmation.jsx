@@ -45,9 +45,8 @@ const OrderConfirmation= ({confirmedOrder}) => {
     );
 
     const submitOrder = () => {
-        console.log(order)
         dispatch(addOrderBasket(order))
-        // localStorage.removeItem("order");
+        localStorage.removeItem("order");
     };
 
     return (
