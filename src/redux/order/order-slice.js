@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addOrderOneClick } from './order-operations';
+import { addOrderOneClick, addOrderBasket } from './order-operations';
 
 const initialState = {
   loading: false,
@@ -18,6 +18,16 @@ const orderSlice = createSlice({
         state.loading = false;
       })
       .addCase(addOrderOneClick.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(addOrderBasket.pending, state => {
+        state.loading = true;
+      })
+      .addCase(addOrderBasket.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(addOrderBasket.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       })

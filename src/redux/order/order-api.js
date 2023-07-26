@@ -16,4 +16,8 @@ export const addOrderOneClick = async (data) => {
   return result;
 };
 
+export const addOrderBasket = async (data) => {
+  const { result } = await instance.post('/api/orders/addorderbasket', data);
+  return result;
+};
 

@@ -26,13 +26,7 @@ const BasketPage = () => {
       setConfirmedOrder(currentOrder);
       setStatusOrder(true);
     };
-    
-    // Удалить
-    console.log(confirmedOrder);
 
-    const fetchOrderDetails = (orderDetails) => {
-      console.log(orderDetails)
-    }
 
     return (
         <div>
@@ -43,7 +37,7 @@ const BasketPage = () => {
                 {!statusOrder && <button onClick={handleClick}>Оформити замовлення</button>}
               {statusOrder && 
                 (<div>
-                  <OrderConfirmation fetchOrderDetails={fetchOrderDetails}/>
+                  <OrderConfirmation confirmedOrder={confirmedOrder}/>
                 </div>)}
               </div>)
             : 

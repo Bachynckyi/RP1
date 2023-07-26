@@ -1,15 +1,26 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+import { addOrderBasket } from "../../redux/order/order-operations";
+import { useDispatch } from 'react-redux';
 
-const OrderConfirmation= ({fetchOrderDetails}) => {
+const OrderConfirmation= ({confirmedOrder}) => {
+    const dispatch = useDispatch();
+    const today = new Date();
+    const date = today.toLocaleString();
     const [orderDetailes, setOrderDetails] = useState({
-        name: "",
-        surname: "",
+        customerSurname: "",
+        customerName: "",
         phone: "",
         comments: "",
         typeOfDelivery: "",
         locality: "",
         branchNumber: "",
+        date: date,
     });
+    const [order, setOrder] = useState({});
+
+    useEffect(() => {
+        setOrder({...orderDetailes, confirmedOrder: confirmedOrder})
+    }, [confirmedOrder, orderDetailes])
 
     const handleChange = useCallback(({ target }) => {
         const { name, value } = target;
@@ -33,8 +44,10 @@ const OrderConfirmation= ({fetchOrderDetails}) => {
       [setOrderDetails]
     );
 
-    const dispatchOrderDetails = () => {
-        fetchOrderDetails(orderDetailes)
+    const submitOrder = () => {
+        console.log(order)
+        dispatch(addOrderBasket(order))
+        // localStorage.removeItem("order");
     };
 
     return (
@@ -45,18 +58,18 @@ const OrderConfirmation= ({fetchOrderDetails}) => {
                     <label>Прізвище
                             <input
                             required
-                            name='surname'
+                            name='customerSurname'
                             onChange={handleChange}
-                            value={orderDetailes.surname}
+                            value={orderDetailes.customerSurname}
                             type='text'
                             />
                     </label>
                     <label>Ім'я
                         <input
                         required
-                        name='name'
+                        name='customerName'
                         onChange={handleChange}
-                        value={orderDetailes.name}
+                        value={orderDetailes.customerName}
                         type='text'
                         />
                     </label>
@@ -166,8 +179,8 @@ const OrderConfirmation= ({fetchOrderDetails}) => {
                     </textarea>
                     </label>
                 </div>
-                <button type='button' onClick={dispatchOrderDetails}>Відправити замовлення</button>
             </form>
+            <button type='click' onClick={submitOrder}>Відправити замовлення</button>
         </div>
     )
   };

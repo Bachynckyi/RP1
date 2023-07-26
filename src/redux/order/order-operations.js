@@ -12,3 +12,15 @@ export const addOrderOneClick = createAsyncThunk(
       }
     }
 );
+
+export const addOrderBasket = createAsyncThunk(
+  'api/orders/addorderbasket',
+  async (data, { rejectWithValue }) => {
+    try {
+      const result = await api.addOrderBasket(data);
+      return result;
+    } catch (error) {
+      return rejectWithValue(error.response.request.status);
+    }
+  }
+);
