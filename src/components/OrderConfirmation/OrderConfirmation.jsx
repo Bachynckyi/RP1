@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { addOrderBasket } from "../../redux/order/order-operations";
 import { useDispatch } from 'react-redux';
 
-const OrderConfirmation= ({confirmedOrder}) => {
+const OrderConfirmation= ({confirmedOrder, totalAmount}) => {
     const dispatch = useDispatch();
     const today = new Date();
     const date = today.toLocaleString();
@@ -19,8 +19,8 @@ const OrderConfirmation= ({confirmedOrder}) => {
     const [order, setOrder] = useState({});
 
     useEffect(() => {
-        setOrder({...orderDetailes, confirmedOrder: confirmedOrder})
-    }, [confirmedOrder, orderDetailes])
+        setOrder({...orderDetailes, confirmedOrder: confirmedOrder, totalAmount: String(totalAmount)})
+    }, [confirmedOrder, orderDetailes, totalAmount])
 
     const handleChange = useCallback(({ target }) => {
         const { name, value } = target;
@@ -46,7 +46,7 @@ const OrderConfirmation= ({confirmedOrder}) => {
 
     const submitOrder = () => {
         dispatch(addOrderBasket(order))
-        localStorage.removeItem("order");
+        .then(localStorage.removeItem("order"))
     };
 
     return (

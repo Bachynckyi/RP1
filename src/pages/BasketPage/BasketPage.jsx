@@ -7,6 +7,7 @@ const BasketPage = () => {
     const [basket, setBasket] = useState({});
     const [confirmedOrder, setConfirmedOrder] = useState({});
     const [statusOrder, setStatusOrder] = useState(false);
+    const [totalAmount, setTotalAmount] = useState();
 
     useEffect(() => {
         const order = JSON.parse(localStorage.getItem("order"));
@@ -23,7 +24,8 @@ const BasketPage = () => {
     
     const handleClick = () => {
       const currentOrder = JSON.parse(localStorage.getItem("order"));
-      setConfirmedOrder(currentOrder);
+      setTotalAmount(currentOrder.reduce((prev, curr) => { return Number(prev) + Number(curr.price)*curr.quantity}, ""));
+      setConfirmedOrder(confirmedOrder);
       setStatusOrder(true);
     };
 
@@ -37,7 +39,7 @@ const BasketPage = () => {
                 {!statusOrder && <button onClick={handleClick}>Оформити замовлення</button>}
               {statusOrder && 
                 (<div>
-                  <OrderConfirmation confirmedOrder={confirmedOrder}/>
+                  <OrderConfirmation confirmedOrder={confirmedOrder} totalAmount={totalAmount}/>
                 </div>)}
               </div>)
             : 
