@@ -25,7 +25,7 @@ const BasketPage = () => {
     const handleClick = () => {
       const currentOrder = JSON.parse(localStorage.getItem("order"));
       setTotalAmount(currentOrder.reduce((prev, curr) => { return Number(prev) + Number(curr.price)*curr.quantity}, ""));
-      setConfirmedOrder(confirmedOrder);
+      setConfirmedOrder(currentOrder);
       setStatusOrder(true);
     };
 
