@@ -14,7 +14,6 @@ const BasketPage = () => {
         if(order !== null) {
         setBasket(order)
         }
-    // eslint-disable-next-line
     }, [])
 
     const newOrder = (updatedOrder) => {
@@ -29,6 +28,11 @@ const BasketPage = () => {
       setStatusOrder(true);
     };
 
+    const dispatchOrder = (data) => {
+      if(data === true){
+        setBasket({})
+      }
+    };
 
     return (
         <div>
@@ -39,7 +43,7 @@ const BasketPage = () => {
                 {!statusOrder && <button onClick={handleClick}>Оформити замовлення</button>}
               {statusOrder && 
                 (<div>
-                  <OrderConfirmation confirmedOrder={confirmedOrder} totalAmount={totalAmount}/>
+                  <OrderConfirmation confirmedOrder={confirmedOrder} totalAmount={totalAmount} dispatchOrder={dispatchOrder}/>
                 </div>)}
               </div>)
             : 

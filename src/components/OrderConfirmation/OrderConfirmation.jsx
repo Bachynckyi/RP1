@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { addOrderBasket } from "../../redux/order/order-operations";
 import { useDispatch } from 'react-redux';
 
-const OrderConfirmation= ({confirmedOrder, totalAmount}) => {
+const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
     const dispatch = useDispatch();
     const today = new Date();
     const date = today.toLocaleString();
@@ -45,8 +45,14 @@ const OrderConfirmation= ({confirmedOrder, totalAmount}) => {
     );
 
     const submitOrder = () => {
-        dispatch(addOrderBasket(order))
-        localStorage.removeItem("order")
+        try{
+            dispatch(addOrderBasket(order))
+                .then(localStorage.removeItem("order"))
+        }
+        catch(error){
+            console.log(error)
+        }
+        dispatchOrder(true)
     };
 
     return (
