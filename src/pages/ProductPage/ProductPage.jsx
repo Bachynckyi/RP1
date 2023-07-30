@@ -40,7 +40,7 @@ const ProductPage = () => {
             <Search/>
           </div>
           {loading ? (<Loader/>) :
-          (<div>
+          (<div className={scss.product_container}>
             {Object.keys(productList).length !== 0 ?
               (<ProductList productList={productList} fetchProduct={fetchProduct}/>)
             : 

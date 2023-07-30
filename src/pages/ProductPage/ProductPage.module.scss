@@ -1,9 +1,12 @@
 .container {
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
-};
+}
+
+.product_container {
+    min-height: 77vh;
+}
 
 
 

@@ -35,24 +35,23 @@ const SubcategoryPage = () => {
     };
 
     return (
-        <div>
+        <div >
             {loading === true ? (<Loader/>) : (
-            <div>
-                <div className={scss.container}>
+                <div >
                     {Object.keys(subcategories).length !== 0 ?
                     (<div>
-                        <Search/>
-                        <SubcategoryList 
-                            subcategories={subcategories} 
-                            fetchSubcategory={fetchSubcategory}
-                        />
+                        <div className={scss.container}>
+                            <Search/>
+                            <SubcategoryList 
+                                subcategories={subcategories} 
+                                fetchSubcategory={fetchSubcategory}
+                            />
+                        </div>
                         <Footer/>
                     </div>) 
                     :
                     (<ProductPage/>)}
                 </div>
-
-            </div>
             )} 
         </div>
     );

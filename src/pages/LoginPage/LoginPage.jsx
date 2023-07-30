@@ -5,6 +5,7 @@ import { isLogin, isLoading } from 'redux/auth/auth-selectors';
 import { Navigate } from 'react-router-dom';
 import Loader from 'components/Loader/Loader';
 import Footer from 'components/Footer/Footer';
+import scss from "./LoginPage.module.scss"
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -28,11 +29,13 @@ const LoginPage = () => {
   };
   
   return (
-    <>
-      {loading && (<Loader/>)}
-      {userStatus === true ? (<Navigate to="/"/>) : (<LoginForm onSubmit={handleSignIn}/>)}
+    <div>
+      <div className={scss.container}>
+          {loading && (<Loader/>)}
+          {userStatus === true ? (<Navigate to="/"/>) : (<LoginForm onSubmit={handleSignIn}/>)}
+      </div>
       <Footer/>
-    </>
+    </div>
   );
 };
 

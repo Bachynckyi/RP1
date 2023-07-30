@@ -8,6 +8,7 @@ import ProductList from "pages/ProductPage/ProductList/ProductList";
 import Loader from "components/Loader/Loader";
 import { isLoading } from '../../redux/product/product-selectors';
 import Modal from "components/Modal/Modal";
+import scss from './SearchPage.module.scss';
 
 
 const SearchPage = (order) => {
@@ -38,11 +39,11 @@ const SearchPage = (order) => {
       <div>
         <Search/>
         {loading ? (<Loader/>) :
-         (<div>
+         (<div className={scss.container}>
             {Object.keys(productList).length !== 0 ?
               (<ProductList productList={productList} fetchProduct={fetchProduct}/>)
             : 
-              (<p></p>)}
+              (<p>Нажаль по вашому запиту нічого не знайдено, спробуйте ще раз.</p>)}
           </div>)}
           <Modal 
             modalActive={modalActive} 

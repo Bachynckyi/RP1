@@ -5,6 +5,7 @@ import { isLogin, isLoading} from 'redux/auth/auth-selectors';
 import { Navigate } from 'react-router-dom';
 import Loader from 'components/Loader/Loader';
 import Footer from 'components/Footer/Footer';
+import scss from './RegisterPage.module.scss';
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
@@ -29,11 +30,13 @@ const RegisterPage = () => {
   };
 
   return (
-    <>
-      {loading && (<Loader/>)}
-      {userStatus === true ? (<Navigate to="/"/>) : (<RegisterForm onSubmit={handleSignup}/>)}
+    <div>
+      <div className={scss.container}>
+        {loading && (<Loader/>)}
+        {userStatus === true ? (<Navigate to="/"/>) : (<RegisterForm onSubmit={handleSignup}/>)}
+      </div>
       <Footer/>
-    </>
+    </div>
       
   );
 };
