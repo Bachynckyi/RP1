@@ -2,33 +2,31 @@ import { NavLink } from 'react-router-dom';
 import scss from './AuthNav.module.scss';
 import { isLogin } from 'redux/auth/auth-selectors';
 import { useSelector } from 'react-redux';
-import userIcon from '../../images/iconUser.svg';
+import {SlBasket} from "react-icons/sl";
+import {BiUser} from "react-icons/bi"
 
 const AuthNav = () => {
   const userStatus = useSelector(isLogin);
-  // const name = useSelector(userName);
   return (
     <div>
         {!userStatus ? (
-          <>
-          <NavLink className={scss.button} to="/login">
-            Вхід
-          </NavLink>
-          <NavLink className={scss.button} to="/register">
-            Реєстрація
-          </NavLink>
-          </>
+          <div className={scss.usermenu_container}>
+            <NavLink to="/order" className={scss.basket_link}>
+              <SlBasket className={scss.basket_icon}/>
+            </NavLink>
+            <NavLink className={scss.user_link} to="/login">
+              <BiUser className={scss.user_icon}/>
+            </NavLink>
+          </div>
         ) : (
-          <>
-          <NavLink to="/profile" className={scss.user} >
-          {/* {name ?   
-          (<p className={scss.name}>{name}</p>)
-          : 
-          (<p className={scss.name}>User</p>)
-          }   */}
-          <img className={scss.icon} src={userIcon} alt="userIcon" /> 
-          </NavLink>
-          </>  
+          <div className={scss.usermenu_container}>
+            <NavLink to="/order" className={scss.basket_link}>
+              <SlBasket className={scss.basket_icon}/>
+            </NavLink>
+            <NavLink to="/profile" className={scss.user} >
+              <BiUser className={scss.user_icon}/>
+            </NavLink>
+          </div>  
         )}
     </div>
   );

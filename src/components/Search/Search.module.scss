@@ -5,20 +5,39 @@
     align-items: center;
 };
 
-.basketIcon {
-    width: 30px;
-    height: 30px;
-};
-
 .input {
-    width: 300px;
+    width: 350px;
     height: 30px;
+    outline: none;
+    border: 2px solid grey;
+    border-radius: 30px;
+    padding-left: 12px;
+
+    &:focus {
+        border: 2px solid orange; 
+    }
 };
 
 .button {
-    width: 40px;
+    background-color: #fff;
+    width: 50px;
     height: 36px;
-    margin-left: -40px;
+    margin-left: -50px;
+    border-left: 1.5px solid grey;
+    border-bottom: 2px solid grey;
+    border-top: 2px solid grey;
+    border-right: 2px solid grey;
+    border-radius: 0px 30px 30px 0px ;
+
+    &:hover {
+        background-color: orange;
+        cursor: pointer;
+    }
+};
+
+
+.button:hover .icon_search {    
+    color: #fff;
 }
 
 

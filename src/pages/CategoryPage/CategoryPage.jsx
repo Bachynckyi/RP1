@@ -30,7 +30,7 @@ const CategoryPage = () => {
   };
 
   return (
-    <div>
+    <div className={scss.catalog}>
       <Search/>
       {loading === true ? (<Loader/>) : (
         <div>

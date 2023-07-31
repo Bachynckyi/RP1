@@ -10,11 +10,13 @@
 .nav_item {
         margin-right: 22px;
         text-decoration: none;
-        color: #000;
+        color: #fff;
         font-size: 20px;
+        font-weight: 500;
+        font-size: 18px;
 
         &:hover{
-            color: #54adff;
+            color: orange;
         }
 };
 

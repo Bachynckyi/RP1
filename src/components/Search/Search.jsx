@@ -1,8 +1,7 @@
 import scss from './Search.module.scss';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { BsFillBasketFill } from "react-icons/bs";
-import iconSearch from '../../images/search.svg';
+import {BsSearch} from "react-icons/bs";
 
 const Search = () => {
     const navigate = useNavigate();
@@ -26,12 +25,9 @@ const Search = () => {
                 placeholder='Введіть пошуковий запит'
                 />
             <button type='button' onClick={handleSubmit} className={scss.button}>
-                <img src={iconSearch} alt="iconSearch" />
+                <BsSearch className={scss.icon_search}/>
             </button>
             </div>
-            <NavLink to="/order">
-                <BsFillBasketFill className={scss.basketIcon}/>
-            </NavLink>
         </div>
     )
   };

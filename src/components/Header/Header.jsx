@@ -18,7 +18,7 @@ const Header = () => {
   };
 
   return (
-    <div >
+    <div>
             {isOpen ? 
             (
               <>

@@ -1,7 +1,8 @@
-// import scss from './BasketPage.module.scss';
+import scss from './BasketPage.module.scss';
 import { useEffect, useState } from 'react';
 import BasketList from './BasketList/BasketList';
 import OrderConfirmation from 'components/OrderConfirmation/OrderConfirmation';
+import Footer from 'components/Footer/Footer';
 
 const BasketPage = () => {
     const [basket, setBasket] = useState({});
@@ -38,7 +39,7 @@ const BasketPage = () => {
         <div>
             {Object.keys(basket).length !== 0 ?
               (
-              <div>
+              <div className={scss.container}>
                 <BasketList basket={basket} newOrder={newOrder}/>
                 {!statusOrder && <button onClick={handleClick}>Оформити замовлення</button>}
               {statusOrder && 
@@ -47,7 +48,11 @@ const BasketPage = () => {
                 </div>)}
               </div>)
             : 
-              (<p>Нічого немає в кошику</p>)}
+              (
+              <div className={scss.container}>
+                <p>Нічого немає в кошику</p>
+              </div>)}
+              <Footer/>
         </div>
     )
   };
