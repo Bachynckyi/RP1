@@ -1,17 +1,13 @@
-.catalog_link {
+.category_link {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
     border: 2px solid #000;
     border-radius: 25px;
     text-decoration: none;
     margin-bottom: 30px;
-
-    @media screen and (min-width: 1280px) {
-        margin-bottom: 30px;
-    };
 
     &:hover {
         cursor: pointer;

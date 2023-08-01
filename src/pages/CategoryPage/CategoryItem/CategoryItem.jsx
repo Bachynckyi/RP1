@@ -7,7 +7,7 @@ const CategoryItem = ({nameCategory, photoCategory, category, pickCategory}) => 
     };
 
     return (
-        <li onClick={handlePicker} className={scss.catalog_link} id={category} >
+        <li onClick={handlePicker} className={scss.category_link} id={category} >
             <img
                 className={scss.image_link}
                 src={photoCategory}

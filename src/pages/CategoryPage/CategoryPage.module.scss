@@ -8,8 +8,12 @@
 };
 
 .title {
-    margin-top: 0px;
-    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 12px;
+    margin-bottom: 12px;
 };
 
 .catalog {
