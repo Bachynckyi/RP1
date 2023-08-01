@@ -9,10 +9,7 @@ const Nav = () => {
           Каталог
         </NavLink >
         <NavLink className={scss.nav_item} to="/delivery">
-          Доставка
-        </NavLink>
-        <NavLink className={scss.nav_item}  to="/payment">
-          Оплата
+          Доставка і оплата
         </NavLink>
         <NavLink className={scss.nav_item} to="/company">
           Про компанію

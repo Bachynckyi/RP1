@@ -6,7 +6,6 @@ import PublicRoute from 'components/PublicRoute/PublicRoute';
 
 const CategoryPage = lazy(() => import('./pages/CategoryPage/CategoryPage'));
 const DeliveryPage = lazy(() => import('./pages/DeliveryPage/DeliveryPage'));
-const PaymentPage = lazy(() => import('./pages/PaymentPage/PaymentPage'));
 const CompanyPage = lazy(() => import('./pages/CompanyPage/CompanyPage'));
 const ContactsPage = lazy(() => import('./pages/ContactsPage/ContactsPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage'));
@@ -30,7 +29,6 @@ const UserRoutes = () => {
         <Routes>
           <Route path="/" element={<HomePage/>}></Route>
           <Route path="/delivery" element={<DeliveryPage/>}></Route>
-          <Route path="/payment" element={<PaymentPage/>}></Route>
           <Route path="/company" element={<CompanyPage/>} ></Route>
           <Route path="/contacts" element={<ContactsPage/>} ></Route>
           <Route path="/catalog" element={<CategoryPage/>}></Route>
