@@ -1,7 +1,5 @@
 import scss from './DeliveryPage.module.scss';
 import Footer from "components/Footer/Footer";
-import {FaTruck} from "react-icons/fa";
-// import {HiOutlineOfficeBuilding} from "react-icons/hi"
 
 const DeliveryPage = () => {
 
@@ -24,8 +22,7 @@ const DeliveryPage = () => {
               <p className={scss.sentences}>У разі неотримання замовлення протягом 4-х днів після доставки на відділення «Нової пошти», товар повертається відправнику, а замовлення анулюється.</p>
         </div>
           <div className={scss.part}>
-            <div>
-              <FaTruck/>
+            <div className={scss.title_container}>
               <h2 className={scss.title}>Доставка</h2>
             </div>
 
