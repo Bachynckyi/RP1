@@ -49,7 +49,7 @@ const RegisterForm = ({onSubmit}) => {
         />
       </div>
       <button className={scss.button} type="submit">
-        <p className={scss.pp}>Регістрація</p>
+        <p className={scss.pp}>Реєстрація</p>
       </button>
       <NavLink className={scss.p} to="/login">
         Є аккаунт? Вхід
