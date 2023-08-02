@@ -17,7 +17,7 @@ const CategoryItem = ({nameCategory, photoCategory, category, pickCategory, desc
                     alt={nameCategory}
                 />
                 <div className={scss.description_container}>
-                    <p className={scss.description}>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.</p>
+                    <p className={scss.description}>{descriptionCategory}</p>
                 </div>
             </div>
             <div className={scss.title_container}>
