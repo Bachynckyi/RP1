@@ -6,8 +6,6 @@ const CategoryItem = ({nameCategory, photoCategory, category, pickCategory, desc
         pickCategory(event.currentTarget.id);
     };
 
-    console.log(descriptionCategory)
-
     return (
         <li onClick={handlePicker} className={scss.category_link} id={category}>
             <div className={scss.action}>
