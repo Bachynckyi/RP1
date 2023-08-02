@@ -35,7 +35,7 @@ const CategoryPage = () => {
       {loading === true ? (<Loader/>) : (
         <div>
           <div className={scss.container}>
-              <h1 className={scss.title}>Каталог товарів</h1>
+              <h1 className={scss.title}>Категорії товарів</h1>
               {categories !== null && (<CategoryList categories={categories} fetchCategory={fetchCategory}/>)}
           </div>
           <Footer/>

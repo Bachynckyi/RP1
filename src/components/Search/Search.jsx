@@ -12,7 +12,12 @@ const Search = () => {
     };
 
     const handleSubmit = () => {
-        navigate(`/products?search=${search}`);
+        if(search === ""){
+            return
+        }
+        else {
+            navigate(`/products?search=${search}`);
+        }
     };
 
     return (
