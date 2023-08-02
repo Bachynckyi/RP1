@@ -9,13 +9,17 @@ const ProductItem = ({photo, title, description, price, type, color, code, _id, 
     };
 
     return (
-        <li className={scss.catalog_link} onClick={handlePicker}>
+        <li className={scss.product_link} onClick={handlePicker}>
             <img
                 className={scss.image_link}
                 src={photo}
                 alt={title}
             />
-            <p className={scss.image_title}>{title}</p>
+            <div className={scss.info_container}>
+                <p className={scss.image_title}>{title}</p>
+                <p className={scss.color}>Колір: <b className={scss.color_type}>{color}</b></p>
+                <p className={scss.type}>Фасування: <b className={scss.color_type}>{type}</b></p>
+            </div>
         </li>
     );
   };
