@@ -3,11 +3,12 @@ import Logo from '../Logo/Logo';
 import Nav from '../Nav/Nav';
 import AuthNav from 'components/AuthNav/AuthNav';
 import scss from '../Header/Header.module.scss';
-import menuBar from 'images/menu-hamburger.svg';
-import closeIcon from 'images/cross-small.svg';
 import { NavLink } from 'react-router-dom';
 import { isLogin } from 'redux/auth/auth-selectors';
 import { useSelector } from 'react-redux';
+import {GiHamburgerMenu} from "react-icons/gi"
+import {AiOutlineClose} from "react-icons/ai"
+
 
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
@@ -24,13 +25,16 @@ const Header = () => {
               <>
               <div className={scss.header_mobile}>
                 <Logo/>
+                <div className={scss.auth_container}>
+                  <AuthNav/>
                 <NavLink
                   className={scss.menuIcon}
                   onClick={toggle}
                   aria-label="mobile menu"
                 >
-                  <img className={scss.menuBar} src={closeIcon} alt="menuBurger" />
+                  <AiOutlineClose className={scss.menuIcon}/>
                 </NavLink>
+                </div>
             </div>
               <div className={scss.menu_list}>
                 {!userStatus ? (
@@ -53,15 +57,16 @@ const Header = () => {
               <div className={scss.header}>
                 <Logo/>
                 <Nav/>
-                <AuthNav/>
-                <NavLink
-                  className={scss.menuIcon}
-                  onClick={toggle}
-                  aria-label="mobile menu"
-                  to="/"
-                >
-                  <img className={scss.menuBar} src={menuBar} alt="menuBurger" />
-                </NavLink>
+                <div className={scss.auth_container}>
+                  <AuthNav/>
+                  <NavLink
+                    onClick={toggle}
+                    aria-label="mobile menu"
+                    to="/"
+                    >
+                    <GiHamburgerMenu className={scss.menuIcon} />
+                  </NavLink>
+                </div>
               </div>
             )}
     </div>

@@ -1,10 +1,9 @@
-.container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .product_container {
+    padding: 0px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     min-height: 100vh;
 }
 

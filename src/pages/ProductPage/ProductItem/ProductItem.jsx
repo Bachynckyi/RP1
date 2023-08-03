@@ -5,16 +5,18 @@ const ProductItem = ({photo, title, description, price, type, color, code, _id, 
     const product = {photo, title, description, price, type, color, code, _id}
 
     const handlePicker = () => {
-        pickedProduct(product)
+        pickedProduct(product);
     };
 
     return (
         <li className={scss.product_link} onClick={handlePicker}>
-            <img
-                className={scss.image_link}
-                src={photo}
-                alt={title}
-            />
+            <div className={scss.action}>
+                <img
+                    className={scss.image_link}
+                    src={photo}
+                    alt={title}
+                />
+            </div>
             <div className={scss.info_container}>
                 <p className={scss.image_title}>{title}</p>
                 <p className={scss.color}>Колір: <b className={scss.color_type}>{color}</b></p>

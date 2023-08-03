@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import scss from './Modal.module.scss';
 import ModalOneClick from 'components/ModalOneClick/ModalOneClick';
 import { BsFillBasketFill } from "react-icons/bs";
+import {AiOutlineCloseCircle} from "react-icons/ai"
 
 const Modal = ({modalActive, setModalActive, product}) => {
     const {title, photo, price, type, color, code, description, _id} = product;
@@ -10,6 +11,9 @@ const Modal = ({modalActive, setModalActive, product}) => {
     const [activeModalOneClick, setModalOneClickActive] = useState(false);
 
     useEffect(() => {
+        if(modalActive === true) {
+            document.body.style.cssText = `overflow: hidden; padding-right: ${window.innerWidth - document.body.offsetWidth}px`
+        }
         setOrder({title, price, code, color, type, quantity, _id, photo});
         const handleDownInEscape = e => {
           if (e.code === 'Escape') {
@@ -18,7 +22,8 @@ const Modal = ({modalActive, setModalActive, product}) => {
         };
         window.addEventListener('keydown', handleDownInEscape);
         return () => {
-          return window.removeEventListener('keydown', handleDownInEscape);
+            document.body.style.cssText = `overflow: auto; padding-right: 0px`
+            window.removeEventListener('keydown', handleDownInEscape)
         };
         // eslint-disable-next-line
     }, [modalActive, quantity]);
@@ -51,14 +56,15 @@ const Modal = ({modalActive, setModalActive, product}) => {
     const closeModal = () => {
         setModalActive(false);
         setOrder({});
-        setQuantity(1)
+        setQuantity(1);
     };
 
     const openModalOneClick = () => {
-        setModalOneClickActive(true)
+        setModalOneClickActive(true);
     };
 
     const addToBasket = () => {
+            console.log(order)
             const currentOrder = localStorage.getItem("order") || "[]";
             const cards = JSON.parse(currentOrder);
             const basketCheck = cards.map(item => item._id);
@@ -71,25 +77,26 @@ const Modal = ({modalActive, setModalActive, product}) => {
     };
 
     return (
-        <div>
+        <div className={scss.container}>
             <div className={!modalActive ? (scss.modal) : (scss.modal_active)} onClick={closeModal}>
                 <div className={!modalActive ? (scss.modal_content) : (scss.modal_content_active)} onClick={e => e.stopPropagation()}>
-                    <h1 className={scss.title}>{title}</h1>
                     <div>
                         <img 
                             className={scss.photo}
                             src={photo}
                             alt={title}
                         />
-                        <p>Ціна: {price} грн</p>
-                        <p>Фасовка: {type}</p>
-                        <p>Колір: {color}</p>
-                        <p>Код товару: {code}</p>
+                        <h1 className={scss.title}>{title}</h1>
+                        <p className={scss.product_items}><b>Ціна:</b> {price} грн</p>
+                        <p className={scss.product_items}><b>Фасування:</b> {type}</p>
+                        <p className={scss.product_items}><b>Колір:</b> {color}</p>
+                        <p className={scss.product_items}><b>Код товару:</b> {code}</p>
                     </div>
-                    <p className={scss.description}>Опис: {description}</p>
+                    <p className={scss.description}>{description}</p>
                 <div>
                     <button type="button" onClick={handleChange} name="decrement">-</button>
                     <input
+                        className={scss.input}
                         value={quantity}
                         name="quantity"
                         onChange={handleChange}
@@ -97,8 +104,8 @@ const Modal = ({modalActive, setModalActive, product}) => {
                         />
                     <button type="button" onClick={handleChange} name='increment'>+</button>
                 </div>
-                <button type="button" onClick={closeModal}>закрыть</button>
-                <button type="button" onClick={openModalOneClick}>Заказ в 1 клик</button>
+                <button className={scss.button_close}type="button" onClick={closeModal}><AiOutlineCloseCircle className={scss.icon_close}/></button>
+                <button type="button" onClick={openModalOneClick}>Купити в 1 клік</button>
                 <button onClick={addToBasket} type="button">
                     <BsFillBasketFill/>
                 </button>
