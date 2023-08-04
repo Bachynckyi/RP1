@@ -2,6 +2,7 @@ import scss from './ModalOneClick.module.scss';
 import { useState, useEffect, useCallback } from 'react';
 import {addOrderOneClick} from '../../redux/order/order-operations';
 import { useDispatch } from 'react-redux';
+import {AiOutlineCloseCircle} from "react-icons/ai"
 
 const ModalOneClick = ({activeModalOneClick, setModalOneClickActive, closeModal, order}) => {
     const dispatch = useDispatch();
@@ -63,6 +64,7 @@ const ModalOneClick = ({activeModalOneClick, setModalOneClickActive, closeModal,
                 <form className={scss.form}>
                     <label>Ім'я
                         <input
+                        className={scss.input}
                         required
                         name='customerName'
                         onChange={handleChange}
@@ -71,15 +73,18 @@ const ModalOneClick = ({activeModalOneClick, setModalOneClickActive, closeModal,
                     </label>
                     <label>Телефон
                         <input
+                        className={scss.input}
                         required
                         name='customerPhone'
                         onChange={handleChange}
                         value={customerPhone}
                         />
                     </label>
-                    <button type='button' onClick={orderSubmit}>Відправити замовлення</button>
+                    <button className={scss.button_submit} type='button' onClick={orderSubmit}>Відправити замовлення</button>
                 </form>
-            <button type="button" onClick={closeModalOneClick}>закрыть</button>
+            <button className={scss.button_close} type="button" onClick={closeModalOneClick}>
+              <AiOutlineCloseCircle className={scss.icon_close}/>
+            </button>
             </div>
         </div>
     )

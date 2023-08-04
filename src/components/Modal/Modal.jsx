@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import scss from './Modal.module.scss';
 import ModalOneClick from 'components/ModalOneClick/ModalOneClick';
-import { BsFillBasketFill } from "react-icons/bs";
+import {SlBasket} from "react-icons/sl";
 import {AiOutlineCloseCircle} from "react-icons/ai"
 
 const Modal = ({modalActive, setModalActive, product}) => {
@@ -64,7 +64,6 @@ const Modal = ({modalActive, setModalActive, product}) => {
     };
 
     const addToBasket = () => {
-            console.log(order)
             const currentOrder = localStorage.getItem("order") || "[]";
             const cards = JSON.parse(currentOrder);
             const basketCheck = cards.map(item => item._id);
@@ -87,14 +86,13 @@ const Modal = ({modalActive, setModalActive, product}) => {
                             alt={title}
                         />
                         <h1 className={scss.title}>{title}</h1>
-                        <p className={scss.product_items}><b>Ціна:</b> {price} грн</p>
-                        <p className={scss.product_items}><b>Фасування:</b> {type}</p>
-                        <p className={scss.product_items}><b>Колір:</b> {color}</p>
-                        <p className={scss.product_items}><b>Код товару:</b> {code}</p>
+                        <p className={scss.product_items}>Ціна: <span className={scss.product_item_color}>{price} грн</span></p>
+                        <p className={scss.product_items}>Фасування: <span className={scss.product_item_color}>{type}</span></p>
+                        <p className={scss.product_items}>Колір: <span className={scss.product_item_color}>{color}</span></p>
+                        <p className={scss.product_items}>Код товару: <span className={scss.product_item_color}>{code}</span></p>
                     </div>
-                    <p className={scss.description}>{description}</p>
-                <div>
-                    <button type="button" onClick={handleChange} name="decrement">-</button>
+                <div className={scss.quantity_container}>
+                    <button className={scss.quantity_button_decrement} type="button" onClick={handleChange} name="decrement">-</button>
                     <input
                         className={scss.input}
                         value={quantity}
@@ -102,13 +100,17 @@ const Modal = ({modalActive, setModalActive, product}) => {
                         onChange={handleChange}
                         type='text'
                         />
-                    <button type="button" onClick={handleChange} name='increment'>+</button>
+                    <button className={scss.quantity_button_increment} type="button" onClick={handleChange} name='increment'>+</button>
                 </div>
                 <button className={scss.button_close}type="button" onClick={closeModal}><AiOutlineCloseCircle className={scss.icon_close}/></button>
-                <button type="button" onClick={openModalOneClick}>Купити в 1 клік</button>
-                <button onClick={addToBasket} type="button">
-                    <BsFillBasketFill/>
-                </button>
+                <div className={scss.buttons_container}>
+                    <button className={scss.button_oneClick} type="button" onClick={openModalOneClick}>Купити в 1 клік</button>
+                    <button className={scss.button_basket} onClick={addToBasket} type="button">
+                        <SlBasket className={scss.icon_basket}/>
+                        <span className={scss.basket_word}>В кошик</span>
+                    </button>
+                </div>
+                <p className={scss.description}>{description}</p>
                 </div>
             </div>
         <ModalOneClick 
