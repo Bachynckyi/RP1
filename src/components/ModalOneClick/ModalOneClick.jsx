@@ -33,8 +33,9 @@ const ModalOneClick = ({activeModalOneClick, setModalOneClickActive, closeModal,
     // eslint-disable-next-line     
     }, [activeModalOneClick, customerName, customerPhone]);
 
-    const orderSubmit = () => {
-        dispatch(addOrderOneClick(orderOneClick))
+    const orderSubmit = (event) => {
+        event.preventDefault()
+        dispatch(addOrderOneClick(orderOneClick));
         setModalOneClickActive(false);
         setOrderOneClick({})
         setCustomer({...initialState})
@@ -47,10 +48,26 @@ const ModalOneClick = ({activeModalOneClick, setModalOneClickActive, closeModal,
     };
 
     const handleChange = useCallback(({ target }) => {
+      if (target.name === "customerPhone"){
+        const value = target.value.replace(/\D+/g, '');
+        if(value === 0){
+          setCustomer(prevState => {
+            return { ...prevState, customerPhone: value };
+          });
+        }
+        else {
+          setCustomer(prevState => {
+            return { ...prevState, customerPhone: value };
+          });
+        }
+
+      }
+      else {
         const { name, value } = target;
         setCustomer(prevState => {
           return { ...prevState, [name]: value };
         });
+      }
       },
       [setCustomer]
     ); 
@@ -59,13 +76,12 @@ const ModalOneClick = ({activeModalOneClick, setModalOneClickActive, closeModal,
         <div className={!activeModalOneClick ? (scss.modal) : (scss.modal_active)} onClick={closeModalOneClick}>
             <div 
                 className={!activeModalOneClick ? (scss.modal_content) : (scss.modal_content_active)} 
-                onClick={e => e.stopPropagation()}
-            >
-                <form className={scss.form}>
+                onClick={e => e.stopPropagation()}>
+                <form className={scss.form} onSubmit={orderSubmit}>
                     <label className={scss.input_label}>Ім'я
                         <input
-                        className={scss.input}
                         required
+                        className={scss.input}
                         name='customerName'
                         onChange={handleChange}
                         value={customerName}
@@ -74,15 +90,15 @@ const ModalOneClick = ({activeModalOneClick, setModalOneClickActive, closeModal,
                     </label>
                     <label className={scss.input_label}>Телефон
                         <input
-                        className={scss.input}
                         required
+                        className={scss.input}
                         name='customerPhone'
                         onChange={handleChange}
                         value={customerPhone}
                         placeholder='Введіть телефон'
                         />
                     </label>
-                    <button className={scss.button_submit} type='button' onClick={orderSubmit}>Відправити замовлення</button>
+                    <button className={scss.button_submit} type='submit'>Відправити замовлення</button>
                 </form>
             <button className={scss.button_close} type="button" onClick={closeModalOneClick}>
               <AiOutlineCloseCircle className={scss.icon_close}/>

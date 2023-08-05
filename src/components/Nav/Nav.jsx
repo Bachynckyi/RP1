@@ -5,16 +5,16 @@ const Nav = () => {
   return (
     <div >
       <div className={scss.nav}>
-        <NavLink className={scss.nav_item} to="/catalog">
+        <NavLink className={({isActive}) => isActive ? scss.nav_item_selected : scss.nav_item } to="/catalog">
           Каталог
         </NavLink >
-        <NavLink className={scss.nav_item} to="/delivery">
+        <NavLink className={({isActive}) => isActive ? scss.nav_item_selected : scss.nav_item } to="/delivery">
           Доставка і оплата
         </NavLink>
-        <NavLink className={scss.nav_item} to="/company">
+        <NavLink className={({isActive}) => isActive ? scss.nav_item_selected : scss.nav_item } to="/company">
           Про компанію
         </NavLink>
-        <NavLink className={scss.nav_item} to="/contacts">
+        <NavLink className={({isActive}) => isActive ? scss.nav_item_selected : scss.nav_item } to="/contacts">
           Контакти
         </NavLink>
       </div>

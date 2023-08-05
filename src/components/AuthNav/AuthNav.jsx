@@ -3,7 +3,7 @@ import scss from './AuthNav.module.scss';
 import { isLogin } from 'redux/auth/auth-selectors';
 import { useSelector } from 'react-redux';
 import {SlBasket} from "react-icons/sl";
-import {BiUser} from "react-icons/bi"
+import {BiUser} from "react-icons/bi";
 
 const AuthNav = () => {
   const userStatus = useSelector(isLogin);

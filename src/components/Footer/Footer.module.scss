@@ -1,7 +1,8 @@
 .container {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     margin-top: 20px;
     background-color: #2f303a;
     box-shadow: 0px 0px 8px rgba(0,0,0,.6);
@@ -9,6 +10,8 @@
 };
 
 .contacts_container {
+    display: flex;
+    flex-direction: column;
     padding: 30px;
 }
 
@@ -30,3 +33,10 @@
         color: orange;
     }
 };
+
+
+.messenger {
+    width: 50px;
+    height: 50px;
+    color: #fff;
+}

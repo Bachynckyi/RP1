@@ -45,8 +45,7 @@ const Header = () => {
                 ) : (<NavLink className={scss.nav_mobile_item} to="/profile">Особистий кабінет</NavLink>)}
                 
                 <NavLink className={scss.nav_mobile_item} to="/catalog" onClick={toggle}>Каталог</NavLink >
-                <NavLink className={scss.nav_mobile_item} to="/delivery" onClick={toggle}>Доставка</NavLink>
-                <NavLink className={scss.nav_mobile_item} to="/payment" onClick={toggle}>Оплата</NavLink>
+                <NavLink className={scss.nav_mobile_item} to="/delivery" onClick={toggle}>Доставка і Оплата</NavLink>
                 <NavLink className={scss.nav_mobile_item} to="/company" onClick={toggle}>Про компанію</NavLink>
                 <NavLink className={scss.nav_mobile_item} to="/contacts" onClick={toggle}>Контакти</NavLink>
               </div>

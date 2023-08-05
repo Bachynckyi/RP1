@@ -1,4 +1,7 @@
 import scss from './Footer.module.scss';
+import {FaViber} from "react-icons/fa";
+import {FaTelegram} from "react-icons/fa";
+import {FaWhatsapp} from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -12,6 +15,11 @@ const Footer = () => {
             <p className={scss.contacts_item}>Електронна пошта:
               <a className={scss.contacts_link} href="mailto:color-farb@gmail.com"> color-farb@gmail.com</a>
             </p>
+          </div>
+          <div className={scss.messengers_link}>
+              <FaTelegram className={scss.messenger}/>
+              <FaViber className={scss.messenger}/>
+              <FaWhatsapp className={scss.messenger}/>
           </div>
         </div>
   );
