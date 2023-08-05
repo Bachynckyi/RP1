@@ -1,6 +1,6 @@
 .modal {
     height: 100vh;
-    width: 100%;
+    width: 100vw;
     background-color: rgba(0, 0, 0, 0.4);
     position: fixed;
     top: 0;
@@ -13,10 +13,9 @@
     pointer-events: none;
 };
 
-
 .modal_active {
     height: 100vh;
-    width: 100%;
+    width: 100vw;
     background-color: rgba(0, 0, 0, 0.4);
     position: fixed;
     top: 0;
@@ -29,23 +28,49 @@
 };
 
 .modal_content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 25px;
     background-color: white;
     transform: scale(0.5);
     transition: 0.5s;
     width: 70vw;
-    height: 50vw;
+    height: 54vw;
+
+    @media screen and (min-width: 1024px) {
+        width: 30vw;
+        height: 40vh;
+    }
+
+    @media screen and (min-width: 1400px) {
+        width: 20vw;
+        height: 36vh;
+    }
 };
 
 .modal_content_active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 25px;
     background-color: white;
     transform: scale(1);
     transition: 0.5s;
     width: 70vw;
-    height: 50vw;
+    height: 54vw;
+
+    @media screen and (min-width: 1024px) {
+        width: 30vw;
+        height: 40vh;
+    }
+
+    @media screen and (min-width: 1400px) {
+        width: 20vw;
+        height: 36vh;
+    }
 };
 
 .form {
@@ -53,20 +78,22 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
-}
-
+    font-family: "Manrope";
+    font-style: normal;
+    margin-top: auto;
+    margin-bottom: auto;
+};
 
 .icon_close {
     width: 100%;
     height: 100%;
-    color: #000;
+    color: rgba(0, 0, 0, 0.2);
 };
 
 .button_close {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -75,18 +102,48 @@
     height: 40px;
     border: none;
     padding: 0;
-}
+    cursor: pointer;
+};
 
 .button_submit {
-    width: 180px;
+    width: 220px;
     padding: 10px;
     background-color: orange;
     color: #fff;
     border: none;
     border-radius: 10px;
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 700;
+    margin-top: 20px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: darkorange;
+    }
 };
 
 .input {
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
-}
+    margin-top: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.2);;
+    border-radius: 10px;
+    width: 200px;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    outline: none;
+
+    &:focus {
+        border: 2px solid orange;;
+    }
+};
+
+.input_label {
+    margin-top: 10px;
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 700;
+};

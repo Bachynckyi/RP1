@@ -62,22 +62,24 @@ const ModalOneClick = ({activeModalOneClick, setModalOneClickActive, closeModal,
                 onClick={e => e.stopPropagation()}
             >
                 <form className={scss.form}>
-                    <label>Ім'я
+                    <label className={scss.input_label}>Ім'я
                         <input
                         className={scss.input}
                         required
                         name='customerName'
                         onChange={handleChange}
                         value={customerName}
+                        placeholder='Введіть ім`я'
                         />
                     </label>
-                    <label>Телефон
+                    <label className={scss.input_label}>Телефон
                         <input
                         className={scss.input}
                         required
                         name='customerPhone'
                         onChange={handleChange}
                         value={customerPhone}
+                        placeholder='Введіть телефон'
                         />
                     </label>
                     <button className={scss.button_submit} type='button' onClick={orderSubmit}>Відправити замовлення</button>

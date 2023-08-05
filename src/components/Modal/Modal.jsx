@@ -9,6 +9,7 @@ const Modal = ({modalActive, setModalActive, product}) => {
     const [order, setOrder] = useState({});
     const [quantity, setQuantity] = useState("1");
     const [activeModalOneClick, setModalOneClickActive] = useState(false);
+    const [isShowDescription, setIsShowDesription] = useState(false);
 
     useEffect(() => {
         if(modalActive === true) {
@@ -57,6 +58,7 @@ const Modal = ({modalActive, setModalActive, product}) => {
         setModalActive(false);
         setOrder({});
         setQuantity(1);
+        setIsShowDesription(false)
     };
 
     const openModalOneClick = () => {
@@ -75,21 +77,28 @@ const Modal = ({modalActive, setModalActive, product}) => {
             }
     };
 
+    const showDescription = () => {
+        setIsShowDesription(true);
+    };
+
     return (
         <div className={scss.container}>
             <div className={!modalActive ? (scss.modal) : (scss.modal_active)} onClick={closeModal}>
                 <div className={!modalActive ? (scss.modal_content) : (scss.modal_content_active)} onClick={e => e.stopPropagation()}>
-                    <div>
+                    <div className={scss.product_container}>
                         <img 
                             className={scss.photo}
                             src={photo}
                             alt={title}
                         />
-                        <h1 className={scss.title}>{title}</h1>
-                        <p className={scss.product_items}>Ціна: <span className={scss.product_item_color}>{price} грн</span></p>
-                        <p className={scss.product_items}>Фасування: <span className={scss.product_item_color}>{type}</span></p>
-                        <p className={scss.product_items}>Колір: <span className={scss.product_item_color}>{color}</span></p>
-                        <p className={scss.product_items}>Код товару: <span className={scss.product_item_color}>{code}</span></p>
+                        <div className={scss.product_data}>
+                            <h1 className={scss.title}>{title}</h1>
+                            <p className={scss.product_items}>Ціна: <span className={scss.product_item_color}>{price} грн</span></p>
+                            <p className={scss.product_items}>Фасування: <span className={scss.product_item_color}>{type}</span></p>
+                            <p className={scss.product_items}>Колір: <span className={scss.product_item_color}>{color}</span></p>
+                            <p className={scss.product_items}>Код товару: <span className={scss.product_item_color}>{code}</span></p>
+                        </div>
+                        <button className={scss.button_close}type="button" onClick={closeModal}><AiOutlineCloseCircle className={scss.icon_close}/></button>
                     </div>
                 <div className={scss.quantity_container}>
                     <button className={scss.quantity_button_decrement} type="button" onClick={handleChange} name="decrement">-</button>
@@ -102,7 +111,6 @@ const Modal = ({modalActive, setModalActive, product}) => {
                         />
                     <button className={scss.quantity_button_increment} type="button" onClick={handleChange} name='increment'>+</button>
                 </div>
-                <button className={scss.button_close}type="button" onClick={closeModal}><AiOutlineCloseCircle className={scss.icon_close}/></button>
                 <div className={scss.buttons_container}>
                     <button className={scss.button_oneClick} type="button" onClick={openModalOneClick}>Купити в 1 клік</button>
                     <button className={scss.button_basket} onClick={addToBasket} type="button">
@@ -110,7 +118,10 @@ const Modal = ({modalActive, setModalActive, product}) => {
                         <span className={scss.basket_word}>В кошик</span>
                     </button>
                 </div>
-                <p className={scss.description}>{description}</p>
+                <div className={scss.description_container}>
+                    {isShowDescription === true ? (<p className={scss.description}>{description}</p>)
+                    :(<button className={scss.button_description} onClick={showDescription}>Опис</button>)}
+                </div>
                 </div>
             </div>
         <ModalOneClick 

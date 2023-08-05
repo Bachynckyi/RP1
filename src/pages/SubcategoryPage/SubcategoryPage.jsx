@@ -39,14 +39,12 @@ const SubcategoryPage = () => {
             {loading === true ? (<Loader/>) : (
                 <div >
                     {Object.keys(subcategories).length !== 0 ?
-                    (<div>
-                        <div className={scss.container}>
-                            <Search/>
-                            <SubcategoryList 
-                                subcategories={subcategories} 
-                                fetchSubcategory={fetchSubcategory}
-                            />
-                        </div>
+                    (<div className={scss.container}>
+                        <Search/>
+                        <SubcategoryList 
+                            subcategories={subcategories} 
+                            fetchSubcategory={fetchSubcategory}
+                        />
                         <Footer/>
                     </div>) 
                     :
