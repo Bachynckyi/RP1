@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import scss from './Modal.module.scss';
 import ModalOneClick from 'components/ModalOneClick/ModalOneClick';
 import {SlBasket} from "react-icons/sl";
-import {AiOutlineCloseCircle} from "react-icons/ai"
+import {AiOutlineCloseCircle} from "react-icons/ai";
 import {AiOutlineCheck} from "react-icons/ai";
 
 const Modal = ({modalActive, setModalActive, product}) => {
