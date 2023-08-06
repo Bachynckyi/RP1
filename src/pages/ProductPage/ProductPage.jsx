@@ -35,28 +35,36 @@ const ProductPage = () => {
     };
 
     return (
-      <div>
-          <div className={scss.container}>
+      <>
+        <div className={scss.container}>
+        {loading === true? (<Loader/>) :
+          ( <>
             <Search/>
-          </div>
-          {loading ? (<Loader/>) :
-          (<div className={scss.product_container}>
-            {Object.keys(productList).length !== 0 ?
+            <div className={scss.product_container}>
+              {Object.keys(productList).length !== 0 ?
               (<ProductList productList={productList} fetchProduct={fetchProduct}/>)
-            : 
+              : 
               (<p></p>)}
-          </div>)}
-          <Modal 
-            modalActive={modalActive} 
-            setModalActive={setModalActive} 
-            product={product} 
-          />
-          <Footer/>
-      </div>
+            </div>  
+            <Modal 
+              modalActive={modalActive} 
+              setModalActive={setModalActive} 
+              product={product} 
+            />
+            <Footer/>
+          </>)}
+        </div>
+      </>
     );
-  };
+};
   
 export default ProductPage;
+
+
+
+
+
+
 
 
 
