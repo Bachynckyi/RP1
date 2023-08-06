@@ -18,7 +18,7 @@ const ProductItem = ({photo, title, description, price, type, color, code, _id, 
                 />
             </div>
             <div className={scss.info_container}>
-                <p className={scss.image_title}>{title}</p>
+                <p className={scss.title}>{title}</p>
                 <p className={scss.color}>Колір: <b className={scss.color_type}>{color}</b></p>
                 <p className={scss.type}>Фасування: <b className={scss.color_type}>{type}</b></p>
             </div>

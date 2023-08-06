@@ -3,6 +3,7 @@ import scss from './Modal.module.scss';
 import ModalOneClick from 'components/ModalOneClick/ModalOneClick';
 import {SlBasket} from "react-icons/sl";
 import {AiOutlineCloseCircle} from "react-icons/ai"
+import {AiOutlineCheck} from "react-icons/ai";
 
 const Modal = ({modalActive, setModalActive, product}) => {
     const {title, photo, price, type, color, code, description, _id} = product;
@@ -10,10 +11,17 @@ const Modal = ({modalActive, setModalActive, product}) => {
     const [quantity, setQuantity] = useState("1");
     const [activeModalOneClick, setModalOneClickActive] = useState(false);
     const [isShowDescription, setIsShowDesription] = useState(false);
+    const [productInBasket, setProductInBasket] = useState(false);
 
     useEffect(() => {
         if(modalActive === true) {
             document.body.style.cssText = `overflow: hidden; padding-right: ${window.innerWidth - document.body.offsetWidth}px`
+            const currentOrder = localStorage.getItem("order") || "[]";
+            const cards = JSON.parse(currentOrder);
+            const basketCheck = cards.map(item => item._id);
+            if(basketCheck.includes(_id)){
+                setProductInBasket(true);
+            }
         }
         setOrder({title, price, code, color, type, quantity, _id, photo});
         const handleDownInEscape = e => {
@@ -57,8 +65,11 @@ const Modal = ({modalActive, setModalActive, product}) => {
     const closeModal = () => {
         setModalActive(false);
         setOrder({});
-        setQuantity(1);
-        setIsShowDesription(false)
+        setTimeout(() => {
+            setProductInBasket(false);
+            setIsShowDesription(false);
+            setQuantity(1);
+          }, 300);
     };
 
     const openModalOneClick = () => {
@@ -69,11 +80,15 @@ const Modal = ({modalActive, setModalActive, product}) => {
             const currentOrder = localStorage.getItem("order") || "[]";
             const cards = JSON.parse(currentOrder);
             const basketCheck = cards.map(item => item._id);
-            if(basketCheck.includes(_id)){
-                console.log("Уже есть в корзине");
+            if(!basketCheck.includes(_id)){
+                localStorage.setItem("order", JSON.stringify([...cards, order]));
+                setProductInBasket(true);
             }
             else {
-                localStorage.setItem("order", JSON.stringify([...cards, order]));
+                const order = JSON.parse(localStorage.getItem("order"));
+                const updatedOrder = order.filter(order => order._id !== _id);
+                localStorage.setItem("order", JSON.stringify(updatedOrder))
+                setProductInBasket(false);
             }
     };
 
@@ -113,10 +128,16 @@ const Modal = ({modalActive, setModalActive, product}) => {
                 </div>
                 <div className={scss.buttons_container}>
                     <button className={scss.button_oneClick} type="button" onClick={openModalOneClick}>Купити в 1 клік</button>
-                    <button className={scss.button_basket} onClick={addToBasket} type="button">
+                    {productInBasket === false ? 
+                    (<button className={scss.button_basket} onClick={addToBasket} type="button">
                         <SlBasket className={scss.icon_basket}/>
                         <span className={scss.basket_word}>В кошик</span>
-                    </button>
+                    </button>) 
+                    : 
+                    (<button className={scss.button_basket_selected} onClick={addToBasket} type="button">
+                        <AiOutlineCheck className={scss.icon_basket_selected}/>
+                        <span className={scss.basket_word_selected}>В кошику</span>
+                    </button>)}
                 </div>
                 <div className={scss.description_container}>
                     {isShowDescription === true ? (<p className={scss.description}>{description}</p>)

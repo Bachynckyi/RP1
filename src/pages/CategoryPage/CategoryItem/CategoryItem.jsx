@@ -19,7 +19,7 @@ const CategoryItem = ({nameCategory, photoCategory, category, pickCategory, desc
                 </div>
             </div>
             <div className={scss.title_container}>
-            <p className={scss.image_title}>{nameCategory}</p>
+            <p className={scss.title}>{nameCategory}</p>
             </div>
         </li>
     );

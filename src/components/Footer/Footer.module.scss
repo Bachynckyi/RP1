@@ -12,13 +12,14 @@
 .contacts_container {
     display: flex;
     flex-direction: column;
-    padding: 30px;
-}
+    justify-content: center;
+    padding: 20px;
+};
 
 .address {
     margin-top: 8px;
     font-style: normal;
-}
+};
 
 .contacts_item {
     margin-top: 12px;
@@ -34,9 +35,71 @@
     }
 };
 
-
 .messenger {
-    width: 50px;
-    height: 50px;
+    width: 62px;
+    height: 62px;
     color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &:nth-child(n + 2 ){
+        margin-top: 15px;
+    };
+
+    @media screen and (min-width: 768px) {
+        &:nth-child(n + 2 ){
+            margin-top: 0px;
+            margin-left: 15px;
+        };
+    };
+    
+};
+
+.messenger_links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 20px 20px 0px;
+
+    @media screen and (min-width: 768px) {
+        flex-direction: row;
+    };
+
+    &:hover {
+        color: orange;
+    }
+};
+
+.messenger_icon {
+    width: 40px;
+    height: 40px;
+    color: #fff;
+
+};
+
+.messenger_name {
+    margin-top: 2px;
+    margin-bottom: 0px;
+};
+
+.messenger_title {
+    display: none;
+    margin: 0px;
+
+    @media screen and (min-width: 768px) {
+        display: flex;
+    }
+
+};
+
+.messengers_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }

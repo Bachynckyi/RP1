@@ -19,7 +19,7 @@ const SubcategoryItem = ({nameSubcategory, photoSubcategory, subcategory, pickSu
                 </div>
             </div>
             <div className={scss.title_container}>
-                <p className={scss.image_title}>{nameSubcategory}</p>
+                <p className={scss.title}>{nameSubcategory}</p>
             </div>
         </li>
     );
