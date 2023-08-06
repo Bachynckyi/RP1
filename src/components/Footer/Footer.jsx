@@ -28,7 +28,7 @@ const Footer = () => {
                   <FaViber className={scss.messenger_icon}/>
                   <p className={scss.messenger_name}>Viber</p>
                 </Link>
-                <Link className={scss.messenger}>
+                <Link className={scss.messenger} to="https://api.whatsapp.com/send/?phone=+380991585152">
                   <FaWhatsapp className={scss.messenger_icon}/>
                   <p className={scss.messenger_name}>WhatsApp</p>
                 </Link>

@@ -1,3 +1,5 @@
+import scss from "./CategoryItem.module.scss";
+
 const CategoryItem = ({nameCategory, category, pickCategory}) => {
 
     const handlePicker = ({target}) => {
@@ -9,6 +11,7 @@ const CategoryItem = ({nameCategory, category, pickCategory}) => {
     return (
         <li>
             <input 
+                className={scss.input}
                 type="radio" 
                 id={category} 
                 name="category" 
@@ -16,7 +19,7 @@ const CategoryItem = ({nameCategory, category, pickCategory}) => {
                 onChange={handlePicker}
                 required
             />
-            <label htmlFor={category}>{nameCategory}</label>
+            <label htmlFor={category} className={scss.label}>{nameCategory}</label>
         </li>
     );
   };

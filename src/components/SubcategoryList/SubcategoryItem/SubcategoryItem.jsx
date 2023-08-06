@@ -1,3 +1,5 @@
+import scss from "./Subcategory.module.scss";
+
 const CategoriesItem = ({nameSubcategory, subcategory, pickSubcategory}) => {
 
     const handlePicker = ({target}) => {
@@ -7,14 +9,15 @@ const CategoriesItem = ({nameSubcategory, subcategory, pickSubcategory}) => {
 
     return (
         <li>
-            <input 
+            <input
+                className={scss.input} 
                 type="radio" 
                 id={subcategory} 
                 name="subcategory" 
                 value={subcategory} 
                 onChange={handlePicker}
             />
-            <label htmlFor={subcategory}>{nameSubcategory}</label>
+            <label htmlFor={subcategory} className={scss.label}>{nameSubcategory}</label>
         </li>
     );
   };
