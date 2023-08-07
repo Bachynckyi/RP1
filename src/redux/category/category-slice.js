@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllCategories, addCategory} from './category-operations';
+import { getAllCategories, addCategory, updateCategoryWithPhoto, updateCategoryWithoutPhoto } from './category-operations';
 
 const initialState = {
   loading: false,
@@ -28,6 +28,26 @@ const categorySlice = createSlice({
         state.loading = false;
       })
       .addCase(addCategory.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(updateCategoryWithPhoto.pending, state => {
+        state.loading = true;
+      })
+      .addCase(updateCategoryWithPhoto.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(updateCategoryWithPhoto.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(updateCategoryWithoutPhoto.pending, state => {
+        state.loading = true;
+      })
+      .addCase(updateCategoryWithoutPhoto.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(updateCategoryWithoutPhoto.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       })

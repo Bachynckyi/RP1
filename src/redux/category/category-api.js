@@ -22,3 +22,14 @@ export const getAllCategories = async () => {
   return result;
 };
 
+export const updateCategoryWithPhoto = async ({token, data, _id}) => {
+  setToken(token);
+  const { data: result } = await instance.patch(`/api/product/updatecategorywithphoto/${_id}`, data);
+  return result;
+};
+
+export const updateCategoryWithoutPhoto = async ({token, data, _id}) => {
+  setToken(token);
+  const { data: result } = await instance.patch(`/api/product/updatecategorywithoutphoto/${_id}`, data);
+  return result;
+};

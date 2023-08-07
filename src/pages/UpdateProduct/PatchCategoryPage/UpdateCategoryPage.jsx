@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isLoading } from '../../../redux/category/category-selectors';
 import Loader  from '../../../components/Loader/Loader';
 import CategoryList from './CategoryList/CategoryList';
-import scss from './PatchCategoryPage.module.scss';
+import scss from './UpdateCategoryPage.module.scss';
 import Modal from './Modal/Modal';
 
 const PatchCategoryPage = () => {
@@ -27,11 +27,12 @@ const PatchCategoryPage = () => {
     };
   }, [dispatch]);
 
-  const fetchCategory = (nameCategory, photoCategory, descriptionCategory) => {
+  const fetchCategory = (nameCategory, photoCategory, descriptionCategory, _id) => {
     setPickedCategory({
         nameCategory: nameCategory, 
         photoCategory:photoCategory,
         descriptionCategory: descriptionCategory,
+        _id: _id,
     })
     setModalActive(true);
   };

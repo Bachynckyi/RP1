@@ -1,17 +1,22 @@
 import { useEffect, useState, useCallback } from 'react';
 import scss from './Modal.module.scss';
-import {AiOutlineCloseCircle} from "react-icons/ai"
+import {AiOutlineCloseCircle} from "react-icons/ai";
+import { updateCategoryWithPhoto, updateCategoryWithoutPhoto } from 'redux/category/category-operations';
+import { useDispatch, useSelector } from 'react-redux';
+import { userToken } from 'redux/auth/auth-selectors';
 
 const initialState = {
     nameCategory: "",
     photoCategory: "",
-    category: "",
     descriptionCategory: "",
+    _id: "",
   };
 
 const Modal = ({modalActive, setModalActive, pickedCategory}) => {
     const [category, setCategory] = useState({...initialState});
-    const { nameCategory, descriptionCategory, photoCategory} = category;
+    const { nameCategory, descriptionCategory, photoCategory, _id} = category;
+    const dispatch = useDispatch();
+    const token = useSelector(userToken);
 
     useEffect(() => {
         if(modalActive === true) {
@@ -20,7 +25,8 @@ const Modal = ({modalActive, setModalActive, pickedCategory}) => {
                 nameCategory: pickedCategory.nameCategory,
                 descriptionCategory: pickedCategory.descriptionCategory,
                 photoCategory: pickedCategory.photoCategory,
-            })
+                _id: pickedCategory._id,
+            });
         }
         const handleDownInEscape = e => {
           if (e.code === 'Escape') {
@@ -35,18 +41,25 @@ const Modal = ({modalActive, setModalActive, pickedCategory}) => {
         // eslint-disable-next-line
     }, [modalActive]);
     
-
     const closeModal = () => {
         setModalActive(false);
         setCategory(initialState);
+        document.getElementById("input_file").value = "";
     };
 
     const handleChangeDetails = useCallback(({ target }) => {
         const {name, value } = target;
         if(name === "photoCategory"){
-            setCategory(prevState => {
-                return {...prevState, photoCategory: URL.createObjectURL(target.files[0])} 
+            if(target.files[0] === undefined){
+                setCategory(prevState => {
+                return {...prevState} 
             });
+            }
+            else {
+                setCategory(prevState => {
+                return {...prevState, photoCategory: target.files[0]} 
+            });
+            }
         }
         else {
             setCategory(prevState => {
@@ -57,6 +70,40 @@ const Modal = ({modalActive, setModalActive, pickedCategory}) => {
       [setCategory]
     );
 
+    const onSubmit = () => {
+        if(typeof(photoCategory) === "string" ){
+            const data = {nameCategory, descriptionCategory};
+            const sendData = async ({token, data, _id}) => {
+                try {
+                dispatch(updateCategoryWithoutPhoto({token, data, _id}));
+                } 
+                catch (error) {
+                  console.log(error)
+                }
+              };
+            sendData({token, data, _id});
+            closeModal();
+        }
+        else if (typeof(photoCategory) === "object"){
+            const formData = new FormData();
+            formData.append("photoCategory", photoCategory);
+            formData.append("nameCategory", nameCategory);
+            formData.append("descriptionCategory", descriptionCategory);
+            const data = formData;
+            const sendData = async ({token, data, _id}) => {
+                try {
+                dispatch(updateCategoryWithPhoto({token, data, _id}));
+                } 
+                catch (error) {
+                  console.log(error)
+                }
+              };
+            sendData({token, data, _id});
+            closeModal();
+        }
+
+    };
+
 
     return (
         <div className={scss.container}>
@@ -65,17 +112,23 @@ const Modal = ({modalActive, setModalActive, pickedCategory}) => {
                     <button className={scss.button_close}type="button" onClick={closeModal}><AiOutlineCloseCircle className={scss.icon_close}/></button>
                     <h1 className={scss.title}>Змінити категорію</h1>
                     <div className={scss.image_container}>
-                        <p className={scss.image_title}>Фотографія категорії</p>
-                            <img 
-                            src={photoCategory} 
-                            alt="defaultPicture"
-                            className={scss.photo}
-                            />
+                        <p className={scss.image_title}>Фотографія категорії</p>                            
+                        {typeof(photoCategory) === "string" ? 
+                            (<img 
+                                src={photoCategory} 
+                                alt="photoCategory"
+                                className={scss.photo}
+                            />) : 
+                            (<img 
+                                src={URL.createObjectURL(photoCategory)} 
+                                alt="photoCategory"
+                                className={scss.photo}
+                            />)}
                         <input
+                            id='input_file'
                             className={scss.input_image}
                             type='file'
                             name="photoCategory"
-                            required
                             accept="image/png, image/jpeg"
                             onChange={handleChangeDetails}
                         />
@@ -102,7 +155,8 @@ const Modal = ({modalActive, setModalActive, pickedCategory}) => {
                             />
                         </label>
                     </div>
-                    <button type='submit' className={scss.button}>Зберегти зміни</button>                
+                    <button type='button' className={scss.button} onClick={onSubmit}>Зберегти зміни</button>                
+                    <button type='button' className={scss.button}>Видалити категорію</button>
                 </div>
             </div>
         </div>

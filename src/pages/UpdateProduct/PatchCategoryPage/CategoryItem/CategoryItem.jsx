@@ -1,13 +1,13 @@
 import scss from './CategoryItem.module.scss';
 
-const CategoryItem = ({nameCategory, photoCategory, category, pickCategory, descriptionCategory}) => {
+const CategoryItem = ({nameCategory, photoCategory, pickCategory, descriptionCategory, _id}) => {
 
     const handlePicker = () => {
-        pickCategory(nameCategory, photoCategory, descriptionCategory);
+        pickCategory(nameCategory, photoCategory, descriptionCategory, _id);
     };
 
     return (
-        <li onClick={handlePicker} className={scss.category_link} id={category}>
+        <li onClick={handlePicker} className={scss.category_link} id={_id}>
             <div className={scss.action}>
                 <img
                     className={scss.image_link}

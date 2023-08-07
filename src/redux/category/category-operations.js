@@ -26,3 +26,29 @@ import * as api from './category-api';
     }
   );
 
+  export const updateCategoryWithPhoto = createAsyncThunk(
+    'api/product/updatecategorywithphoto',
+    async (req, { rejectWithValue }) => {
+      try {
+        const {token, data, _id} = req;
+        const result = await api.updateCategoryWithPhoto({token, data, _id});
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );
+
+  export const updateCategoryWithoutPhoto = createAsyncThunk(
+    'api/product/updatecategorywithoutphoto',
+    async (req, { rejectWithValue }) => {
+      try {
+        const {token, data, _id} = req;
+        const result = await api.updateCategoryWithoutPhoto({token, data, _id});
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );
+

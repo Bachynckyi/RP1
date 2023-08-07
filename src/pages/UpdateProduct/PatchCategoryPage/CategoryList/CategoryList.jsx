@@ -3,8 +3,8 @@ import scss from './CategoryList.module.scss';
 
 const CategoriesList = ({ categories, fetchCategory }) => {
 
-    const pickCategory = (nameCategory, photoCategory, descriptionCategory) => {
-        fetchCategory(nameCategory, photoCategory, descriptionCategory);
+    const pickCategory = (nameCategory, photoCategory, descriptionCategory, _id) => {
+        fetchCategory(nameCategory, photoCategory, descriptionCategory, _id);
     };
 
     const elements = categories.map(({ _id, ...props }) => {

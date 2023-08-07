@@ -41,9 +41,16 @@ const AddCategoryForm = () => {
     const handleChangeDetails = useCallback(({ target }) => {
         const {name, value } = target;
         if(name === "photoCategory"){
-            setCategory(prevState => {
+            if(target.files[0] === undefined){
+                setCategory(prevState => {
+                return {...prevState} 
+            });
+            }
+            else {
+                setCategory(prevState => {
                 return {...prevState, photoCategory: target.files[0]} 
             });
+            }
         }
         else if(name === "category"){
             setCategory(prevState => {
