@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllSubcategories, addSubcategory, getSubcategoryByCategory } from './subcategory-operations';
+import { 
+        getAllSubcategories, 
+        addSubcategory, 
+        getSubcategoryByCategory,
+        updateSubcategoryWithoutPhoto,
+        updateSubcategoryWithPhoto, } from './subcategory-operations';
 
 const initialState = {
   loading: false,
@@ -38,6 +43,26 @@ const subCategorySlice = createSlice({
         state.loading = false;
       })
       .addCase(getSubcategoryByCategory.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(updateSubcategoryWithPhoto.pending, state => {
+        state.loading = true;
+      })
+      .addCase(updateSubcategoryWithPhoto.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(updateSubcategoryWithPhoto.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(updateSubcategoryWithoutPhoto.pending, state => {
+        state.loading = true;
+      })
+      .addCase(updateSubcategoryWithoutPhoto.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(updateSubcategoryWithoutPhoto.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       })

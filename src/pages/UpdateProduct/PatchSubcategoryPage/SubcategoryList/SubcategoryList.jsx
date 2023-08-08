@@ -1,10 +1,11 @@
+
 import SubcategoryItem from "../SubcategoryItem/SubcategoryItem";
-import scss from './SubcategoryList.module.scss';
+import scss from "./SubCategoryList.module.scss";
 
-const SubcategoryList = ({ subcategories, fetchSubcategory }) => {
+const ProductList = ({ subcategories, fetchSubcategory }) => {
 
-    const pickSubcategory = (pickedSubcategory) => {
-        fetchSubcategory(pickedSubcategory);
+    const pickSubcategory = (nameSubcategory, photoSubcategory, descriptionSubcategory, _id) => {
+        fetchSubcategory(nameSubcategory, photoSubcategory, descriptionSubcategory, _id);
     };
 
     const elements = subcategories.map(({ _id, ...props }) => {
@@ -20,4 +21,4 @@ const SubcategoryList = ({ subcategories, fetchSubcategory }) => {
     );
 };
 
-export default SubcategoryList;
+export default ProductList;

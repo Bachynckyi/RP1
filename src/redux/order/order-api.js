@@ -12,7 +12,7 @@ const instance = axios.create({
 // };
 
 export const addOrderOneClick = async (data) => {
-  const { result } = await instance.post('/api/orders/addorderoneclick', data);
+  const result = await instance.post('/api/orders/addorderoneclick', data);
   return result;
 };
 

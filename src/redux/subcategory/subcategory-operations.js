@@ -37,3 +37,29 @@ import * as api from './subcategory-api';
       }
     }
   );
+
+  export const updateSubcategoryWithPhoto = createAsyncThunk(
+    'api/product/updatecategorywithphoto',
+    async (req, { rejectWithValue }) => {
+      try {
+        const {token, data, _id} = req;
+        const result = await api.updateSubcategoryWithPhoto({token, data, _id});
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );
+
+  export const updateSubcategoryWithoutPhoto = createAsyncThunk(
+    'api/product/updatecategorywithoutphoto',
+    async (req, { rejectWithValue }) => {
+      try {
+        const {token, data, _id} = req;
+        const result = await api.updateSubcategoryWithoutPhoto({token, data, _id});
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );

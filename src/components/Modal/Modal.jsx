@@ -149,7 +149,6 @@ const Modal = ({modalActive, setModalActive, product}) => {
             activeModalOneClick={activeModalOneClick} 
             setModalOneClickActive={setModalOneClickActive} 
             order={order}
-            closeModal={closeModal}
         />
         </div>
     )

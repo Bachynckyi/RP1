@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { isLoading } from '../../redux/subcategory/subcategory-selectors';
 import { getSubcategoryByCategory } from '../../redux/subcategory/subcategory-operations';
 import Loader  from '../../components/Loader/Loader';
-import scss from './Subcategory.module.scss';
+import scss from './SubcategoryPage.module.scss';
 import Footer from "components/Footer/Footer";
 import { useParams } from "react-router-dom";
 import Search from "components/Search/Search";

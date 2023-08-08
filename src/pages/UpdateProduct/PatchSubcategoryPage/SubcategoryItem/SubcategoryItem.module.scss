@@ -35,7 +35,6 @@
 };
 
 .title {
-    text-align: center;
     margin-top: 10px;
     margin-bottom: 14px;
     font-size: 22px;
@@ -43,6 +42,7 @@
     font-family: "Manrope";
     font-style: normal;
     font-weight: 500;
+    text-align: center;
 };
 
 .subcategory_link:hover .description_container {
@@ -65,7 +65,6 @@
     align-items: center;
     position: absolute;
     box-sizing: border-box;
-    border-radius: 25px 25px 0px 0px;
     padding: 10px;
     background: rgba(47, 48, 58, 0.9);
     color: #fff;

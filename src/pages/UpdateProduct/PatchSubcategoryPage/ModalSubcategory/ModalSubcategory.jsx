@@ -1,31 +1,31 @@
 import { useEffect, useState, useCallback } from 'react';
-import scss from './Modal.module.scss';
+import scss from './ModalSubcategory.module.scss';
 import {AiOutlineCloseCircle} from "react-icons/ai";
-import { updateCategoryWithPhoto, updateCategoryWithoutPhoto } from 'redux/category/category-operations';
+import { updateSubcategoryWithPhoto, updateSubcategoryWithoutPhoto } from '../../../../redux/subcategory/subcategory-operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { userToken } from 'redux/auth/auth-selectors';
 
 const initialState = {
-    nameCategory: "",
-    photoCategory: "",
-    descriptionCategory: "",
+    nameSubcategory: "",
+    photoSubcategory: "",
+    descriptionSubcategory: "",
     _id: "",
   };
 
-const Modal = ({modalActive, setModalActive, pickedCategory}) => {
-    const [category, setCategory] = useState({...initialState});
-    const { nameCategory, descriptionCategory, photoCategory, _id} = category;
+const ModalSubcategory = ({modalActive, setModalActive, pickedSubcategory}) => {
+    const [subcategory, setSubcategory] = useState({...initialState});
+    const { nameSubcategory, descriptionSubcategory, photoSubcategory, _id} = subcategory;
     const dispatch = useDispatch();
     const token = useSelector(userToken);
 
     useEffect(() => {
         if(modalActive === true) {
             document.body.style.cssText = `overflow: hidden; padding-right: ${window.innerWidth - document.body.offsetWidth}px`
-            setCategory({
-                nameCategory: pickedCategory.nameCategory,
-                descriptionCategory: pickedCategory.descriptionCategory,
-                photoCategory: pickedCategory.photoCategory,
-                _id: pickedCategory._id,
+            setSubcategory({
+                nameSubcategory: pickedSubcategory.nameSubcategory,
+                descriptionSubcategory: pickedSubcategory.descriptionSubcategory,
+                photoSubcategory: pickedSubcategory.photoSubcategory,
+                _id: pickedSubcategory._id,
             });
         }
         const handleDownInEscape = e => {
@@ -43,39 +43,39 @@ const Modal = ({modalActive, setModalActive, pickedCategory}) => {
     
     const closeModal = () => {
         setModalActive(false);
-        setCategory(initialState);
+        setSubcategory(initialState);
         document.getElementById("input_file").value = "";
     };
 
     const handleChangeDetails = useCallback(({ target }) => {
         const {name, value } = target;
-        if(name === "photoCategory"){
+        if(name === "photoSubcategory"){
             if(target.files[0] === undefined){
-                setCategory(prevState => {
+                setSubcategory(prevState => {
                 return {...prevState} 
             });
             }
             else {
-                setCategory(prevState => {
-                return {...prevState, photoCategory: target.files[0]} 
+                setSubcategory(prevState => {
+                return {...prevState, photoSubcategory: target.files[0]} 
             });
             }
         }
         else {
-            setCategory(prevState => {
+            setSubcategory(prevState => {
                 return {...prevState, [name]: value};
             });
         }
     },
-      [setCategory]
+      [setSubcategory]
     );
 
     const onSubmit = () => {
-        if(typeof(photoCategory) === "string" ){
-            const data = {nameCategory, descriptionCategory};
+        if(typeof(photoSubcategory) === "string" ){
+            const data = {nameSubcategory, descriptionSubcategory};
             const sendData = async ({token, data, _id}) => {
                 try {
-                dispatch(updateCategoryWithoutPhoto({token, data, _id}));
+                dispatch(updateSubcategoryWithoutPhoto({token, data, _id}));
                 } 
                 catch (error) {
                   console.log(error)
@@ -84,15 +84,15 @@ const Modal = ({modalActive, setModalActive, pickedCategory}) => {
             sendData({token, data, _id});
             closeModal();
         }
-        else if (typeof(photoCategory) === "object"){
+        else if (typeof(photoSubcategory) === "object"){
             const formData = new FormData();
-            formData.append("photoCategory", photoCategory);
-            formData.append("nameCategory", nameCategory);
-            formData.append("descriptionCategory", descriptionCategory);
+            formData.append("photoSubcategory", photoSubcategory);
+            formData.append("nameSubcategory", nameSubcategory);
+            formData.append("descriptionSubcategory", descriptionSubcategory);
             const data = formData;
             const sendData = async ({token, data, _id}) => {
                 try {
-                dispatch(updateCategoryWithPhoto({token, data, _id}));
+                dispatch(updateSubcategoryWithPhoto({token, data, _id}));
                 } 
                 catch (error) {
                   console.log(error)
@@ -113,22 +113,22 @@ const Modal = ({modalActive, setModalActive, pickedCategory}) => {
                     <h1 className={scss.title}>Змінити категорію</h1>
                     <div className={scss.image_container}>
                         <p className={scss.image_title}>Фотографія категорії</p>                            
-                        {typeof(photoCategory) === "string" ? 
+                        {typeof(photoSubcategory) === "string" ? 
                             (<img 
-                                src={photoCategory} 
-                                alt="photoCategory"
+                                src={photoSubcategory} 
+                                alt="photoSubcategory"
                                 className={scss.photo}
                             />) : 
                             (<img 
-                                src={URL.createObjectURL(photoCategory)} 
-                                alt="photoCategory"
+                                src={URL.createObjectURL(photoSubcategory)} 
+                                alt="photoSubcategory"
                                 className={scss.photo}
                             />)}
                         <input
                             id='input_file'
                             className={scss.input_image}
                             type='file'
-                            name="photoCategory"
+                            name="photoSubcategory"
                             accept="image/png, image/jpeg"
                             onChange={handleChangeDetails}
                         />
@@ -136,33 +136,33 @@ const Modal = ({modalActive, setModalActive, pickedCategory}) => {
                     <div>
                         <label className={scss.name_category}>Назва категорії
                         <input
-                            name='nameCategory'
+                            name='nameSubcategory'
                             placeholder='Введіть назву категорії'
                             required
-                            value={nameCategory}
+                            value={nameSubcategory}
                             onChange={handleChangeDetails}
                         />
                         </label>
                         <label>Опис категорії
                             <textarea
-                                name='descriptionCategory'
+                                name='descriptionSubcategory'
                                 placeholder='Введіть опис'
                                 rows="20"
                                 cols="70"
                                 required
-                                value={descriptionCategory}
+                                value={descriptionSubcategory}
                                 onChange={handleChangeDetails}
                             />
                         </label>
                     </div>
                     <button type='button' className={scss.button} onClick={onSubmit}>Зберегти зміни</button>                
-                    <button type='button' className={scss.button}>Видалити категорію</button>
+                    <button type='button' className={scss.button}>Видалити підкатегорію</button>
                 </div>
             </div>
         </div>
     )
   };
   
-export default Modal;
+export default ModalSubcategory;
 
 

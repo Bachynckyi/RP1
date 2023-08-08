@@ -8,7 +8,7 @@ export const addOrderOneClick = createAsyncThunk(
         const result = await api.addOrderOneClick(data);
         return result;
       } catch (error) {
-        return rejectWithValue(error.response.request.status);
+        return rejectWithValue(error.response);
       }
     }
 );

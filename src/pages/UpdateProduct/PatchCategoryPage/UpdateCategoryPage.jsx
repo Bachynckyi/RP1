@@ -8,7 +8,7 @@ import { isLoading } from '../../../redux/category/category-selectors';
 import Loader  from '../../../components/Loader/Loader';
 import CategoryList from './CategoryList/CategoryList';
 import scss from './UpdateCategoryPage.module.scss';
-import Modal from './Modal/Modal';
+import Modal from './ModalCategory/ModalCategory';
 
 const PatchCategoryPage = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const PatchCategoryPage = () => {
   useEffect(() => {
     try{
         dispatch(getAllCategories())
-        .then(response => setCategories(response.payload.data))
+          .then(response => setCategories(response.payload.data))
     }
     catch(error){
         console.log(error)

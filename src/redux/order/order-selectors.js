@@ -1,0 +1,1 @@
+export const isLoading = ({ order }) => order.loading;
