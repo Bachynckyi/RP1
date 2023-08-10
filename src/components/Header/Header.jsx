@@ -19,7 +19,7 @@ const Header = () => {
   };
 
   return (
-    <div>
+    <div className={scss.container}>
             {isOpen ? 
             (
               <>
@@ -53,6 +53,7 @@ const Header = () => {
             ) 
             : 
             (
+            <div className={scss.header_container}>
               <div className={scss.header}>
                 <Logo/>
                 <Nav/>
@@ -67,6 +68,7 @@ const Header = () => {
                   </NavLink>
                 </div>
               </div>
+            </div>
             )}
     </div>
   );

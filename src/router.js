@@ -25,8 +25,8 @@ const UpdateSubcategoryPage = lazy(() => import('./pages/UpdateProduct/PatchSubc
 
 const UserRoutes = () => {
   return (
-    <div>
-      <SharedLayout />
+    <>
+      <SharedLayout/>
       <Suspense>
         <Routes>
           <Route path="/" element={<HomePage/>}></Route>
@@ -56,7 +56,7 @@ const UserRoutes = () => {
           <Route path="*" element={<PageNotFound/>}/>
         </Routes>
       </Suspense>
-    </div>
+    </>
   );
 };
 
