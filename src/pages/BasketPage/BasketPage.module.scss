@@ -1,7 +1,38 @@
 .container {
+    max-width: 1600px;
+    padding: 0px 20px;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
-    min-height: 100vh;
+    margin: auto;
+    box-sizing: border-box;
+
+    @media screen and (min-width: 768px) {
+        padding: 0px 50px;
+        
+    }
+};
+
+.button_confirm {
+    width: 250px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    background-color: orange;
+    color: #fff;
+    border: 1px solid;
+    padding: 10px; 
+    border-radius: 10px;
+    font-family: "Manrope";
+    font-style: normal;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 18px;
+
+    &:hover {
+        background-color: darkorange;
+    };
 }

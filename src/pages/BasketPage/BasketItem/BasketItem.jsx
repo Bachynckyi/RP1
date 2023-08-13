@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+import scss from "./BasketItem.module.scss";
+import {MdDeleteForever} from "react-icons/md";
+
 
 const BasketItem = ({product, updateOrder, _id, updatedQuantity}) => {
   const {title, photo, price, type, color, code} = product;
@@ -72,28 +75,38 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity}) => {
   };
 
     return (
-        <li>
-          <h1>{title}</h1>
-          <img 
-              src={photo}
-              alt={title}
-          />
-          <p>Ціна: {price} грн</p>
-          <p>Фасування: {type}</p>
-          <p>Колір: {color}</p>
-          <p>Код товару: {code}</p>
-          <div>
-              <button type="button" onClick={handleChange} name="decrement">-</button>
-              <input
-                  value={quantityOfItem}
-                  name="quantity"
-                  onChange={handleChange}
-                  type='text'
-                  />
-              <button type="button" onClick={handleChange} name='increment'>+</button>
+        <li className={scss.item}>
+          <h1 className={scss.title}>{title}</h1>
+          <div className={scss.product_container}>
+            <div className={scss.container}>
+              <img 
+                  className={scss.image}
+                  src={photo}
+                  alt={title}
+              />
+              <div className={scss.products_items_container}>
+                <p className={scss.product_items}>Ціна: <span className={scss.product_item_color}>{price} грн</span></p>
+                <p className={scss.product_items}>Фасування: <span className={scss.product_item_color}>{type}</span></p>
+                <p className={scss.product_items}>Колір: <span className={scss.product_item_color}>{color}</span></p>
+                <p className={scss.product_items}>Код товару: <span className={scss.product_item_color}>{code}</span></p>
+                <p className={scss.product_items}>Сума: <span className={scss.product_item_color}>{amount} грн</span></p>
+              </div>
+            </div>
+            <div className={scss.buttons_container}>
+            <div className={scss.quantity_container}>
+                <button type="button" onClick={handleChange} name="decrement" className={scss.quantity_button_decrement}>-</button>
+                <input
+                    className={scss.input}
+                    value={quantityOfItem}
+                    name="quantity"
+                    onChange={handleChange}
+                    type='text'
+                    />
+                <button type="button" onClick={handleChange} name='increment' className={scss.quantity_button_increment}>+</button>
+            </div>
+            <button onClick={deleteItemFromBasket} className={scss.button_delete}><MdDeleteForever className={scss.delete_icon}/></button>
+            </div>
           </div>
-          <button onClick={deleteItemFromBasket}>Видалити з кошика</button>
-          <p>Сума: {amount} грн</p>
         </li>
     );
   };

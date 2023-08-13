@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import BasketItem from '../BasketItem/BasketItem';
+import scss from './/BasketList.module.scss';
 
 const BasketList = ({newOrder}) => {
     const [totalAmount,setTotalAmount] = useState(0);
@@ -26,10 +27,10 @@ const BasketList = ({newOrder}) => {
     });
 
     return (
-        <div>
-            <h2>Товари до замовлення</h2>
-            <ol>{elements}</ol>
-            <p>Сума до сплати: {JSON.stringify(totalAmount)} грн</p>
+        <div className={scss.list_container}>
+            <h2 className={scss.title}>Товари до замовлення</h2>
+            <ol className={scss.basket_list}>{elements}</ol>
+            <p className={scss.totalAmount}>Сума до сплати: {JSON.stringify(totalAmount)} грн</p>
         </div>
     );
 };
