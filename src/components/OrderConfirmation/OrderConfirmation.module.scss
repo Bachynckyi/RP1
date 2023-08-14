@@ -1,0 +1,225 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+};
+
+.form {
+    width: 100%;
+};
+
+.button_submit {
+    width: 250px;
+    height: 40px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    background-color: orange;
+    color: #fff;
+    border: 1px solid;
+    padding: 10px; 
+    border-radius: 10px;
+    font-family: "Manrope";
+    font-style: normal;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 18px;
+
+    &:hover {
+        background-color: darkorange;
+    };
+};
+
+.contact_details_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+};
+
+.contact_details_title {
+    font-family: "Manrope";
+    font-style: normal;
+    margin-top: 0px;
+    margin-bottom: 18px;
+    font-weight: 600;
+};
+
+.contact_details_label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+};
+
+.contact_details_input {
+    width: 200px;
+    display: flex;
+    font-size: 16px;
+    padding: 8px 16px;
+    border: 1.5px solid #2f303a;
+    border-radius: 25px;
+    font-style: normal;
+    font-family: "Manrope";
+
+    &:focus {
+        border: 1.5px solid orange;
+        outline: none;
+    };
+};
+
+.contact_details_subtitle {
+    font-weight: 500;
+    margin-left: 16px;
+    margin-bottom: 6px;
+    font-style: normal;
+    font-family: "Manrope";
+};
+
+.delivery_details_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+};
+
+.delivery_details_title {
+    font-family: "Manrope";
+    font-style: normal;
+    margin-bottom: 18px;
+    font-weight: 600;
+    align-self: center;
+};
+
+.delivery_details_option {
+    display: flex;
+    flex-direction: row;
+    margin-top: 12px;
+    cursor: pointer;
+};
+
+.delivery_details_subtitle {
+    margin-left: 10px;
+    font-style: normal;
+    font-family: "Manrope";
+};
+
+.description_details_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+};
+
+.description_details_subtitle {
+    font-size: 22px;
+    font-style: normal;
+    font-family: "Manrope";
+    font-weight: 600;
+};
+
+.description_details_field {
+    width: 300px;
+    height: 150px;
+    padding: 10px;
+    font-size: 16px;
+    font-style: normal;
+    font-family: "Manrope";
+    border-radius: 10px;
+    resize: none;
+    outline: none;
+    border: 1.5px solid #2f303a;
+
+    &:focus {
+        border: 1.5px solid orange;
+        outline: none;
+    };
+};
+
+.delivery_details_warehouse {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 20px;
+};
+
+.delivery_details_label {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    font-style: normal;
+    font-family: "Manrope";
+};
+
+.delivery_details_address {
+    margin-top: 12px;
+    align-self: flex-start;
+    font-style: normal;
+    font-family: "Manrope";
+};
+
+.delivery_details_schedule {
+    align-self: flex-start;
+    margin-top: 12px;
+    margin-bottom: 0px;
+    font-family: "Manrope";
+    font-style: normal;
+};
+
+.delivery_details_item {
+    align-self: flex-start;
+    color: #000;
+    margin-top: 12px;
+    margin-bottom: 0px;
+    font-family: "Manrope";
+    font-style: normal;
+};
+
+.delivery_details_link {
+    color: #000;
+    text-decoration: none;
+    font-family: "Manrope";
+    font-style: normal;
+};
+
+.delivery_details_courier {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+};  
+
+.delivery_details_courier_label {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+};
+
+.delivery_details_courier_input {
+    width: 200px;
+    display: flex;
+    font-size: 16px;
+    padding: 8px 16px;
+    border: 1.5px solid #2f303a;
+    border-radius: 25px;
+    font-style: normal;
+    font-family: "Manrope";
+
+    &:focus {
+        border: 1.5px solid orange;
+        outline: none;
+    };
+};
+
+.delivery_details_courier_subtitle {
+    font-weight: 500;
+    margin-left: 16px;
+    margin-bottom: 6px;
+    font-style: normal;
+    font-family: "Manrope";
+}

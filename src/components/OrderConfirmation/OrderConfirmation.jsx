@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { addOrderBasket } from "../../redux/order/order-operations";
 import { useDispatch } from 'react-redux';
+import scss from './OrderConfirmation.module.scss';
 
 const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
     const dispatch = useDispatch();
@@ -44,7 +45,8 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
       [setOrderDetails]
     );
 
-    const submitOrder = () => {
+    const submitOrder = (event) => {
+        event.preventDefault()
         try{
             dispatch(addOrderBasket(order))
                 .then(localStorage.removeItem("order"))
@@ -56,136 +58,163 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
     };
 
     return (
-        <div>
-            <form>
-                <div>
-                    <h2>Контактні дані</h2>
-                    <label>Прізвище
+        <div className={scss.container}>
+            <form className={scss.form} onSubmit={submitOrder}>
+                <div className={scss.contact_details_container}>
+                    <h2 className={scss.contact_details_title}>Контактні дані</h2>
+                    <label className={scss.contact_details_label}>
+                            <span className={scss.contact_details_subtitle}>Прізвище</span>
                             <input
-                            required
-                            name='customerSurname'
-                            onChange={handleChange}
-                            value={orderDetailes.customerSurname}
-                            type='text'
+                                className={scss.contact_details_input}
+                                required
+                                name='customerSurname'
+                                onChange={handleChange}
+                                value={orderDetailes.customerSurname}
+                                type='text'
+                                placeholder='Введіть прізвище'
                             />
                     </label>
-                    <label>Ім'я
+                    <label className={scss.contact_details_label}>
+                        <span className={scss.contact_details_subtitle}>Ім'я</span>
                         <input
-                        required
-                        name='customerName'
-                        onChange={handleChange}
-                        value={orderDetailes.customerName}
-                        type='text'
+                            className={scss.contact_details_input}
+                            required
+                            name='customerName'
+                            onChange={handleChange}
+                            value={orderDetailes.customerName}
+                            type='text'
+                            placeholder="Введіть ім'я"
                         />
                     </label>
-                    <label>Телефон
+                    <label className={scss.contact_details_label}>
+                        <span className={scss.contact_details_subtitle}>Телефон</span>
                         <input
-                        type='text'
-                        required
-                        name='phone'
-                        onChange={handleChange}
-                        value={orderDetailes.phone}
+                            className={scss.contact_details_input}
+                            type='text'
+                            required
+                            name='phone'
+                            onChange={handleChange}
+                            value={orderDetailes.phone}
+                            placeholder="Введіть номер телефону"
                         />
                     </label>
                 </div>
-                <div>
-                    <h2>Доставка</h2>
+                <div className={scss.delivery_details_container}>
+                    <h2 className={scss.delivery_details_title}>Доставка</h2>
                     <div>
                         <div>
-                            <input
-                                type="radio"
-                                id="Sklad"
-                                name='typeOfDelivery' 
-                                value="Sklad"
-                                onChange={handleChange}
-                            />
-                            <label htmlFor="Sklad">Самовивіз</label>
-                            <input 
-                                type="radio"
-                                id="Nova Poshta"
-                                name='typeOfDelivery'  
-                                value="Nova Poshta"
-                                onChange={handleChange} 
-                            />
-                            <label htmlFor='Nova Poshta'>Нова Пошта</label>
-                            <input 
-                                type="radio"
-                                id='Delivery'
-                                name='typeOfDelivery' 
-                                value="Delivery"
-                                onChange={handleChange}
-                            />
-                            <label htmlFor='Delivery'>Delivery</label>
+                            <label className={scss.delivery_details_option} htmlFor="Sklad"> 
+                                <input
+                                    type="radio"
+                                    id="Sklad"
+                                    name='typeOfDelivery' 
+                                    value="Sklad"
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <span className={scss.delivery_details_subtitle}>Самовивіз</span>
+                            </label>
+                            <label className={scss.delivery_details_option} htmlFor='Nova Poshta'>
+                                <input 
+                                    type="radio"
+                                    id="Nova Poshta"
+                                    name='typeOfDelivery'  
+                                    value="Nova Poshta"
+                                    onChange={handleChange} 
+                                />
+                                <span className={scss.delivery_details_subtitle}>Нова пошта</span>
+                            </label>
+                            <label className={scss.delivery_details_option} htmlFor='Delivery'>
+                                <input 
+                                    type="radio"
+                                    id='Delivery'
+                                    name='typeOfDelivery' 
+                                    value="Delivery"
+                                    onChange={handleChange}
+                                />
+                                <span className={scss.delivery_details_subtitle}>Delivery</span>
+                            </label>
                         </div>
                         <div>
                             {orderDetailes.typeOfDelivery === "Sklad" && (
-                                <div>
-                                    <address>Адреса: Україна, м. Київ , вул. Драгоманова 23, офіс 555</address>
-                                    <p>Режим роботи: Пн-Пт 9:00 – 17:00</p>
-                                    <p>Телефон:
-                                    <a href="tel:+380991111111"> +38 099 111 11 11</a>
+                                <div className={scss.delivery_details_warehouse}>
+                                    <span className={scss.delivery_details_label}>Контактна інформація</span>
+                                    <address className={scss.delivery_details_address}>Адреса: Адреса: Україна, м.Київ, вул. Магнітогорська буд.5</address>
+                                    <p className={scss.delivery_details_schedule}>Режим роботи: Пн-Пт 9:00 – 17:00</p>
+                                    <p className={scss.delivery_details_item}>Телефон:
+                                    <a className={scss.delivery_details_link} href="tel:+380991585152"> +38 (099) 158 51 52</a>
                                     </p>
                                 </div>)}
                             {orderDetailes.typeOfDelivery === "Nova Poshta" && (
-                            <div>
-                                <label>Населений пункт
+                            <div className={scss.delivery_details_courier}>
+                                <label className={scss.delivery_details_courier_label}>
+                                    <span className={scss.delivery_details_courier_subtitle}>Населений пункт</span>
                                     <input
+                                    className={scss.delivery_details_courier_input}
                                     required
                                     name='locality'
                                     type='text'
                                     onChange={handleChange}
                                     value={orderDetailes.locality}
+                                    placeholder='Введіть назву'
                                     />
                                 </label>
-                                <label>Номер відділення
+                                <label className={scss.delivery_details_courier_label}>
+                                    <span className={scss.delivery_details_courier_subtitle}>Номер відділення</span>
                                     <input
+                                    className={scss.delivery_details_courier_input}
                                     required
                                     name='branchNumber'
                                     type='text'
                                     onChange={handleChange}
                                     value={orderDetailes.branchNumber}
+                                    placeholder='Введіть номер відділення'
                                     />
                                 </label>
                             </div>)}
                             {orderDetailes.typeOfDelivery === "Delivery" && (
-                            <div>
-                                <label>Населений пункт
+                            <div className={scss.delivery_details_courier}>
+                                <label className={scss.delivery_details_courier_label}>
+                                    <span className={scss.delivery_details_courier_subtitle}>Населений пункт</span>
                                     <input
-                                    required
-                                    name='locality'
-                                    type='text'
-                                    onChange={handleChange}
-                                    value={orderDetailes.locality}
+                                        className={scss.delivery_details_courier_input}
+                                        required
+                                        name='locality'
+                                        type='text'
+                                        onChange={handleChange}
+                                        value={orderDetailes.locality}
+                                        placeholder='Введіть назву' 
                                     />
                                 </label>
-                                <label>Номер відділення
+                                <label className={scss.delivery_details_courier_label}>
+                                    <span className={scss.delivery_details_courier_subtitle}>Номер відділення</span>
                                     <input
-                                    required
-                                    name='branchNumber'
-                                    type='text'
-                                    onChange={handleChange}
-                                    value={orderDetailes.branchNumber}
+                                        className={scss.delivery_details_courier_input}
+                                        required
+                                        name='branchNumber'
+                                        type='text'
+                                        onChange={handleChange}
+                                        value={orderDetailes.branchNumber}
+                                        placeholder='Введіть номер відділення'
                                     />
                                 </label>
                             </div>)}
                         </div>
                     </div>
                 </div>
-                <div>
-                    <label>Коментар до замовлення
+                <div className={scss.description_details_container}>
+                    <h3 className={scss.description_details_subtitle}>Коментар до замовлення</h3>
                     <textarea
-                        rows="20"
-                        cols="70"
-                        required
+                        className={scss.description_details_field}
                         name='comments'
                         value={orderDetailes.comments}
-                        onChange={handleChange} 
+                        onChange={handleChange}
+                        required
                         >
                     </textarea>
-                    </label>
                 </div>
+                <button className={scss.button_submit} type='submit'>Відправити замовлення</button>
             </form>
-            <button type='click' onClick={submitOrder}>Відправити замовлення</button>
         </div>
     )
   };

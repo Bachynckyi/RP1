@@ -43,9 +43,7 @@ const BasketPage = () => {
                 <BasketList basket={basket} newOrder={newOrder}/>
                 {!statusOrder && <button onClick={handleClick} className={scss.button_confirm}>Оформити замовлення</button>}
               {statusOrder && 
-                (<div>
-                  <OrderConfirmation confirmedOrder={confirmedOrder} totalAmount={totalAmount} dispatchOrder={dispatchOrder}/>
-                </div>)}
+                (<OrderConfirmation confirmedOrder={confirmedOrder} totalAmount={totalAmount} dispatchOrder={dispatchOrder}/>)}
               </div>)
             : 
               (

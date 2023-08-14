@@ -17,7 +17,7 @@
     text-align: center;
 
     &:first-child {
-        margin-top: 20px;
+        margin-top: 10px;
     };
 
     @media screen and (min-width: 768px) {
@@ -45,7 +45,7 @@
     font-style: normal;
 
     &:nth-child(n + 2) {
-        margin-top: 12px;
+        margin-top: 10px;
     }
 
     @media screen and (min-width: 768px) {
