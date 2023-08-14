@@ -28,7 +28,6 @@ const Search = () => {
                 value={search}
                 onChange={handleSearch}
                 placeholder='Введіть пошуковий запит'
-                type='text'
                 />
             <button type='button' onClick={handleSubmit} className={scss.button}>
                 <GoSearch className={scss.icon_search}/>
