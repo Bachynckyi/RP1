@@ -15,7 +15,7 @@ const Modal = ({modalActive, setModalActive, product}) => {
 
     useEffect(() => {
         if(modalActive === true) {
-            document.body.style.cssText = `overflow: hidden; padding-right: ${window.innerWidth - document.body.offsetWidth}px`
+            document.body.style.cssText = `overflow-y: hidden; padding-right: ${window.innerWidth - document.body.offsetWidth}px`
             const currentOrder = localStorage.getItem("order") || "[]";
             const cards = JSON.parse(currentOrder);
             const basketCheck = cards.map(item => item._id);
@@ -31,7 +31,7 @@ const Modal = ({modalActive, setModalActive, product}) => {
         };
         window.addEventListener('keydown', handleDownInEscape);
         return () => {
-            document.body.style.cssText = `overflow: auto; padding-right: 0px`
+            document.body.style.cssText = `overflow-y: auto; padding-right: 0px`
             window.removeEventListener('keydown', handleDownInEscape)
         };
         // eslint-disable-next-line

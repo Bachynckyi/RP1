@@ -1,6 +1,6 @@
 import scss from './Footer.module.scss';
 import {FaViber} from "react-icons/fa";
-import {FaTelegram} from "react-icons/fa";
+import {FaTelegramPlane} from "react-icons/fa";
 import {FaWhatsapp} from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -21,18 +21,24 @@ const Footer = () => {
             <div className={scss.messengers_container}>
               <h2 className={scss.messenger_title}>Зв'язатись з нами</h2>
               <div className={scss.messenger_links}>
-                  <Link className={scss.messenger} to="tg://resolve?domain=sob_yar">
-                    <FaTelegram className={scss.messenger_icon}/>
+                  <div className={scss.messenger_link}> 
+                    <Link className={scss.messenger_telegram} to="tg://resolve?domain=sob_yar">
+                      <FaTelegramPlane className={scss.icon_telegram}/>
+                    </Link>
                     <p className={scss.messenger_name}>Telegram</p>
-                  </Link>
-                  <Link className={scss.messenger} to="viber://chat?number=%2B380991585152">
-                    <FaViber className={scss.messenger_icon}/>
+                  </div>
+                  <div className={scss.messenger_link}> 
+                    <Link className={scss.messenger_viber} to="viber://chat?number=%2B380991585152">
+                      <FaViber className={scss.icon_viber}/>
+                    </Link>
                     <p className={scss.messenger_name}>Viber</p>
-                  </Link>
-                  <Link className={scss.messenger} to="https://api.whatsapp.com/send/?phone=+380991585152">
-                    <FaWhatsapp className={scss.messenger_icon}/>
+                  </div>
+                  <div className={scss.messenger_link}> 
+                    <Link className={scss.messenger_whatsapp} to="https://api.whatsapp.com/send/?phone=+380991585152">
+                      <FaWhatsapp className={scss.icon_whatsapp}/>
+                    </Link>
                     <p className={scss.messenger_name}>WhatsApp</p>
-                  </Link>
+                  </div>
               </div>
             </div>
           </div>
