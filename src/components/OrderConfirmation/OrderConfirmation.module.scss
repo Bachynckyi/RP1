@@ -7,10 +7,32 @@
 };
 
 .form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width: 1200px) {
+        width: 90%;
+    }
+
+    @media screen and (min-width: 1400px) {
+        width: 80%;
+    }
+
+};
+
+.form_container {
     display: flex;
     flex-direction: column;
     width: 100%; 
-};
+
+    @media screen and (min-width: 1024px) {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-left: 14px;
+    }
+}
 
 .button_submit {
     width: 250px;
@@ -94,13 +116,10 @@
     margin-bottom: 18px;
     font-weight: 600;
     align-self: center;
-};
 
-.delivery_details_option {
-    display: flex;
-    flex-direction: row;
-    margin-top: 12px;
-    cursor: pointer;
+    @media screen and (min-width: 1024px) {
+        margin-top: 0px;
+    };
 };
 
 .delivery_details_subtitle {
@@ -121,6 +140,10 @@
     font-style: normal;
     font-family: "Manrope";
     font-weight: 600;
+
+    @media screen and (min-width: 1024px) {
+        margin-top: 0px;
+    };
 };
 
 .description_details_field {
@@ -139,17 +162,24 @@
         border: 1.5px solid orange;
         outline: none;
     };
+
+    @media screen and (min-width: 1024px) {
+        width: 250px;
+        height: 200px;
+    }
 };
 
 .delivery_details_warehouse {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     margin-top: 20px;
+    justify-content: center;
+    align-items: center;
 };
 
 .delivery_details_label {
     text-align: center;
+    margin-top: 10px;
     margin-bottom: 10px;
     font-size: 18px;
     font-weight: 600;
@@ -162,6 +192,9 @@
     align-self: flex-start;
     font-style: normal;
     font-family: "Manrope";
+    @media screen and (min-width: 450px) {
+        align-self: center;
+    }
 };
 
 .delivery_details_schedule {
@@ -170,6 +203,10 @@
     margin-bottom: 0px;
     font-family: "Manrope";
     font-style: normal;
+
+    @media screen and (min-width: 425px) {
+        align-self: center;
+    }
 };
 
 .delivery_details_item {
@@ -179,6 +216,11 @@
     margin-bottom: 0px;
     font-family: "Manrope";
     font-style: normal;
+
+    @media screen and (min-width: 425px) {
+        align-self: center;
+        margin-bottom: 18px;
+    }
 };
 
 .delivery_details_link {
@@ -186,6 +228,11 @@
     text-decoration: none;
     font-family: "Manrope";
     font-style: normal;
+    cursor: pointer;
+
+    &:hover {
+        color: orange;
+    }
 };
 
 .delivery_details_courier {
@@ -224,4 +271,24 @@
     margin-bottom: 6px;
     font-style: normal;
     font-family: "Manrope";
-}
+};
+
+.delivery_options {
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+};
+
+.delivery_details_option {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+
+    &:nth-child(n+2) {
+        margin-left: 10px;
+        @media screen and (min-width: 678px) {
+            margin-left: 20px;
+        }
+    }
+
+};

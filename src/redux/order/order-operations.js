@@ -20,7 +20,7 @@ export const addOrderBasket = createAsyncThunk(
       const result = await api.addOrderBasket(data);
       return result;
     } catch (error) {
-      return rejectWithValue(error.response.request.status);
+      return rejectWithValue(error.response);
     }
   }
 );
