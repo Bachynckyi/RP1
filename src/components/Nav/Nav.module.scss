@@ -1,10 +1,14 @@
 .nav {
     display: none;
 
-    @media screen and (min-width: 1280px) {
+    @media screen and (min-width: 1024px) {
         display: flex;
         font-family: "Manrope";
         font-style: normal;
+
+    }
+
+    @media screen and (min-width: 1280px) {
         margin-right: 84px;
     }
 };

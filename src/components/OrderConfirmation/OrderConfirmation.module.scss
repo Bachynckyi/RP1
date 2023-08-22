@@ -292,3 +292,30 @@
     }
 
 };
+
+.radio_button {
+    display: none;
+    cursor: pointer;
+};  
+
+.custom_button {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid orange;
+    position: relative;
+    border-radius: 5px;
+};
+
+.custom_button::before {
+    content: '';
+    position: absolute;
+    display: none;
+    width: 14px;
+    height: 14px;
+    background-color: orange;
+};
+
+.radio_button:checked + .custom_button::before {
+    display: inline-block;
+};  

@@ -1,10 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
-import { addOrderBasket } from "../../redux/order/order-operations";
-import { useDispatch } from 'react-redux';
 import scss from './OrderConfirmation.module.scss';
 
 const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
-    const dispatch = useDispatch();
     const today = new Date();
     const date = today.toLocaleString();
     const [orderDetailes, setOrderDetails] = useState({
@@ -46,15 +43,8 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
     );
 
     const submitOrder = (event) => {
-        event.preventDefault()
-        try{
-            dispatch(addOrderBasket(order))
-                .then(localStorage.removeItem("order"))
-        }
-        catch(error){
-            console.log(error)
-        }
-        dispatchOrder(true)
+        event.preventDefault();
+        dispatchOrder(order);
     };
 
     return (
@@ -106,6 +96,7 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                             <div className={scss.delivery_options}>
                                 <label className={scss.delivery_details_option} htmlFor="Sklad"> 
                                     <input
+                                        className={scss.radio_button}
                                         type="radio"
                                         id="Sklad"
                                         name='typeOfDelivery' 
@@ -113,26 +104,31 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                                         onChange={handleChange}
                                         required
                                     />
+                                    <span className={scss.custom_button}></span>
                                     <span className={scss.delivery_details_subtitle}>Самовивіз</span>
                                 </label>
                                 <label className={scss.delivery_details_option} htmlFor='Nova Poshta'>
                                     <input 
+                                        className={scss.radio_button}
                                         type="radio"
                                         id="Nova Poshta"
                                         name='typeOfDelivery'  
                                         value="Nova Poshta"
                                         onChange={handleChange} 
                                     />
+                                    <span className={scss.custom_button}></span>
                                     <span className={scss.delivery_details_subtitle}>Нова пошта</span>
                                 </label>
                                 <label className={scss.delivery_details_option} htmlFor='Delivery'>
-                                    <input 
+                                    <input
+                                        className={scss.radio_button}
                                         type="radio"
                                         id='Delivery'
                                         name='typeOfDelivery' 
                                         value="Delivery"
                                         onChange={handleChange}
                                     />
+                                    <span className={scss.custom_button}></span>
                                     <span className={scss.delivery_details_subtitle}>Delivery</span>
                                 </label>
                             </div>

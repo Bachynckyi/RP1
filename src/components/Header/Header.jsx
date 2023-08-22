@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 import {GiHamburgerMenu} from "react-icons/gi"
 import {AiOutlineClose} from "react-icons/ai"
 
-
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
   const userStatus = useSelector(isLogin);
