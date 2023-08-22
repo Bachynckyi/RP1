@@ -44,4 +44,16 @@ export const logOut = createAsyncThunk(
     }
   }
 );
+
+export const getCurrent = createAsyncThunk(
+  'api/auth/current',
+  async (token, { rejectWithValue }) => {
+    try {
+      const result = await api.getCurrent(token);
+      return result;
+    } catch (error) {
+      return rejectWithValue(error.response.request.status);
+    }
+  }
+);
   

@@ -36,3 +36,15 @@ export const logOut = async (token) => {
     throw error;
   }
 };
+
+export const getCurrent = async (token) => {
+  try {
+    setToken(token);
+    const { data } = await instance.get('/api/auth/current');
+    setToken();
+    return data;
+  } catch (error) {
+    setToken();
+    throw error;
+  }
+};

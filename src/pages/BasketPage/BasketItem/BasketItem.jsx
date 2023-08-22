@@ -13,7 +13,8 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity}) => {
     const currentItemOfOrder = currentOrder.filter(order => order._id === _id);
     const currentQuantity = (Number(currentItemOfOrder[0].quantity));
     setQuantityOfItem(currentQuantity);
-    setAmount(price * currentQuantity);
+    const totalAmount = price * currentQuantity;
+    setAmount(totalAmount.toFixed(2));
   }, [currentOrder, price, _id]);
 
   const handleChange = (event) => {

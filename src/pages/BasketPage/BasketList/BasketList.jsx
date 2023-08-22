@@ -8,7 +8,8 @@ const BasketList = ({newOrder}) => {
     const currentOrder = JSON.parse(localStorage.getItem("order"));
 
     useEffect(() => {
-        setTotalAmount(currentOrder.reduce((prev, curr) => { return Number(prev) + Number(curr.price)*curr.quantity}, ""))
+        setTotalAmount(currentOrder.reduce((prev, curr) => { 
+            return (Number(prev) + Number(curr.price)*Number(curr.quantity)).toFixed(2)}, ""))
         setStatus(false)
     }, [currentOrder, status])
 
@@ -30,7 +31,7 @@ const BasketList = ({newOrder}) => {
         <div className={scss.list_container}>
             <h2 className={scss.title}>Товари до замовлення</h2>
             <ol className={scss.basket_list}>{elements}</ol>
-            <p className={scss.totalAmount}>Сума до сплати: {JSON.stringify(totalAmount)} грн</p>
+            <p className={scss.totalAmount}>Сума до сплати: {totalAmount} грн</p>
         </div>
     );
 };

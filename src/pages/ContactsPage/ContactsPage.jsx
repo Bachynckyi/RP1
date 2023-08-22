@@ -2,6 +2,7 @@ import Footer from 'components/Footer/Footer';
 import scss from './ContactsPage.module.scss';
 
 const ContactsPage = () => {
+  
 
     return (
       <>
@@ -16,6 +17,9 @@ const ContactsPage = () => {
           <p className={scss.contacts_item}>Електронна пошта:
             <a className={scss.contacts_link} href="mailto:color-farb@gmail.com"> color-farb@gmail.com</a>
           </p>
+          <div>
+            
+          </div>
         </div>
         <Footer/>
       </>
