@@ -15,11 +15,11 @@ const LoginPage = () => {
   const handleSignIn = data => {
     const { email, password } = data;
     const dataSend = { email, password };
-
     const sendData = async (dataSend) => {
       try {
         dispatch(signIn(dataSend));
-      } catch (error) {
+      } 
+      catch (error) {
       }
     };
     sendData(dataSend);

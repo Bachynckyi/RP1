@@ -37,3 +37,16 @@ export const addProduct = createAsyncThunk(
       }
     }
   );
+
+  
+  export const getProductById = createAsyncThunk(
+    'api/product/getproductbyid/:id',
+    async (id, { rejectWithValue }) => {
+      try {
+        const result = await api.getProductById(id);
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );

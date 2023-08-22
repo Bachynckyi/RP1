@@ -21,7 +21,6 @@ const Search = () => {
     };
 
     return (
-        <div className={scss.container}>
             <div className={scss.container}>
                 <input
                 className={scss.input}
@@ -33,7 +32,6 @@ const Search = () => {
                 <GoSearch className={scss.icon_search}/>
             </button>
             </div>
-        </div>
     )
   };
   

@@ -27,3 +27,9 @@ export const getProductBySearch = async (search) => {
   return result;
 };
 
+export const getProductById = async (id) => {
+  const result = await instance.get(`/api/product/getproductbyId/${id}`);
+  return result;
+};
+
+

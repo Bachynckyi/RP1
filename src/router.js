@@ -36,7 +36,7 @@ const UserRoutes = () => {
           <Route path="/catalog" element={<CategoryPage/>}></Route>
           <Route path='/products' Component={SearchPage}></Route>
           <Route path='/catalog/:category' Component={SubcategoryPage}></Route>
-          <Route path='/catalog/:category/:category' Component={ProductPage}></Route>
+          <Route path='/catalog/:category/:subcategory' Component={ProductPage}></Route>
           <Route path='/order' Component={BasketPage}></Route>
 
           <Route element={<PublicRoute />}>

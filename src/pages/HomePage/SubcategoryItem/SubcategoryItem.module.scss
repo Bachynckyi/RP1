@@ -1,0 +1,30 @@
+.subcategory_item {
+    margin: 0px 0px 0px 36px;
+};
+
+.button_subcategory {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 4px;
+    color: #fff;
+
+    &:hover .button_text {
+        color: orange;
+        text-decoration: underline;
+    };
+};
+
+.button_text {
+    font-size: 18px;
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 500;
+    text-align: left;
+    color: #fff;
+};
+

@@ -16,13 +16,15 @@ const Header = () => {
 
   const toggle = () => {
     setOpen(!isOpen);
+    !isOpen
+    ? (document.body.style.overflow = 'hidden')
+    : (document.body.style.overflow = 'unset');
   };
 
   return (
     <div className={scss.container}>
             {isOpen ? 
-            (
-              <>
+            (<>
               <div className={scss.header_mobile}>
                 <Logo/>
                 <div className={scss.auth_container}>
@@ -35,7 +37,7 @@ const Header = () => {
                   <AiOutlineClose className={scss.menuIcon}/>
                 </NavLink>
                 </div>
-            </div>
+              </div>
               <div className={scss.menu_list}>
                 {!userStatus ? (
                   <div className={scss.auth_list}>
@@ -49,8 +51,7 @@ const Header = () => {
                 <NavLink className={scss.nav_mobile_item} to="/company" onClick={toggle}>Про компанію</NavLink>
                 <NavLink className={scss.nav_mobile_item} to="/contacts" onClick={toggle}>Контакти</NavLink>
               </div>
-              </>  
-            ) 
+            </>) 
             : 
             (
             <div className={scss.header_container}>
@@ -62,7 +63,6 @@ const Header = () => {
                   <NavLink
                     onClick={toggle}
                     aria-label="mobile menu"
-                    to="/"
                     >
                     <GiHamburgerMenu className={scss.menuIcon} />
                   </NavLink>

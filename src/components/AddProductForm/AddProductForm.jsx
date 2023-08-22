@@ -77,6 +77,11 @@ const AddProductForm = () => {
             setProduct(prevState => {
                 return{...prevState, photo: target.files[0]}}) 
         }
+        else if(name === "price"){
+            setProduct(prevState => {
+                return {...prevState, [name]: value.toLowerCase().split(/,/).join('.')};
+            });
+        }
         else {
             setProduct(prevState => {
                 return {...prevState, [name]: value};
