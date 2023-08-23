@@ -4,6 +4,7 @@ import {AiOutlineCloseCircle} from "react-icons/ai";
 import { updateCategoryWithPhoto, updateCategoryWithoutPhoto } from 'redux/category/category-operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { userToken } from 'redux/auth/auth-selectors';
+import ModalConfirmation from '../ModalConfirmation/ModalConfirmation';
 
 const initialState = {
     nameCategory: "",
@@ -15,6 +16,7 @@ const initialState = {
 const ModalCategory = ({modalActive, setModalActive, pickedCategory}) => {
     const [category, setCategory] = useState({...initialState});
     const { nameCategory, descriptionCategory, photoCategory, _id} = category;
+    const [modalConfirmation, setModalConfirmation] = useState(false);
     const dispatch = useDispatch();
     const token = useSelector(userToken);
 
@@ -104,6 +106,9 @@ const ModalCategory = ({modalActive, setModalActive, pickedCategory}) => {
 
     };
 
+    const onClick = () => {
+        setModalConfirmation(true);
+    };
 
     return (
         <div className={scss.container}>
@@ -156,9 +161,14 @@ const ModalCategory = ({modalActive, setModalActive, pickedCategory}) => {
                         </label>
                     </div>
                     <button type='button' className={scss.button} onClick={onSubmit}>Зберегти зміни</button>                
-                    <button type='button' className={scss.button}>Видалити категорію</button>
+                    <button type='button' className={scss.button} onClick={onClick}>Видалити категорію</button>
                 </div>
             </div>
+            <ModalConfirmation
+                    modalConfirmation={modalConfirmation} 
+                    setModalConfirmation={setModalConfirmation}
+                    nameCategory={nameCategory}
+            />
         </div>
     )
   };

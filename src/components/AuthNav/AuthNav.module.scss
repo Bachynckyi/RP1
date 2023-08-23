@@ -12,12 +12,17 @@
 };
 
 .user_icon {
+    display: none;
     width: 40px;
     height: 40px;
     color: #fff;
 
     &:hover {
         color: orange;
+    }
+
+    @media screen and (min-width: 1024px) {
+        display: block;
     }
 };
 

@@ -14,20 +14,20 @@ const ProductPage = () => {
     const category = useParams();
     const dispatch = useDispatch();
     const loading = useSelector(isLoading);
-    const categorySearch = category.category;
+    const subcategorySearch = category.subcategory;
     const [product, setProduct] = useState({});
     const [productList, setProductList] = useState({});
     const [modalActive, setModalActive] = useState(false);
 
     useEffect(() => {
         try {
-            dispatch(getProductByCategory(categorySearch))
+            dispatch(getProductByCategory(subcategorySearch))
               .then(response => setProductList(response.payload.data));
         }
         catch(error){
             console.log(error);
     };  
-    }, [dispatch, categorySearch]);
+    }, [dispatch, subcategorySearch]);
 
     const fetchProduct = (product) => {
       setProduct(product);
