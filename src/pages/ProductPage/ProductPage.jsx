@@ -9,6 +9,8 @@ import Modal from '../../components/Modal/Modal';
 import Search from 'components/Search/Search';
 import Footer from 'components/Footer/Footer';
 import scss from "./ProductPage.module.scss";
+import { useNavigate } from 'react-router-dom';
+import {getProductById} from '../../redux/product/product-operations';
 
 const ProductPage = () => {
     const category = useParams();
@@ -18,20 +20,37 @@ const ProductPage = () => {
     const [product, setProduct] = useState({});
     const [productList, setProductList] = useState({});
     const [modalActive, setModalActive] = useState(false);
+    const navigate = useNavigate();
+    const params = useParams();
 
     useEffect(() => {
+      if(params.id !== undefined) {
         try {
-            dispatch(getProductByCategory(subcategorySearch))
-              .then(response => setProductList(response.payload.data));
+          dispatch(getProductById(params.id))
+          .then(response => {
+            setProduct(response.payload.data[0]);
+            setModalActive(true);
+            navigate(`/catalog/${category.category}/${category.subcategory}/${params.id}`);
+          });
         }
         catch(error){
-            console.log(error);
+          console.log(error);
+        }
+      }
+        try {
+          dispatch(getProductByCategory(subcategorySearch))
+            .then(response => setProductList(response.payload.data));
+        }
+        catch(error){
+          console.log(error);
     };  
+    // eslint-disable-next-line 
     }, [dispatch, subcategorySearch]);
 
     const fetchProduct = (product) => {
       setProduct(product);
       setModalActive(true);
+      navigate(`/catalog/${category.category}/${category.subcategory}/${product._id}`);
     };
 
     return (

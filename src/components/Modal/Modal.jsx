@@ -4,6 +4,7 @@ import ModalOneClick from 'components/ModalOneClick/ModalOneClick';
 import {SlBasket} from "react-icons/sl";
 import {AiOutlineCloseCircle} from "react-icons/ai";
 import {AiOutlineCheck} from "react-icons/ai";
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Modal = ({modalActive, setModalActive, product}) => {
     const {title, photo, price, type, color, code, description, _id} = product;
@@ -12,6 +13,8 @@ const Modal = ({modalActive, setModalActive, product}) => {
     const [activeModalOneClick, setModalOneClickActive] = useState(false);
     const [isShowDescription, setIsShowDesription] = useState(false);
     const [productInBasket, setProductInBasket] = useState(false);
+    const navigate = useNavigate();
+    const params = useParams();
 
     useEffect(() => {
         if(modalActive === true) {
@@ -70,6 +73,7 @@ const Modal = ({modalActive, setModalActive, product}) => {
             setIsShowDesription(false);
             setQuantity(1);
           }, 300);
+        navigate(`/catalog/${params.category}/${params.subcategory}`);
     };
 
     const openModalOneClick = () => {
