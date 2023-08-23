@@ -7,7 +7,7 @@ import { userEmail } from 'redux/auth/auth-selectors';
 import { useSelector } from 'react-redux';
 
 const ProfilePage = () => {
-    const userEmailVerify = useSelector(userEmail)
+    const userEmailVerify = useSelector(userEmail);
     return (
         <div className={scss.container}>
             <UserProfile/>

@@ -77,19 +77,19 @@ const Modal = ({modalActive, setModalActive, product}) => {
     };
 
     const addToBasket = () => {
-            const currentOrder = localStorage.getItem("order") || "[]";
-            const cards = JSON.parse(currentOrder);
-            const basketCheck = cards.map(item => item._id);
-            if(!basketCheck.includes(_id)){
-                localStorage.setItem("order", JSON.stringify([...cards, order]));
-                setProductInBasket(true);
-            }
-            else {
-                const order = JSON.parse(localStorage.getItem("order"));
-                const updatedOrder = order.filter(order => order._id !== _id);
-                localStorage.setItem("order", JSON.stringify(updatedOrder))
-                setProductInBasket(false);
-            }
+        const currentOrder = localStorage.getItem("order") || "[]";
+        const cards = JSON.parse(currentOrder);
+        const basketCheck = cards.map(item => item._id);
+        if(!basketCheck.includes(_id)){
+            localStorage.setItem("order", JSON.stringify([...cards, order]));
+            setProductInBasket(true);
+        }
+        else {
+            const order = JSON.parse(localStorage.getItem("order"));
+            const updatedOrder = order.filter(order => order._id !== _id);
+            localStorage.setItem("order", JSON.stringify(updatedOrder))
+            setProductInBasket(false);
+        }
     };
 
     const showDescription = () => {

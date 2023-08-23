@@ -9,6 +9,8 @@ import Loader  from '../../../components/Loader/Loader';
 import CategoryList from './CategoryList/CategoryList';
 import scss from './UpdateCategoryPage.module.scss';
 import Modal from './ModalCategory/ModalCategory';
+import { userEmail } from 'redux/auth/auth-selectors';
+import ForbiddenPage from "pages/ForbiddenPage/ForbiddenPage";
 
 const PatchCategoryPage = () => {
   const dispatch = useDispatch();
@@ -16,7 +18,8 @@ const PatchCategoryPage = () => {
   const [categories, setCategories] = useState(null);
   const [modalActive, setModalActive] = useState(false);
   const [pickedCategory, setPickedCategory] = useState(null);
-
+  const userEmailVerify = useSelector(userEmail);
+  
   useEffect(() => {
     try{
         dispatch(getAllCategories())
@@ -38,24 +41,29 @@ const PatchCategoryPage = () => {
   };
 
   return (
-    <div className={scss.catalog}>
-      {loading === true ? (<Loader/>) : (
-        <div>
-          <div className={scss.container}>
-              <h1 className={scss.title}>Змінити категорії товарів</h1>
-              {categories !== null && (<CategoryList categories={categories} fetchCategory={fetchCategory}/>)}
+    <>
+    {userEmailVerify === "colorfarb@gmail.com" ? (
+        <div className={scss.catalog}>
+        {loading === true ? (<Loader/>) : (
+          <div>
+            <div className={scss.container}>
+                <h1 className={scss.title}>Змінити категорії товарів</h1>
+                {categories !== null && (<CategoryList categories={categories} fetchCategory={fetchCategory}/>)}
+            </div>
+            {pickedCategory !== null && (
+              <Modal 
+                  modalActive={modalActive} 
+                  setModalActive={setModalActive}
+                  pickedCategory={pickedCategory}
+              />
+            )}
+            <Footer/>
           </div>
-          {pickedCategory !== null && (
-            <Modal 
-                modalActive={modalActive} 
-                setModalActive={setModalActive}
-                pickedCategory={pickedCategory}
-            />
-          )}
-          <Footer/>
-        </div>
-      )} 
-    </div>
+        )} 
+      </div>
+    ) : (<ForbiddenPage/>)}
+
+    </>
   );
   };
   
