@@ -164,11 +164,12 @@ const ModalCategory = ({modalActive, setModalActive, pickedCategory}) => {
                     <button type='button' className={scss.button} onClick={onClick}>Видалити категорію</button>
                 </div>
             </div>
-            <ModalConfirmation
-                    modalConfirmation={modalConfirmation} 
-                    setModalConfirmation={setModalConfirmation}
-                    nameCategory={nameCategory}
-            />
+            {modalConfirmation && (
+                <ModalConfirmation
+                modalConfirmation={modalConfirmation} 
+                setModalConfirmation={setModalConfirmation}
+                _id={_id}
+            />)}
         </div>
     )
   };

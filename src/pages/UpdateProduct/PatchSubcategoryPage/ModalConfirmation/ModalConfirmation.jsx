@@ -2,9 +2,9 @@ import scss from './ModalConfirmation.module.scss';
 import { useEffect } from 'react';
 import {AiOutlineCloseCircle} from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteCategory } from "../../../../redux/category/category-operations";
+import { deleteSubcategory } from "../../../../redux/subcategory/subcategory-operations";
 import Loader from 'components/Loader/Loader';
-import { isLoading } from '../../../../redux/category/category-selectors';
+import { isLoading } from '../../../../redux/subcategory/subcategory-selectors';
 import { userToken } from 'redux/auth/auth-selectors';
 
 const ModalConfirmation = ({modalConfirmation, setModalConfirmation, _id}) => {
@@ -31,7 +31,7 @@ const ModalConfirmation = ({modalConfirmation, setModalConfirmation, _id}) => {
 
     const onClick = () => {
         try{
-            dispatch(deleteCategory({token, _id}))
+            dispatch(deleteSubcategory({token, _id}))
             .then(closeModal())
           }
           catch(error){

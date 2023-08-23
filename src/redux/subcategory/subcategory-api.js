@@ -38,3 +38,9 @@ export const updateSubcategoryWithoutPhoto = async ({token, data, _id}) => {
   const { data: result } = await instance.patch(`/api/product/updatesubcategorywithoutphoto/${_id}`, data);
   return result;
 };
+
+export const deleteSubcategory = async ({token, _id}) => {
+  setToken(token);
+  const result = await instance.delete(`/api/product/deletesubcategory/${_id}`);
+  return result;
+};

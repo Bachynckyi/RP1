@@ -63,3 +63,16 @@ import * as api from './subcategory-api';
       }
     }
   );
+
+  export const deleteSubcategory = createAsyncThunk(
+    'api/product/deletesubcategory',
+    async (req, { rejectWithValue }) => {
+      try {
+        const {token, _id} = req;
+        const result = await api.deleteSubcategory({token, _id});
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );
