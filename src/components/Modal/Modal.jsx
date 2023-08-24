@@ -5,6 +5,9 @@ import {SlBasket} from "react-icons/sl";
 import {AiOutlineCloseCircle} from "react-icons/ai";
 import {AiOutlineCheck} from "react-icons/ai";
 import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector, useDispatch} from 'react-redux';
+import {user, isLogin, userToken } from '../../redux/auth/auth-selectors';
+import { addToBasket, removeFromBasket, getCurrent } from 'redux/auth/auth-operations';
 
 const Modal = ({modalActive, setModalActive, product}) => {
     const {title, photo, price, type, color, code, description, _id} = product;
@@ -15,15 +18,31 @@ const Modal = ({modalActive, setModalActive, product}) => {
     const [productInBasket, setProductInBasket] = useState(false);
     const navigate = useNavigate();
     const params = useParams();
+    const currentUser = useSelector(user);
+    const isLoggedIn = useSelector(isLogin);
+    const dispatch = useDispatch();
+    const token = useSelector(userToken);
 
     useEffect(() => {
+        if(isLoggedIn === true) {
+            dispatch(getCurrent(token));
+        };
+
         if(modalActive === true) {
             document.body.style.cssText = `overflow-y: hidden; padding-right: ${window.innerWidth - document.body.offsetWidth}px`
-            const currentOrder = localStorage.getItem("order") || "[]";
-            const cards = JSON.parse(currentOrder);
-            const basketCheck = cards.map(item => item._id);
-            if(basketCheck.includes(_id)){
-                setProductInBasket(true);
+            if(isLoggedIn === true) {
+                const basketCheck = currentUser.basket.map(item => item._id);
+                if(basketCheck.includes(_id)){
+                    setProductInBasket(true);
+                }
+            }
+            else {
+                const currentOrder = localStorage.getItem("order") || "[]";
+                const cards = JSON.parse(currentOrder);
+                const basketCheck = cards.map(item => item._id);
+                if(basketCheck.includes(_id)){
+                    setProductInBasket(true);
+                }
             }
         }
         setOrder({title, price, code, color, type, quantity, _id, photo});
@@ -80,19 +99,36 @@ const Modal = ({modalActive, setModalActive, product}) => {
         setModalOneClickActive(true);
     };
 
-    const addToBasket = () => {
-        const currentOrder = localStorage.getItem("order") || "[]";
-        const cards = JSON.parse(currentOrder);
-        const basketCheck = cards.map(item => item._id);
-        if(!basketCheck.includes(_id)){
-            localStorage.setItem("order", JSON.stringify([...cards, order]));
-            setProductInBasket(true);
+    const addProductToBasket = () => {
+        if(isLoggedIn === true) {
+            const userBasket = currentUser.basket;
+            const basketCheck = userBasket.map(item => item._id);
+            if(!basketCheck.includes(_id)){
+                const data = order;
+                dispatch(addToBasket({token, data}))
+                    .then(setProductInBasket(true))
+            }
+            else {
+                const id = _id;
+                dispatch(removeFromBasket({token, id}))
+                    .then(setProductInBasket(false))
+            }
+
         }
         else {
-            const order = JSON.parse(localStorage.getItem("order"));
-            const updatedOrder = order.filter(order => order._id !== _id);
-            localStorage.setItem("order", JSON.stringify(updatedOrder))
-            setProductInBasket(false);
+            const currentOrder = localStorage.getItem("order") || "[]";
+            const cards = JSON.parse(currentOrder);
+            const basketCheck = cards.map(item => item._id);
+            if(!basketCheck.includes(_id)){
+                localStorage.setItem("order", JSON.stringify([...cards, order]));
+                setProductInBasket(true);
+            }
+            else {
+                const order = JSON.parse(localStorage.getItem("order"));
+                const updatedOrder = order.filter(order => order._id !== _id);
+                localStorage.setItem("order", JSON.stringify(updatedOrder))
+                setProductInBasket(false);
+            }
         }
     };
 
@@ -133,12 +169,12 @@ const Modal = ({modalActive, setModalActive, product}) => {
                 <div className={scss.buttons_container}>
                     <button className={scss.button_oneClick} type="button" onClick={openModalOneClick}>Купити в 1 клік</button>
                     {productInBasket === false ? 
-                    (<button className={scss.button_basket} onClick={addToBasket} type="button">
+                    (<button className={scss.button_basket} onClick={addProductToBasket} type="button">
                         <SlBasket className={scss.icon_basket}/>
                         <span className={scss.basket_word}>В кошик</span>
                     </button>) 
                     : 
-                    (<button className={scss.button_basket_selected} onClick={addToBasket} type="button">
+                    (<button className={scss.button_basket_selected} onClick={addProductToBasket} type="button">
                         <AiOutlineCheck className={scss.icon_basket_selected}/>
                         <span className={scss.basket_word_selected}>В кошику</span>
                     </button>)}

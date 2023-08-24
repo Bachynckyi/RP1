@@ -48,3 +48,28 @@ export const getCurrent = async (token) => {
     throw error;
   }
 };
+
+export const addToBasket = async ({token, data}) => {
+  try {
+    setToken(token);
+    const result = await instance.patch('/api/auth/addtobasket', {data});
+    setToken();
+    return result;
+  } catch (error) {
+    setToken();
+    throw error;
+  }
+};
+
+export const removeFromBasket = async ({token, id}) => {
+  try {
+    setToken(token);
+    const result = await instance.patch(`/api/auth/removefrombasket/${id}`);
+    setToken();
+    return result;
+  } catch (error) {
+    setToken();
+    throw error;
+  }
+};
+

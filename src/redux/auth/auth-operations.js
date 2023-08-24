@@ -56,4 +56,30 @@ export const getCurrent = createAsyncThunk(
     }
   }
 );
+
+export const addToBasket = createAsyncThunk(
+  'api/auth/addtobasket',
+  async (req, { rejectWithValue }) => {
+    try {
+      const {token, data} = req;
+      const result = await api.addToBasket({token, data});
+      return result;
+    } catch (error) {
+      return rejectWithValue(error.response.request.status);
+    }
+  }
+);
+
+export const removeFromBasket = createAsyncThunk(
+  'api/auth/removefrombasket',
+  async (req, { rejectWithValue }) => {
+    try {
+      const {token, id} = req;
+      const result = await api.removeFromBasket({token, id});
+      return result;
+    } catch (error) {
+      return rejectWithValue(error.response.request.status);
+    }
+  }
+);
   
