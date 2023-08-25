@@ -21,7 +21,7 @@ const initialState = {
     photo: "",
     code: "",
     subcategory: "",
-  };
+};
 
 const AddProductForm = () => {
     const dispatch = useDispatch();

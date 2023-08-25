@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addProduct, getProductByCategory, getProductBySearch, getProductById } from './product-operations';
+import { addProduct, getProductByCategory, getProductBySearch, getProductById, removeProductById, updateProductWithPhoto, updateProductWithoutPhoto } from './product-operations';
 
 const initialState = {
   loading: false,
@@ -48,6 +48,36 @@ const productSlice = createSlice({
         state.loading = false;
       })
       .addCase(getProductById.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(removeProductById.pending, state => {
+        state.loading = true;
+      })
+      .addCase(removeProductById.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(removeProductById.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(updateProductWithPhoto.pending, state => {
+        state.loading = true;
+      })
+      .addCase(updateProductWithPhoto.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(updateProductWithPhoto.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(updateProductWithoutPhoto.pending, state => {
+        state.loading = true;
+      })
+      .addCase(updateProductWithoutPhoto.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(updateProductWithoutPhoto.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       })

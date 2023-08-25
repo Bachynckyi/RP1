@@ -22,6 +22,7 @@ const SearchPage = lazy(() => import('./pages/SearchPage/SearchPage'));
 const BasketPage = lazy(() => import('./pages/BasketPage/BasketPage'));
 const UpdateCategoryPage = lazy(() => import('./pages/UpdateProduct/PatchCategoryPage/UpdateCategoryPage'));
 const UpdateSubcategoryPage = lazy(() => import('./pages/UpdateProduct/PatchSubcategoryPage/UpdateSubcategoryPage'));
+const UpdateProductPage = lazy(() => import('./pages/UpdateProduct/PatchProductPage/PatchProductPage'));
 
 const UserRoutes = () => {
   return (
@@ -51,7 +52,8 @@ const UserRoutes = () => {
             <Route path="/addcategory" element={<AddCategory/>}/>
             <Route path="/addsubcategory" element={<AddSubcategory/>}/>
             <Route path="/updatecategory" element={<UpdateCategoryPage/>}/>
-            <Route path="/updatesubcategory" element={<UpdateSubcategoryPage />}/>
+            <Route path="/updatesubcategory" element={<UpdateSubcategoryPage/>}/>
+            <Route path="/updateproduct" element={<UpdateProductPage/>}/>
           </Route>
 
           <Route path="*" element={<PageNotFound/>}/>

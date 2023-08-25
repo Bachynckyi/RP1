@@ -32,4 +32,22 @@ export const getProductById = async (id) => {
   return result;
 };
 
+export const removeProductById = async ({token, _id}) => {
+  setToken(token);
+  const result = await instance.delete(`/api/product/deleteproduct/${_id}`);
+  return result;
+};
+
+export const updateProductWithPhoto = async ({token, data, _id}) => {
+  setToken(token);
+  const result = await instance.patch(`/api/product/updateproductwithphoto/${_id}`, data);
+  return result;
+};
+
+export const updateProductWithoutPhoto = async ({token, data, _id}) => {
+  setToken(token);
+  const result = await instance.patch(`/api/product/updateproductwithoutphoto/${_id}`, data);
+  return result;
+};
+
 

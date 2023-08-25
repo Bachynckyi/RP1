@@ -50,3 +50,42 @@ export const addProduct = createAsyncThunk(
       }
     }
   );
+
+  export const removeProductById = createAsyncThunk(
+    'api/product/deleteproduct/:id',
+    async (req, { rejectWithValue }) => {
+      try {
+        const {token, _id} = req;
+        const result = await api.removeProductById({token, _id});
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );
+
+  export const updateProductWithPhoto = createAsyncThunk(
+    'api/product/updateproductwithphoto/:id',
+    async (req, { rejectWithValue }) => {
+      try {
+        const {token, data, _id} = req;
+        const result = await api.updateProductWithPhoto({token, data, _id});
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );
+
+  export const updateProductWithoutPhoto = createAsyncThunk(
+    'api/product/updateproductwithoutphoto/:id',
+    async (req, { rejectWithValue }) => {
+      try {
+        const {token, data, _id} = req;
+        const result = await api.updateProductWithoutPhoto({token, data, _id});
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );

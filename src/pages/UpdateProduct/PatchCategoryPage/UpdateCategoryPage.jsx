@@ -62,7 +62,6 @@ const PatchCategoryPage = () => {
         )} 
       </div>
     ) : (<ForbiddenPage/>)}
-
     </>
   );
   };
