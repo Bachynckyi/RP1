@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { signUp, signIn, logOut, getCurrent, addToBasket, removeFromBasket } from './auth-operations';
+import { signUp, signIn, logOut, getCurrent, addToBasket, removeFromBasket, clearBasket, updateQuantityInBasket  } from './auth-operations';
 
 const initialState = {
   user: {},
@@ -88,6 +88,32 @@ const authSlice = createSlice({
         state.isLogin = true;
       })
       .addCase(removeFromBasket.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+        state.isLogin = false;
+      })
+      .addCase(clearBasket.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(clearBasket.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.isLogin = true;
+      })
+      .addCase(clearBasket.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+        state.isLogin = false;
+      })
+      .addCase(updateQuantityInBasket.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateQuantityInBasket.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.isLogin = true;
+      })
+      .addCase(updateQuantityInBasket.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
         state.isLogin = false;

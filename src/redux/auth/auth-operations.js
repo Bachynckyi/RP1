@@ -82,4 +82,29 @@ export const removeFromBasket = createAsyncThunk(
     }
   }
 );
+
+export const clearBasket = createAsyncThunk(
+  'api/auth/clearbasket',
+  async (token, { rejectWithValue }) => {
+    try {
+      const result = await api.clearBasket(token);
+      return result;
+    } catch (error) {
+      return rejectWithValue(error.response.request.status);
+    }
+  }
+);
+
+export const updateQuantityInBasket = createAsyncThunk(
+  'api/auth/updatequantityinbasket',
+  async (req, { rejectWithValue }) => {
+    try {
+      const {token, _id, quantity} = req;
+      const result = await api.updateQuantityInBasket({token, _id, quantity});
+      return result;
+    } catch (error) {
+      return rejectWithValue(error.response.request.status);
+    }
+  }
+);
   

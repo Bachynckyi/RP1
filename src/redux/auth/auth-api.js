@@ -73,3 +73,27 @@ export const removeFromBasket = async ({token, id}) => {
   }
 };
 
+export const clearBasket = async (token) => {
+  try {
+    setToken(token);
+    const result = await instance.patch(`/api/auth/clearbasket`);
+    setToken();
+    return result;
+  } catch (error) {
+    setToken();
+    throw error;
+  }
+};
+
+export const updateQuantityInBasket = async ({token, _id, quantity}) => {
+  try {
+    setToken(token);
+    const result = await instance.patch(`/api/auth/updatequantityinbasket/${_id}`, {quantity});
+    setToken();
+    return result;
+  } catch (error) {
+    setToken();
+    throw error;
+  }
+};
+

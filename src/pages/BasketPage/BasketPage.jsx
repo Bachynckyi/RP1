@@ -10,6 +10,8 @@ import Loader from 'components/Loader/Loader';
 import { NavLink } from 'react-router-dom';
 import {AiFillCheckCircle} from "react-icons/ai";
 import {VscError} from "react-icons/vsc";
+import { isLogin, userToken } from '../../redux/auth/auth-selectors';
+import { getCurrent, clearBasket } from 'redux/auth/auth-operations';
 
 const BasketPage = () => {
     const [basket, setBasket] = useState({});
@@ -19,24 +21,48 @@ const BasketPage = () => {
     const dispatch = useDispatch();
     const [dispatchingStatus, setDispatchingStatus] = useState(null);
     const loading = useSelector(isLoading);
+    const isLoggedIn = useSelector(isLogin);
+    const token = useSelector(userToken);
 
     useEffect(() => {
+      if(isLoggedIn === true) {
+        dispatch(getCurrent(token))
+          .then(response => setBasket(response.payload.user.basket))
+      }
+      else {
         const order = JSON.parse(localStorage.getItem("order"));
         if(order !== null) {
           setBasket(order)
         }
+      }
+      // eslint-disable-next-line 
     }, [])
 
     const newOrder = (updatedOrder) => {
-      setBasket(updatedOrder);
-      localStorage.setItem("order", JSON.stringify(updatedOrder))
+      if(isLoggedIn === true) {
+        setBasket(updatedOrder);
+      }
+      else {
+        setBasket(updatedOrder);
+        localStorage.setItem("order", JSON.stringify(updatedOrder));
+      }
     };
     
     const handleClick = () => {
-      const currentOrder = JSON.parse(localStorage.getItem("order"));
-      setTotalAmount(currentOrder.reduce((prev, curr) => { return Number(prev) + Number(curr.price)*curr.quantity}, ""));
-      setConfirmedOrder(currentOrder);
-      setStatusOrder(true);
+      if(isLoggedIn === true){
+        dispatch(getCurrent(token))
+        .then(response => {
+          setTotalAmount(response.payload.user.basket.reduce((prev, curr) => { return Number(prev) + Number(curr.price)*curr.quantity}, ""));
+          setConfirmedOrder(response.payload.user.basket)})
+        setStatusOrder(true);
+      }
+      else {
+        const currentOrder = JSON.parse(localStorage.getItem("order"));
+        setTotalAmount(currentOrder.reduce((prev, curr) => { return Number(prev) + Number(curr.price)*curr.quantity}, ""));
+        setConfirmedOrder(currentOrder);
+        setStatusOrder(true);
+      }
+
     };
 
     const dispatchOrder = (order) => {
@@ -44,7 +70,12 @@ const BasketPage = () => {
             dispatch(addOrderBasket(order))
             .then(response => {
               if(response.payload.request.status === 201) {
-                localStorage.removeItem("order");
+                if(isLoggedIn === true){
+                  dispatch(clearBasket(token))
+                }
+                else {
+                  localStorage.removeItem("order");
+                }
                 setBasket({});
               };
               setDispatchingStatus(response.payload.request.status);
@@ -56,61 +87,39 @@ const BasketPage = () => {
     };
 
     return (
-        <div>
+        <div> 
           {loading === true ? (<Loader/>) : (
             <>
-              {loading === true ? (<Loader/>) : (
-                <>
-                {dispatchingStatus === null ?
-              (<>       
+            {dispatchingStatus === null ?
+          (<> 
             {Object.keys(basket).length !== 0 ?
-                  (<div className={scss.container}>
-                    <BasketList basket={basket} newOrder={newOrder}/>
-                    {!statusOrder && <button onClick={handleClick} className={scss.button_confirm}>Оформити замовлення</button>}
-                    {statusOrder && 
-                    (<OrderConfirmation confirmedOrder={confirmedOrder} totalAmount={totalAmount} dispatchOrder={dispatchOrder}/>)}
-                  </div>) : (<div className={scss.container}>
-                    <p>Нічого немає в кошику</p>
-                  </div>)}
-                  <Footer/>
-                </>
-                ) : 
-                (<>
-                {dispatchingStatus === 201 ? 
-                (<div className={scss.dispatch_container}>
-                    <AiFillCheckCircle className={scss.success_icon}/>
-                    <h3 className={scss.dispatch_title}>Замовлення відправлено успішно</h3>
-                    <p className={scss.dispatch_sentence}>Очікуйте на дзвінок вашого менеджера</p>
-                    <NavLink className={scss.dispatch_button} to="/">На головну</NavLink>
-                </div>) : 
-                  (<div className={scss.dispatch_container}>
-                    <VscError className={scss.error_icon}/>
-                    <h3 className={scss.dispatch_title}>Щось пішло не так.</h3>
-                    <p className={scss.dispatch_sentence}>Спробуйте ще раз</p>
-                    <NavLink className={scss.dispatch_button} to="/">На головну</NavLink>
-                  </div>)}
-                  </>)}
-                </>)}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              </>
-          )}
-
+              (<div className={scss.container}>
+                <BasketList basket={basket} newOrder={newOrder}/>
+                {!statusOrder && <button onClick={handleClick} className={scss.button_confirm}>Оформити замовлення</button>}
+                {statusOrder && 
+                (<OrderConfirmation confirmedOrder={confirmedOrder} totalAmount={totalAmount} dispatchOrder={dispatchOrder}/>)}
+              </div>) : (<div className={scss.container}>
+                <p>Нічого немає в кошику</p>
+              </div>)}
+              <Footer/>
+            </>
+            ) : 
+            (<>
+            {dispatchingStatus === 201 ? 
+            (<div className={scss.dispatch_container}>
+                <AiFillCheckCircle className={scss.success_icon}/>
+                <h3 className={scss.dispatch_title}>Замовлення відправлено успішно</h3>
+                <p className={scss.dispatch_sentence}>Очікуйте на дзвінок вашого менеджера</p>
+                <NavLink className={scss.dispatch_button} to="/">На головну</NavLink>
+            </div>) : 
+              (<div className={scss.dispatch_container}>
+                <VscError className={scss.error_icon}/>
+                <h3 className={scss.dispatch_title}>Щось пішло не так.</h3>
+                <p className={scss.dispatch_sentence}>Спробуйте ще раз</p>
+                <NavLink className={scss.dispatch_button} to="/">На головну</NavLink>
+              </div>)}
+              </>)}
+          </>)}
         </div>
     )
   };

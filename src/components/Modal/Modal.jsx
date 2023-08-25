@@ -24,17 +24,16 @@ const Modal = ({modalActive, setModalActive, product}) => {
     const token = useSelector(userToken);
 
     useEffect(() => {
-        if(isLoggedIn === true) {
-            dispatch(getCurrent(token));
-        };
-
         if(modalActive === true) {
             document.body.style.cssText = `overflow-y: hidden; padding-right: ${window.innerWidth - document.body.offsetWidth}px`
             if(isLoggedIn === true) {
-                const basketCheck = currentUser.basket.map(item => item._id);
-                if(basketCheck.includes(_id)){
-                    setProductInBasket(true);
-                }
+                dispatch(getCurrent(token))
+                    .then(response => {
+                        const basketCheck = response.payload.user.basket.map(item => item._id);
+                        if(basketCheck.includes(_id)){
+                            setProductInBasket(true);
+                        }
+                    })
             }
             else {
                 const currentOrder = localStorage.getItem("order") || "[]";
