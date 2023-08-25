@@ -22,7 +22,7 @@ const BasketList = ({newOrder, basket}) => {
         setStatus(false)
         const elements = basket.map(({ _id, ...product }) => {
             return (
-                <BasketItem key={_id} product={product} _id={_id} updateOrder={updateOrder} updatedQuantity={updatedQuantity}/>
+                <BasketItem key={_id} product={product} _id={_id} updateOrder={updateOrder} updatedQuantity={updatedQuantity} basket={basket}/>
             );
         });
         setProducts(elements)

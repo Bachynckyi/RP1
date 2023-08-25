@@ -3,10 +3,10 @@ import scss from "./BasketItem.module.scss";
 import {MdDeleteForever} from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux';
 import { isLogin, userToken } from '../../../redux/auth/auth-selectors';
-import { getCurrent, removeFromBasket, updateQuantityInBasket } from 'redux/auth/auth-operations';
+import { removeFromBasket, updateQuantityInBasket } from 'redux/auth/auth-operations';
 
 
-const BasketItem = ({product, updateOrder, _id, updatedQuantity}) => {
+const BasketItem = ({product, updateOrder, _id, updatedQuantity, basket, A}) => {
   const {title, photo, price, type, color, code} = product;
   const [quantityOfItem, setQuantityOfItem] = useState({});
   const [amount, setAmount] = useState();
@@ -17,14 +17,9 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity}) => {
 
   useEffect(() => {
     if(isLoggedIn === true) {
-      dispatch(getCurrent(token))
-        .then(response => {
-          const currentItemOfOrder = response.payload.user.basket.filter(order => order._id === _id);
-          const currentQuantity = (Number(currentItemOfOrder[0].quantity));
-          setQuantityOfItem(currentQuantity);
-          const totalAmount = price * currentQuantity;
+          setQuantityOfItem(product.quantity);
+          const totalAmount = price * Number(product.quantity);
           setAmount(totalAmount.toFixed(2));
-      })
     }
     else {
       const currentItemOfOrder = currentOrder.filter(order => order._id === _id);
@@ -34,7 +29,7 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity}) => {
       setAmount(totalAmount.toFixed(2));
     }
     // eslint-disable-next-line 
-  }, [currentOrder, price, _id]);
+  }, [currentOrder, price, _id, basket]);
 
   const handleChange = (event) => {
     if(event.target.name === "increment"){
@@ -42,8 +37,11 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity}) => {
           if(isLoggedIn === true) {
             const quantity = "";
             dispatch(updateQuantityInBasket({token, _id, quantity}))
-            setQuantityOfItem("");
-            updatedQuantity();
+            .then(response => {
+              updateOrder(response.payload.data.basket);
+              setQuantityOfItem("");
+              updatedQuantity();
+            });
           }
           else {
             const updatedOrder = currentOrder.map((item) => (
@@ -59,6 +57,7 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity}) => {
             const quantity = String(Number(quantityOfItem) + 1);
             dispatch(updateQuantityInBasket({token, _id, quantity}))
             .then(response => {
+              updateOrder(response.payload.data.basket);
               setQuantityOfItem(String(Number(quantityOfItem) + 1));
               updatedQuantity();
             })
@@ -81,9 +80,10 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity}) => {
             const quantity = String(Number(quantityOfItem) - 1);
             dispatch(updateQuantityInBasket({token, _id, quantity}))
             .then(response => {
+              updateOrder(response.payload.data.basket);
               setQuantityOfItem(String(Number(quantityOfItem) - 1));
               updatedQuantity();
-            })
+            });
           }
           else {
             const updatedOrder = currentOrder.map((item) => (
@@ -103,6 +103,7 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity}) => {
             const quantity = "";
             dispatch(updateQuantityInBasket({token, _id, quantity}))
             .then(response => {
+              updateOrder(response.payload.data.basket);
               setQuantityOfItem("");
               updatedQuantity();
             })
@@ -122,6 +123,7 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity}) => {
             const quantity = String(value);
             dispatch(updateQuantityInBasket({token, _id, quantity}))
             .then(response => {
+              updateOrder(response.payload.data.basket);
               setQuantityOfItem(String(value));
               updatedQuantity();
             })

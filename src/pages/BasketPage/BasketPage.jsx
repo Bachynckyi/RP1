@@ -27,7 +27,7 @@ const BasketPage = () => {
     useEffect(() => {
       if(isLoggedIn === true) {
         dispatch(getCurrent(token))
-          .then(response => setBasket(response.payload.user.basket))
+          .then(response => setBasket(response.payload.user.basket));
       }
       else {
         const order = JSON.parse(localStorage.getItem("order"));
@@ -87,21 +87,19 @@ const BasketPage = () => {
     };
 
     return (
-        <div> 
+        <>
+        <div className={scss.container}> 
           {loading === true ? (<Loader/>) : (
             <>
             {dispatchingStatus === null ?
-          (<> 
-            {Object.keys(basket).length !== 0 ?
-              (<div className={scss.container}>
+          (<>
+              {Object.keys(basket).length !== 0 ?
+              (<>
                 <BasketList basket={basket} newOrder={newOrder}/>
                 {!statusOrder && <button onClick={handleClick} className={scss.button_confirm}>Оформити замовлення</button>}
                 {statusOrder && 
                 (<OrderConfirmation confirmedOrder={confirmedOrder} totalAmount={totalAmount} dispatchOrder={dispatchOrder}/>)}
-              </div>) : (<div className={scss.container}>
-                <p>Нічого немає в кошику</p>
-              </div>)}
-              <Footer/>
+              </>) : (<p>Нічого немає в кошику</p>)}              
             </>
             ) : 
             (<>
@@ -121,6 +119,8 @@ const BasketPage = () => {
               </>)}
           </>)}
         </div>
+        <Footer/>
+        </>
     )
   };
   
