@@ -12,20 +12,16 @@ const BasketList = ({newOrder, basket}) => {
         setStatus(true);
     };
 
-    const updatedQuantity = () => {
-        setStatus(true)
-    };
-
     useEffect(() => {
         setTotalAmount(basket.reduce((prev, curr) => { 
             return (Number(prev) + Number(curr.price)*Number(curr.quantity)).toFixed(2)}, ""))
-        setStatus(false)
         const elements = basket.map(({ _id, ...product }) => {
             return (
-                <BasketItem key={_id} product={product} _id={_id} updateOrder={updateOrder} updatedQuantity={updatedQuantity} basket={basket}/>
+                <BasketItem key={_id} product={product} _id={_id} updateOrder={updateOrder} basket={basket}/>
             );
         });
-        setProducts(elements)
+        setProducts(elements);
+        setStatus(false);
 // eslint-disable-next-line
     }, [status])
 

@@ -140,6 +140,7 @@
     font-style: normal;
     font-family: "Manrope";
     font-weight: 600;
+    margin-top: 20px;
 
     @media screen and (min-width: 1024px) {
         margin-top: 0px;
@@ -189,28 +190,21 @@
 
 .delivery_details_address {
     margin-top: 12px;
-    align-self: flex-start;
+    text-align: center;
     font-style: normal;
     font-family: "Manrope";
-    @media screen and (min-width: 450px) {
-        align-self: center;
-    }
 };
 
 .delivery_details_schedule {
-    align-self: flex-start;
+    align-self: center;
     margin-top: 12px;
     margin-bottom: 0px;
     font-family: "Manrope";
     font-style: normal;
-
-    @media screen and (min-width: 425px) {
-        align-self: center;
-    }
 };
 
 .delivery_details_item {
-    align-self: flex-start;
+    align-self: center;
     color: #000;
     margin-top: 12px;
     margin-bottom: 0px;
@@ -218,7 +212,6 @@
     font-style: normal;
 
     @media screen and (min-width: 425px) {
-        align-self: center;
         margin-bottom: 18px;
     }
 };
@@ -239,18 +232,30 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
-};  
+    position: relative;
+};
 
 .delivery_details_courier_label {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
+};
 
+.delivery_details_courier_label_branchNumber_active {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+};
+
+.delivery_details_courier_label_branchNumber {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    opacity: 0;
 };
 
 .delivery_details_courier_input {
-    width: 200px;
+    width: 300px;
     display: flex;
     font-size: 16px;
     padding: 8px 16px;
@@ -264,6 +269,22 @@
         outline: none;
     };
 };
+
+.delivery_details_courier_input_error {
+    width: 300px;
+    display: flex;
+    font-size: 16px;
+    padding: 8px 16px;
+    border: 1.5px solid red;
+    border-radius: 25px;
+    font-style: normal;
+    font-family: "Manrope";
+
+    &:focus {
+        border: 1.5px solid red;
+        outline: none;
+    };
+}
 
 .delivery_details_courier_subtitle {
     font-weight: 500;
@@ -318,4 +339,9 @@
 
 .radio_button:checked + .custom_button::before {
     display: inline-block;
-};  
+};
+
+.error_message {
+    color: red;
+    margin: 0px;
+};

@@ -6,7 +6,7 @@ import { isLogin, userToken } from '../../../redux/auth/auth-selectors';
 import { removeFromBasket, updateQuantityInBasket } from 'redux/auth/auth-operations';
 
 
-const BasketItem = ({product, updateOrder, _id, updatedQuantity, basket, A}) => {
+const BasketItem = ({product, updateOrder, _id, basket}) => {
   const {title, photo, price, type, color, code} = product;
   const [quantityOfItem, setQuantityOfItem] = useState({});
   const [amount, setAmount] = useState();
@@ -40,7 +40,6 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity, basket, A}) => 
             .then(response => {
               updateOrder(response.payload.data.basket);
               setQuantityOfItem("");
-              updatedQuantity();
             });
           }
           else {
@@ -49,7 +48,7 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity, basket, A}) => 
             ));
             localStorage.setItem("order", JSON.stringify(updatedOrder));
             setQuantityOfItem("");
-            updatedQuantity();
+            updateOrder(updatedOrder);
           }
         }
         else {
@@ -59,7 +58,6 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity, basket, A}) => 
             .then(response => {
               updateOrder(response.payload.data.basket);
               setQuantityOfItem(String(Number(quantityOfItem) + 1));
-              updatedQuantity();
             })
 
           }
@@ -70,7 +68,7 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity, basket, A}) => 
             ));
             localStorage.setItem("order", JSON.stringify(updatedOrder));
             setQuantityOfItem(String(Number(quantityOfItem) + 1));
-            updatedQuantity()
+            updateOrder(updatedOrder);
           }
         }
     }
@@ -82,7 +80,6 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity, basket, A}) => 
             .then(response => {
               updateOrder(response.payload.data.basket);
               setQuantityOfItem(String(Number(quantityOfItem) - 1));
-              updatedQuantity();
             });
           }
           else {
@@ -92,7 +89,7 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity, basket, A}) => 
             ));
             localStorage.setItem("order", JSON.stringify(updatedOrder))
             setQuantityOfItem(String(Number(quantityOfItem) - 1));
-            updatedQuantity()
+            updateOrder(updatedOrder);
           }
         };
     }
@@ -105,7 +102,6 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity, basket, A}) => 
             .then(response => {
               updateOrder(response.payload.data.basket);
               setQuantityOfItem("");
-              updatedQuantity();
             })
           }
           else {
@@ -114,7 +110,7 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity, basket, A}) => 
             ));
             localStorage.setItem("order", JSON.stringify(updatedOrder))
             setQuantityOfItem("");
-            updatedQuantity()
+            updateOrder(updatedOrder);
           }
 
         }
@@ -125,7 +121,6 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity, basket, A}) => 
             .then(response => {
               updateOrder(response.payload.data.basket);
               setQuantityOfItem(String(value));
-              updatedQuantity();
             })
           }
           else {
@@ -134,7 +129,7 @@ const BasketItem = ({product, updateOrder, _id, updatedQuantity, basket, A}) => 
             ));
             localStorage.setItem("order", JSON.stringify(updatedOrder))
             setQuantityOfItem(String(value));
-            updatedQuantity()
+            updateOrder(updatedOrder);
           }
         }
     };

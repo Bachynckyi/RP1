@@ -1,8 +1,13 @@
 import { useState, useCallback, useEffect } from 'react';
 import scss from './OrderConfirmation.module.scss';
+import { useDispatch } from 'react-redux';
+import { getAddress, getBranchNumber } from 'redux/courier/novaPoshta/np-operations';
+import CourierList from './Location/CourierList/CourierList';
+import BranchNumberList from './BranchNumber/BranchNumberList';
 
 const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
     const today = new Date();
+    const dispatch = useDispatch();
     const date = today.toLocaleString();
     const [orderDetailes, setOrderDetails] = useState({
         customerSurname: "",
@@ -15,9 +20,47 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
         date: date,
     });
     const [order, setOrder] = useState({});
+    const branchNumber = orderDetailes.branchNumber;
+    const [courierLocality, setCourierLocality] = useState(null);
+    const [courierBranchNumber, setCourierBranchNumber] = useState(null);
+    const [statusLocality, setStatusLocality] = useState(false);
+    const [statusBranchNumber, setStatusBranchNumber] = useState(false);
+    const [refLocality, setRefLocality] = useState(null);
+    const [state, setState] = useState(false);
+    const [errorStateLocality, setErrorStateLocality] = useState(false);
+    const [errorStateBranchNumber, setErrorStateStateBranchNumber] = useState(false);
+
 
     useEffect(() => {
-        setOrder({...orderDetailes, confirmedOrder: confirmedOrder, totalAmount: String(totalAmount)})
+        if(orderDetailes.typeOfDelivery === "Nova Poshta" && orderDetailes.locality !== "" && refLocality === null) {
+            dispatch(getAddress(orderDetailes.locality))
+                .then(response => {
+                    if(response.payload.data.data.length !== 0){
+                        setCourierLocality(response.payload.data.data);
+                        setErrorStateLocality(false);
+                        setStatusLocality(false)
+                    }
+                    else {
+                        setErrorStateLocality(true);
+                        setStatusLocality(true);
+                    }
+                })
+        };
+        if(refLocality !== null && state === false) {
+            dispatch(getBranchNumber({refLocality, branchNumber}))
+            .then(response => {
+                if(response.payload.data.data.length !== 0){
+                    setCourierBranchNumber(response.payload.data.data);
+                }
+                else {
+                    setErrorStateStateBranchNumber(false);
+                    setStatusBranchNumber(false);
+                    setCourierBranchNumber(null);      
+                }
+            })
+        }
+        setOrder({...orderDetailes, confirmedOrder: confirmedOrder, totalAmount: String(totalAmount)});
+    // eslint-disable-next-line   
     }, [confirmedOrder, orderDetailes, totalAmount])
 
     const handleChange = useCallback(({ target }) => {
@@ -26,25 +69,79 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
             const value = target.value.replace(/\D+/g, '');
             setOrderDetails(prevState => {
                 return { ...prevState, [name]: value };
-              });
+            });
         }
         else if (name === "typeOfDelivery"){
             setOrderDetails(prevState => {
                 return { ...prevState, [name]: value, locality: "", branchNumber: "" };
-              });
+            });
+            setCourierLocality(null);
+            setErrorStateLocality(false);
+            setErrorStateStateBranchNumber(false);
+            setCourierBranchNumber(null);
+        }
+        else if (name === "locality"){
+            setRefLocality(null);
+            setStatusBranchNumber(false);
+            setErrorStateStateBranchNumber(false);
+            setOrderDetails(prevState => {
+                return { ...prevState, "branchNumber": "" };
+            });
+            if(value === "") {
+                setStatusLocality(true);
+                setErrorStateLocality(true);
+            }
+            setOrderDetails(prevState => {
+                return { ...prevState, [name]: value };
+            });
+        }
+        else if (name === "branchNumber"){
+            setState(true);
+            setOrderDetails(prevState => {
+                return { ...prevState, [name]: value };
+            });
+            setStatusBranchNumber(true);
+            if(value === "") {
+                setStatusBranchNumber(false);
+                setErrorStateStateBranchNumber(true);
+            }
         }
         else {
             setOrderDetails(prevState => {
                 return { ...prevState, [name]: value };
-              });
+            });
         }
       },
+       // eslint-disable-next-line 
       [setOrderDetails]
     );
 
     const submitOrder = (event) => {
         event.preventDefault();
         dispatchOrder(order);
+    };
+
+    const pickLocality = ({locality, Ref}) => {
+        setOrderDetails(prevState => {
+            return { ...prevState, "locality": locality };
+        });
+        setStatusLocality(true);
+        setRefLocality(Ref);
+        setErrorStateLocality(false);
+        setState(false);
+    };
+
+    const pickBranchNumber = (branchNumber) => {
+        setOrderDetails(prevState => {
+            return { ...prevState, "branchNumber": branchNumber };
+        });
+        setErrorStateStateBranchNumber(false);
+        setStatusBranchNumber(false);
+    };
+
+    const notFoundBranch = () => {
+        setErrorStateStateBranchNumber(true);
+        setStatusBranchNumber(false);
     };
 
     return (
@@ -84,6 +181,7 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                                 type='text'
                                 required
                                 name='phone'
+                                minLength="7"
                                 onChange={handleChange}
                                 value={orderDetailes.phone}
                                 placeholder="Введіть номер телефону"
@@ -136,7 +234,7 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                                 {orderDetailes.typeOfDelivery === "Sklad" && (
                                     <div className={scss.delivery_details_warehouse}>
                                         <span className={scss.delivery_details_label}>Контактна інформація</span>
-                                        <address className={scss.delivery_details_address}>Адреса: Адреса: Україна, м.Київ, вул. Магнітогорська буд.5</address>
+                                        <address className={scss.delivery_details_address}>Адреса: Україна, м.Київ, вул. Магнітогорська буд.5</address>
                                         <p className={scss.delivery_details_schedule}>Режим роботи: Пн-Пт 9:00 – 17:00</p>
                                         <p className={scss.delivery_details_item}>Телефон:
                                         <a className={scss.delivery_details_link} href="tel:+380991585152"> +38 (099) 158 51 52</a>
@@ -147,27 +245,41 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                                     <label className={scss.delivery_details_courier_label}>
                                         <span className={scss.delivery_details_courier_subtitle}>Населений пункт</span>
                                         <input
-                                        className={scss.delivery_details_courier_input}
+                                        className={errorStateLocality === true ? (scss.delivery_details_courier_input_error) : (scss.delivery_details_courier_input)}
                                         required
                                         name='locality'
                                         type='text'
                                         onChange={handleChange}
                                         value={orderDetailes.locality}
-                                        placeholder='Введіть назву'
+                                        placeholder='Введіть назву населеного пункта'
                                         />
                                     </label>
-                                    <label className={scss.delivery_details_courier_label}>
-                                        <span className={scss.delivery_details_courier_subtitle}>Номер відділення</span>
-                                        <input
-                                        className={scss.delivery_details_courier_input}
-                                        required
-                                        name='branchNumber'
-                                        type='text'
-                                        onChange={handleChange}
-                                        value={orderDetailes.branchNumber}
-                                        placeholder='Введіть номер відділення'
-                                        />
-                                    </label>
+                                    {errorStateLocality && (<p className={scss.error_message}>Оберіть населений пункт зі списку !</p>)}
+                                    {!statusLocality && (
+                                        <>
+                                        {courierLocality !== null && (<CourierList courierLocality={courierLocality} pickLocality={pickLocality}/>)}
+                                        </>
+                                    )}
+                                        <label className={refLocality !== null ? (scss.delivery_details_courier_label_branchNumber_active) : (scss.delivery_details_courier_label_branchNumber)}>
+                                            <span className={scss.delivery_details_courier_subtitle}>Номер відділення</span>
+                                            <input
+                                            className={errorStateBranchNumber === true ? (scss.delivery_details_courier_input_error) : (scss.delivery_details_courier_input)}
+                                            required
+                                            name='branchNumber'
+                                            type='text'
+                                            onChange={handleChange}
+                                            value={orderDetailes.branchNumber}
+                                            placeholder='Введіть номер відділення'
+                                            />
+                                        </label>                             
+                                    {errorStateBranchNumber && (<p className={scss.error_message}>Оберіть номер відділення зі списку !</p>)}
+                                    {statusBranchNumber && (
+                                        <>
+                                            {courierBranchNumber !== null && (<BranchNumberList courierBranchNumber={courierBranchNumber} pickBranchNumber={pickBranchNumber} search={orderDetailes.branchNumber} notFoundBranch={notFoundBranch}/>)}   
+                                        </>
+                                    )}
+                                    
+                                    
                                 </div>)}
                                 {orderDetailes.typeOfDelivery === "Delivery" && (
                                 <div className={scss.delivery_details_courier}>
@@ -180,7 +292,7 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                                             type='text'
                                             onChange={handleChange}
                                             value={orderDetailes.locality}
-                                            placeholder='Введіть назву' 
+                                            placeholder='Введіть назву населеного пункта'
                                         />
                                     </label>
                                     <label className={scss.delivery_details_courier_label}>
