@@ -57,6 +57,10 @@
     &:hover {
         background-color: darkorange;
     };
+    @media screen and (min-width: 1024px) {
+        margin-bottom: 30px;
+    };
+    
 };
 
 .contact_details_container {
@@ -176,20 +180,21 @@
     margin-top: 20px;
     justify-content: center;
     align-items: center;
+    margin-bottom: 19.5px;
 };
 
 .delivery_details_label {
     text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     font-style: normal;
     font-family: "Manrope";
 };
 
 .delivery_details_address {
-    margin-top: 12px;
+    margin-top: 14px;
     text-align: center;
     font-style: normal;
     font-family: "Manrope";
@@ -197,7 +202,7 @@
 
 .delivery_details_schedule {
     align-self: center;
-    margin-top: 12px;
+    margin-top: 14px;
     margin-bottom: 0px;
     font-family: "Manrope";
     font-style: normal;
@@ -206,7 +211,7 @@
 .delivery_details_item {
     align-self: center;
     color: #000;
-    margin-top: 12px;
+    margin-top: 14px;
     margin-bottom: 0px;
     font-family: "Manrope";
     font-style: normal;
@@ -252,12 +257,13 @@
     flex-direction: column;
     margin-top: 20px;
     opacity: 0;
+    pointer-events: none;
 };
 
 .delivery_details_courier_input {
     width: 300px;
     display: flex;
-    font-size: 16px;
+    font-size: 12px;
     padding: 8px 16px;
     border: 1.5px solid #2f303a;
     border-radius: 25px;
@@ -273,7 +279,7 @@
 .delivery_details_courier_input_error {
     width: 300px;
     display: flex;
-    font-size: 16px;
+    font-size: 12px;
     padding: 8px 16px;
     border: 1.5px solid red;
     border-radius: 25px;
@@ -341,7 +347,50 @@
     display: inline-block;
 };
 
-.error_message {
+.error_message_active {
+    opacity: 1;
     color: red;
     margin: 0px;
 };
+
+.error_message {
+    opacity: 0;
+    margin: 0px;
+};
+
+.courier_input {
+    width: 300px;
+    display: flex;
+    font-size: 12px;
+    padding: 8px 16px;
+    border: 1.5px solid #2f303a;
+    border-radius: 25px;
+    font-style: normal;
+    font-family: "Manrope";
+    resize: none;
+    overflow: visible;
+
+    &:focus {
+        border: 1.5px solid orange;
+        outline: none;
+    };
+
+};
+
+.courier_input_error {
+    width: 300px;
+    display: flex;
+    font-size: 12px;
+    padding: 8px 16px;
+    border: 1.5px solid red;
+    border-radius: 25px;
+    font-style: normal;
+    font-family: "Manrope";
+    resize: none;
+
+    &:focus {
+        border: 1.5px solid red;
+        outline: none;
+    };
+
+}

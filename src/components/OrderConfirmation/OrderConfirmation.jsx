@@ -79,6 +79,7 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
             setErrorStateLocality(false);
             setErrorStateStateBranchNumber(false);
             setCourierBranchNumber(null);
+            setRefLocality(null);
         }
         else if (name === "locality"){
             setRefLocality(null);
@@ -97,6 +98,7 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
         }
         else if (name === "branchNumber"){
             setState(true);
+            setErrorStateStateBranchNumber(false);
             setOrderDetails(prevState => {
                 return { ...prevState, [name]: value };
             });
@@ -118,7 +120,13 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
 
     const submitOrder = (event) => {
         event.preventDefault();
-        dispatchOrder(order);
+        if(errorStateBranchNumber === true || errorStateLocality === true ) {
+            return
+        }
+        else {
+            dispatchOrder(order);
+        }
+
     };
 
     const pickLocality = ({locality, Ref}) => {
@@ -254,7 +262,7 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                                         placeholder='Введіть назву населеного пункта'
                                         />
                                     </label>
-                                    {errorStateLocality && (<p className={scss.error_message}>Оберіть населений пункт зі списку !</p>)}
+                                    <p className={errorStateLocality === true ? (scss.error_message_active) : (scss.error_message)}>Оберіть населений пункт зі списку !</p>
                                     {!statusLocality && (
                                         <>
                                         {courierLocality !== null && (<CourierList courierLocality={courierLocality} pickLocality={pickLocality}/>)}
@@ -262,24 +270,23 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                                     )}
                                         <label className={refLocality !== null ? (scss.delivery_details_courier_label_branchNumber_active) : (scss.delivery_details_courier_label_branchNumber)}>
                                             <span className={scss.delivery_details_courier_subtitle}>Номер відділення</span>
-                                            <input
-                                            className={errorStateBranchNumber === true ? (scss.delivery_details_courier_input_error) : (scss.delivery_details_courier_input)}
+                                            <textarea
+                                            className={errorStateBranchNumber === true ? (scss.courier_input_error) : (scss.courier_input)}
                                             required
                                             name='branchNumber'
                                             type='text'
                                             onChange={handleChange}
                                             value={orderDetailes.branchNumber}
                                             placeholder='Введіть номер відділення'
+                                            rows="1"
                                             />
                                         </label>                             
-                                    {errorStateBranchNumber && (<p className={scss.error_message}>Оберіть номер відділення зі списку !</p>)}
+                                        <p className={errorStateBranchNumber === true ? (scss.error_message_active) : (scss.error_message)}>Оберіть номер відділення зі списку !</p>
                                     {statusBranchNumber && (
                                         <>
                                             {courierBranchNumber !== null && (<BranchNumberList courierBranchNumber={courierBranchNumber} pickBranchNumber={pickBranchNumber} search={orderDetailes.branchNumber} notFoundBranch={notFoundBranch}/>)}   
                                         </>
                                     )}
-                                    
-                                    
                                 </div>)}
                                 {orderDetailes.typeOfDelivery === "Delivery" && (
                                 <div className={scss.delivery_details_courier}>
