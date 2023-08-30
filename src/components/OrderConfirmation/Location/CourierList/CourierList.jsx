@@ -7,15 +7,13 @@ const CourierList = ({courierLocality, pickLocality}) => {
         pickLocality({locality, Ref});
     };
 
-    const elements = courierLocality.map(({Description, Ref, SettlementTypeDescription, AreaDescription }) => {
+    const elements = courierLocality.map(({Description, Ref}) => {
         return (
             <CourierItem 
                 key={Ref} 
                 Description={Description} 
                 pickedLocality={pickedLocality} 
                 Ref={Ref} 
-                SettlementTypeDescription={SettlementTypeDescription}
-                AreaDescription={AreaDescription}
                 />
         );
     });

@@ -4,6 +4,9 @@ import { useDispatch } from 'react-redux';
 import { getAddress, getBranchNumber } from 'redux/courier/novaPoshta/np-operations';
 import CourierList from './Location/CourierList/CourierList';
 import BranchNumberList from './BranchNumber/BranchNumberList';
+import { getCities, getWarehouses } from 'redux/courier/delivery/delivery-operations';
+import DeliveryLocationList from './DeliveryLocation/DeliveryLocationList/DeliveryLocationList';
+import DeliveryBranchNumberList from './DeliveryBranchNumber/DeliveryBranchNumberList/DeliveryBranchNumberList';
 
 const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
     const today = new Date();
@@ -29,7 +32,8 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
     const [state, setState] = useState(false);
     const [errorStateLocality, setErrorStateLocality] = useState(false);
     const [errorStateBranchNumber, setErrorStateStateBranchNumber] = useState(false);
-
+    const [searchDelivery, setSearchDelivery] = useState("");
+    const [refLocalityDelivery, setRefLocalityDelivery] = useState(null);
 
     useEffect(() => {
         if(orderDetailes.typeOfDelivery === "Nova Poshta" && orderDetailes.locality !== "" && refLocality === null) {
@@ -38,7 +42,7 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                     if(response.payload.data.data.length !== 0){
                         setCourierLocality(response.payload.data.data);
                         setErrorStateLocality(false);
-                        setStatusLocality(false)
+                        setStatusLocality(false);
                     }
                     else {
                         setErrorStateLocality(true);
@@ -59,6 +63,27 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                 }
             })
         }
+
+        if(orderDetailes.typeOfDelivery === "Delivery" && state === false) {
+            dispatch(getCities())
+                .then(response => setCourierLocality(response.payload.data.data));
+                setStatusLocality(true);
+        };
+
+        if(refLocalityDelivery !== null && state === true) {
+            dispatch(getWarehouses(refLocalityDelivery))
+            .then(response => {
+                if(response.payload.data.data.length !== 0){
+                    console.log(response);
+                    setCourierBranchNumber(response.payload.data.data);
+                }
+                else {
+                    setErrorStateStateBranchNumber(false);
+                    setStatusBranchNumber(false);
+                    setCourierBranchNumber(null);      
+                }
+            })
+        };
         setOrder({...orderDetailes, confirmedOrder: confirmedOrder, totalAmount: String(totalAmount)});
     // eslint-disable-next-line   
     }, [confirmedOrder, orderDetailes, totalAmount])
@@ -75,29 +100,45 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
             setOrderDetails(prevState => {
                 return { ...prevState, [name]: value, locality: "", branchNumber: "" };
             });
+            setRefLocalityDelivery(null);
             setCourierLocality(null);
             setErrorStateLocality(false);
             setErrorStateStateBranchNumber(false);
             setCourierBranchNumber(null);
             setRefLocality(null);
+            setState(false);
         }
         else if (name === "locality"){
+            if(orderDetailes.typeOfDelivery === "Delivery")  {
+                setSearchDelivery(value);
+                setStatusLocality(false);
+            }
+            else {
+                setSearchDelivery("");
+            }
+            setRefLocalityDelivery(null);
+            setState(true);
             setRefLocality(null);
             setStatusBranchNumber(false);
             setErrorStateStateBranchNumber(false);
             setOrderDetails(prevState => {
                 return { ...prevState, "branchNumber": "" };
-            });
+            });          
             if(value === "") {
                 setStatusLocality(true);
                 setErrorStateLocality(true);
             }
             setOrderDetails(prevState => {
                 return { ...prevState, [name]: value };
-            });
+            });        
         }
         else if (name === "branchNumber"){
-            setState(true);
+            if(orderDetailes.typeOfDelivery === "Delivery")  {
+                setState(null);
+            }
+            else {
+                setState(true);
+            }
             setErrorStateStateBranchNumber(false);
             setOrderDetails(prevState => {
                 return { ...prevState, [name]: value };
@@ -114,8 +155,8 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
             });
         }
       },
-       // eslint-disable-next-line 
-      [setOrderDetails]
+
+      [setOrderDetails, orderDetailes]
     );
 
     const submitOrder = (event) => {
@@ -126,17 +167,23 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
         else {
             dispatchOrder(order);
         }
-
     };
 
     const pickLocality = ({locality, Ref}) => {
         setOrderDetails(prevState => {
             return { ...prevState, "locality": locality };
         });
-        setStatusLocality(true);
-        setRefLocality(Ref);
         setErrorStateLocality(false);
-        setState(false);
+        setStatusLocality(true);
+
+        if(orderDetailes.typeOfDelivery  === "Delivery")  {
+            setState(true);
+            setRefLocalityDelivery(Ref)
+        }
+        else {
+            setState(false);
+            setRefLocality(Ref);
+        }
     };
 
     const pickBranchNumber = (branchNumber) => {
@@ -150,6 +197,11 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
     const notFoundBranch = () => {
         setErrorStateStateBranchNumber(true);
         setStatusBranchNumber(false);
+    };
+
+    const notFoundCity = () => {
+            setStatusLocality(true);
+            setErrorStateLocality(true);
     };
 
     return (
@@ -293,7 +345,7 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                                     <label className={scss.delivery_details_courier_label}>
                                         <span className={scss.delivery_details_courier_subtitle}>Населений пункт</span>
                                         <input
-                                            className={scss.delivery_details_courier_input}
+                                            className={errorStateLocality === true ? (scss.delivery_details_courier_input_error) : (scss.delivery_details_courier_input)}
                                             required
                                             name='locality'
                                             type='text'
@@ -302,7 +354,13 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                                             placeholder='Введіть назву населеного пункта'
                                         />
                                     </label>
-                                    <label className={scss.delivery_details_courier_label}>
+                                    <p className={errorStateLocality === true ? (scss.error_message_active) : (scss.error_message)}>Оберіть населений пункт зі списку !</p>
+                                    {!statusLocality && (
+                                        <>
+                                        {courierLocality !== null && (<DeliveryLocationList courierLocality={courierLocality} pickLocality={pickLocality} searchDelivery={searchDelivery} notFoundCity={notFoundCity}/>)}
+                                        </>
+                                    )}
+                                    <label className={refLocalityDelivery !== null ? (scss.delivery_details_courier_label_branchNumber_active) : (scss.delivery_details_courier_label_branchNumber)}>
                                         <span className={scss.delivery_details_courier_subtitle}>Номер відділення</span>
                                         <input
                                             className={scss.delivery_details_courier_input}
@@ -314,6 +372,12 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                                             placeholder='Введіть номер відділення'
                                         />
                                     </label>
+                                    <p className={errorStateBranchNumber === true ? (scss.error_message_active) : (scss.error_message)}>Оберіть номер відділення зі списку !</p>
+                                    {statusBranchNumber && (
+                                        <>
+                                            {courierBranchNumber !== null && (<DeliveryBranchNumberList courierBranchNumber={courierBranchNumber} pickBranchNumber={pickBranchNumber} search={orderDetailes.branchNumber} notFoundBranch={notFoundBranch}/>)}   
+                                        </>
+                                    )}
                                 </div>)}
                             </div>
                         </div>

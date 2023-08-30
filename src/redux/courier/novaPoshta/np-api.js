@@ -23,7 +23,7 @@ export const getAddress = async (locality) => {
     }
 };
 
-export const getBranchNumber = async ({refLocality, branchNumber}) => {
+export const getBranchNumber = async ({refLocality}) => {
   try {
     const data = {
       "apiKey": "0a4318678777f6e1341aba9b78c2f072",
@@ -34,7 +34,6 @@ export const getBranchNumber = async ({refLocality, branchNumber}) => {
         "Page" : "1",
         "Limit" : "10000",
         "Language" : "UA",
-        // "WarehouseId" : branchNumber,
       }
    }
     const result = await instance.post("/v2.0/json/", data );

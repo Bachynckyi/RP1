@@ -20,8 +20,8 @@ export const getBranchNumber= createAsyncThunk(
     'https://api.novaposhta.ua/v2.0/json/',
     async (req, { rejectWithValue }) => {
       try {
-        const {refLocality, branchNumber} = req
-        const result = await api.getBranchNumber({refLocality, branchNumber});
+        const {refLocality} = req
+        const result = await api.getBranchNumber({refLocality});
         return result;
       } catch (error) {
         return rejectWithValue(error.response.request.status);

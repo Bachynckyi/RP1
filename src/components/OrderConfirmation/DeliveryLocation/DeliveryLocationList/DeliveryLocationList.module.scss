@@ -1,0 +1,30 @@
+.courier_list {
+    list-style-type: none;
+    position: absolute;
+    overflow-y: scroll;
+    width: 300px;
+    max-height: 130px;
+    min-height: 30px;
+    background-color: #fff;
+    z-index: 5;
+    left: 16px;
+    border-bottom: 1.5px solid orange;
+    border-left: 1.5px solid orange;
+    border-right: 1.5px solid orange;
+    top: 80px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    margin: 0px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    
+    @media screen and (min-width: 1024px) {
+        width: 294px;
+        top: 80px;
+        left: 28px;
+    };
+};

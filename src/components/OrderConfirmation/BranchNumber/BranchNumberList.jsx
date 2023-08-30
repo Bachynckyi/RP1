@@ -29,20 +29,6 @@ const BranchNumberList = ({courierBranchNumber, pickBranchNumber, search, notFou
     const pickedBranchNumber = (branchNumber) => {
         pickBranchNumber(branchNumber);
     };
-
-    // const elements = courierBranchNumber.filter(item => item.Description.includes(search) === true).map(({Description, Ref}) => {
-    //     return (
-    //         <BranchNumberItem
-    //             key={Ref}
-    //             Description={Description} 
-    //             pickedBranchNumber={pickedBranchNumber}  
-    //         />
-    //     );
-    // })
-
-    // if(state === null ) {
-    //     notFoundBranch()
-    // };
     
     return (
         <div>
