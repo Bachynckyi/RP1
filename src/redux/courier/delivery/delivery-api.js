@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://www.delivery-auto.com/api/',
+  baseURL: 'https://www.delivery-auto.com/api/',
 });
 
 export const getCities = async () => {

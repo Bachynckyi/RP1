@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from "./delivery-api";
 
-axios.defaults.baseURL = 'http://www.delivery-auto.com/api/';
+axios.defaults.baseURL = 'https://www.delivery-auto.com/api/';
 
 export const getCities = createAsyncThunk(
     'v4/Public/GetAreasList',

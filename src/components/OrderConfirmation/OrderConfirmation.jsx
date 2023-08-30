@@ -74,7 +74,6 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
             dispatch(getWarehouses(refLocalityDelivery))
             .then(response => {
                 if(response.payload.data.data.length !== 0){
-                    console.log(response);
                     setCourierBranchNumber(response.payload.data.data);
                 }
                 else {
