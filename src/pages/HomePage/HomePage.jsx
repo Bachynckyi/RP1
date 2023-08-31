@@ -14,7 +14,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [categories, setCategories] = useState(null);
-  const [sliderList, setSliderList] = useState({});
+  const [sliderList, setSliderList] = useState(null);
 
   useEffect(() => {
     try{
@@ -40,7 +40,9 @@ const HomePage = () => {
         <div className={scss.page_container}>
           {window.innerWidth >= 1024 ? (<p className={scss.notUSED}></p>) : (<Search/>)}
           <div className={scss.slick_container}>
-            <SlickCarousel sliderList={sliderList}/>
+            {sliderList !== null && (
+              <SlickCarousel sliderList={sliderList}/>
+            )}
           </div>
           <ul className={scss.category_list}>
             {categories.map(({ _id, ...props }) => {

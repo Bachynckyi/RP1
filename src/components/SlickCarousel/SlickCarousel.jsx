@@ -19,6 +19,7 @@ const SlickCarousel = ({sliderList} ) => {
         <Slider {...settings}>
           {sliderList.map((slide) => 
               (<img
+                  key={slide._id}
                   src={slide.photoSlider}
                   alt='photoSlider'
               />))}
