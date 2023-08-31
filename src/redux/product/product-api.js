@@ -50,4 +50,21 @@ export const updateProductWithoutPhoto = async ({token, data, _id}) => {
   return result;
 };
 
+export const getAllPhotoSlider = async () => {
+  const result = await instance.get(`/api/product/getallphotoslider/`);
+  return result;
+};
+
+export const addPhotoSlider = async ({token, data}) => {
+  setToken(token);
+  const result = await instance.post(`/api/product/addphotoslider/`, data);
+  return result;
+};
+
+export const deletePhotoSlider = async ({token, id}) => {
+  setToken(token);
+  const result = await instance.delete(`/api/product/deletephotoslider/${id}`);
+  return result;
+};
+
 

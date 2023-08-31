@@ -8,16 +8,20 @@ import Loader  from '../../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 import CategoryItem from './CategoryItem/CategoryItem';
 import Search from 'components/Search/Search';
+import { getAllPhotoSlider } from 'redux/product/product-operations';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [categories, setCategories] = useState(null);
+  const [sliderList, setSliderList] = useState({});
 
   useEffect(() => {
     try{
         dispatch(getAllCategories())
         .then(response => setCategories(response.payload.data))
+        dispatch(getAllPhotoSlider())
+        .then(response => setSliderList(response.payload.data))
     }
     catch(error){
         console.log(error)
@@ -36,7 +40,7 @@ const HomePage = () => {
         <div className={scss.page_container}>
           {window.innerWidth >= 1024 ? (<p className={scss.notUSED}></p>) : (<Search/>)}
           <div className={scss.slick_container}>
-            <SlickCarousel/>
+            <SlickCarousel sliderList={sliderList}/>
           </div>
           <ul className={scss.category_list}>
             {categories.map(({ _id, ...props }) => {

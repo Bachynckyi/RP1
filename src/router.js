@@ -23,6 +23,7 @@ const BasketPage = lazy(() => import('./pages/BasketPage/BasketPage'));
 const UpdateCategoryPage = lazy(() => import('./pages/UpdateProduct/PatchCategoryPage/UpdateCategoryPage'));
 const UpdateSubcategoryPage = lazy(() => import('./pages/UpdateProduct/PatchSubcategoryPage/UpdateSubcategoryPage'));
 const UpdateProductPage = lazy(() => import('./pages/UpdateProduct/PatchProductPage/PatchProductPage'));
+const SliderPage = lazy(() => import('./pages/SliderPage/SliderPage'));
 
 const UserRoutes = () => {
   return (
@@ -54,6 +55,7 @@ const UserRoutes = () => {
             <Route path="/updatecategory" element={<UpdateCategoryPage/>}/>
             <Route path="/updatesubcategory" element={<UpdateSubcategoryPage/>}/>
             <Route path="/updateproduct" element={<UpdateProductPage/>}/>
+            <Route path="/slider" element={<SliderPage/>}/>
           </Route>
 
           <Route path="*" element={<PageNotFound/>}/>

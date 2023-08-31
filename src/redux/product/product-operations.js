@@ -89,3 +89,41 @@ export const addProduct = createAsyncThunk(
       }
     }
   );
+
+  export const getAllPhotoSlider = createAsyncThunk(
+    'api/product/getallphotoslider',
+    async (_, { rejectWithValue }) => {
+      try {
+        const result = await api.getAllPhotoSlider();
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );
+
+  export const addPhotoSlider = createAsyncThunk(
+    'api/product/addphotoslider',
+    async (req, { rejectWithValue }) => {
+      try {
+        const { token, data } = req 
+        const result = await api.addPhotoSlider({token, data});
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );
+
+  export const deletePhotoSlider = createAsyncThunk(
+    'api/product/deletephotoslider',
+    async (req, { rejectWithValue }) => {
+      try {
+        const { token, id } = req 
+        const result = await api.deletePhotoSlider({token, id});
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );

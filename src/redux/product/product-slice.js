@@ -1,5 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addProduct, getProductByCategory, getProductBySearch, getProductById, removeProductById, updateProductWithPhoto, updateProductWithoutPhoto } from './product-operations';
+import {  addProduct, 
+          getProductByCategory, 
+          getProductBySearch, 
+          getProductById, 
+          removeProductById, 
+          updateProductWithPhoto, 
+          updateProductWithoutPhoto,
+          getAllPhotoSlider,
+          addPhotoSlider,
+          deletePhotoSlider,
+  } from './product-operations';
 
 const initialState = {
   loading: false,
@@ -78,6 +88,36 @@ const productSlice = createSlice({
         state.loading = false;
       })
       .addCase(updateProductWithoutPhoto.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(getAllPhotoSlider.pending, state => {
+        state.loading = true;
+      })
+      .addCase(getAllPhotoSlider.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(getAllPhotoSlider.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(addPhotoSlider.pending, state => {
+        state.loading = true;
+      })
+      .addCase(addPhotoSlider.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(addPhotoSlider.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(deletePhotoSlider.pending, state => {
+        state.loading = true;
+      })
+      .addCase(deletePhotoSlider.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(deletePhotoSlider.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       })

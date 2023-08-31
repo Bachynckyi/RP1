@@ -21,6 +21,7 @@ const ProfilePage = () => {
                 <NavLink to="/updatecategory" className={scss.button_addproduct}>Змінити категорію</NavLink>
                 <NavLink to="/updatesubcategory" className={scss.button_addproduct}>Змінити підкатегорію</NavLink>
                 <NavLink to="/updateproduct" className={scss.button_addproduct}>Змінити товар</NavLink>
+                <NavLink to="/slider" className={scss.button_addproduct}>Змінити слайдер</NavLink>
                 </div>
             )}
         </div>
