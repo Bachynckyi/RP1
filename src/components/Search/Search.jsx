@@ -23,6 +23,7 @@ const Search = () => {
     return (
             <div className={scss.container}>
                 <input
+                type='search'
                 className={scss.input}
                 value={search}
                 onChange={handleSearch}

@@ -1,32 +1,15 @@
-.header_container {
+.container {
     background-color: #2f303a;
     box-shadow: 0px 0px 8px rgba(0,0,0,.6);
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.header {
-    width: 100%;
-    height: 70px;
-    padding: 20px;
-    max-width: 1600px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
 };
 
-.header_mobile {
-    background-color: #2f303a;
-    box-shadow: 0px 0px 8px rgba(0,0,0,.6);
-    height: 70px;
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.header{
+    width: 100%;
+    padding: 10px 40px 10px 20px;
+    max-width: 1600px;
 };
 
 .menuIcon {
@@ -37,18 +20,45 @@
     background-color: #2f303a;
     color: #fff;
     border: none;
+
     @media screen and (min-width: 1024px) {
         display: none;
     }
 };
 
-.menuBar {
-    width: 50px;
-    height: 50px;
+.subcontainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+};
+
+.auth_container {
+    display: flex;
+    flex-direction: row;
+};
+
+.search_container_mobile {
+    margin: 8px 0px 8px 0px;
+
+    @media screen and (min-width: 640px) {
+        display: none;
+    };
+
+    @media screen and (min-width: 1024px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    };
+
+    @media screen and (min-width: 1280px) {
+        display: none;
+    };
+    
 };
 
 .menu_list {
-    margin-top: 8px;
+    margin-top: 14px;
     position: absolute;
     box-sizing: border-box;
     display: flex;
@@ -60,6 +70,12 @@
     background-color: #fff;
     z-index: 5;
     padding: 10px 0px 10px 0px; 
+};
+
+.auth_list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 };
 
 .nav_mobile_item {
@@ -81,16 +97,22 @@
 
     @media screen and (min-width: 1024px) {
         font-size: 30px;
-    }
-}
+    };
+};
 
-.auth_list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+.search_container_for_tablet {
+    display: none;
 
-.auth_container {
-    display: flex;
-    flex-direction: row;
-}
+    @media screen and (min-width: 640px) {
+        display: flex;
+    };
+
+    @media screen and (min-width: 1024px) {
+        display: none;
+    };
+
+    @media screen and (min-width: 1280px) {
+        display: flex;
+    };
+};
+

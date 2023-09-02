@@ -1,5 +1,4 @@
 import Footer from "components/Footer/Footer";
-import Search from "components/Search/Search";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState} from 'react';
 import { getProductBySearch }from '../../redux/product/product-operations';
@@ -10,8 +9,7 @@ import { isLoading } from '../../redux/product/product-selectors';
 import Modal from "components/Modal/Modal";
 import scss from './SearchPage.module.scss';
 
-
-const SearchPage = (order) => {
+const SearchPage = () => {
   const loading = useSelector(isLoading);
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
@@ -37,7 +35,6 @@ const SearchPage = (order) => {
 
     return (
       <div>
-        <Search/>
         {loading ? (<Loader/>) :
          (<div className={scss.container}>
             {Object.keys(productList).length !== 0 ?

@@ -7,7 +7,6 @@ import SlickCarousel from 'components/SlickCarousel/SlickCarousel';
 import Loader  from '../../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 import CategoryItem from './CategoryItem/CategoryItem';
-import Search from 'components/Search/Search';
 import { getAllPhotoSlider } from 'redux/product/product-operations';
 
 const HomePage = () => {
@@ -38,7 +37,6 @@ const HomePage = () => {
       <>
       <div className={scss.container}>
         <div className={scss.page_container}>
-          {window.innerWidth >= 1024 ? (<p className={scss.notUSED}></p>) : (<Search/>)}
           <div className={scss.slick_container}>
             {sliderList !== null && (
               <SlickCarousel sliderList={sliderList}/>
