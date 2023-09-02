@@ -31,6 +31,7 @@
     background-color: rgba(0, 0, 0, 0.4);
     transition: 0.5s;
     object-fit: cover;
+
 };
 
 .modal_content {
@@ -73,6 +74,11 @@
         width: 40vw;
         height: 66vh;
     }
+
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
+    scrollbar-width: none;
 };
 
 .photo {
@@ -114,12 +120,19 @@
 };
 
 .description {
+    width: 100%;
     margin-bottom: 0px;
-    font-size: 10px;
-    text-decoration: none;
+    font-size: 16px !important;
     font-family: "Manrope";
     font-style: normal;
-    line-height: 1.15em;
+
+    @media screen and (min-width: 1400px) {
+        font-size: 18px !important;
+    };
+
+    @media screen and (min-width: 1400px) {
+        font-size: 20px !important;
+    };
 };
 
 .icon_close {
@@ -361,6 +374,7 @@
         display: flex;
     }
 };
+
 .product_data {
     display: flex;
     flex-direction: column;
@@ -391,7 +405,7 @@
             background-color: darkgreen;
         }
     }
-}
+};
 
 .icon_basket_selected {
     width: 30px;

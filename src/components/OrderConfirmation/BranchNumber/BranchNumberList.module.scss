@@ -2,16 +2,16 @@
     list-style-type: none;
     position: absolute;
     overflow-y: scroll;
-    width: 298px;
+    width: 290px;
     max-height: 130px;
     min-height: 30px;
     background-color: #fff;
     z-index: 5;
-    left: 18px;
+    left: 22px;
     border-bottom: 1.5px solid orange;
     border-left: 1.5px solid orange;
     border-right: 1.5px solid orange;
-    top: 179.5px;
+    top: 83px;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -20,9 +20,9 @@
     margin: 0px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-
-    @media screen and (min-width: 1024px) {
-        top: 177.5px;
-        left: 25px;
-    };
+    
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
+    scrollbar-width: none;
 };

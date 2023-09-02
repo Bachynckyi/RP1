@@ -6,7 +6,6 @@ import Loader  from '../../components/Loader/Loader';
 import ProductList from './ProductList/ProductList';
 import { useParams } from "react-router-dom";
 import Modal from '../../components/Modal/Modal';
-import Search from 'components/Search/Search';
 import Footer from 'components/Footer/Footer';
 import scss from "./ProductPage.module.scss";
 import { useNavigate } from 'react-router-dom';
@@ -58,7 +57,6 @@ const ProductPage = () => {
         <div className={scss.container}>
         {loading === true? (<Loader/>) :
           ( <>
-            <Search/>
             <div className={scss.product_container}>
               {Object.keys(productList).length !== 0 ?
               (<ProductList productList={productList} fetchProduct={fetchProduct}/>)

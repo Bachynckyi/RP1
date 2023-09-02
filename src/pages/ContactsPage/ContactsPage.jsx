@@ -6,17 +6,19 @@ const ContactsPage = () => {
 
     return (
       <>
+        <h1 className={scss.title_main}>Контакти</h1>
         <div className={scss.container}>
-          <h1 className={scss.title_main}>Контакти</h1>
-          <h2 className={scss.title}>«ТОВ ВКФ Колор-Фарб» (головний офіс)</h2>
-          <address className={scss.address}>Адреса: Україна, м.Київ, вул. Біломорська, буд.2 </address>
-          <p className={scss.schedule}>Режим роботи: Пн-Пт 9:00 – 17:00</p>
-          <p className={scss.contacts_item}>Телефон:
-            <a className={scss.contacts_link} href="tel:+380991585152"> +38 (099) 158 51 52</a>
-          </p>
-          <p className={scss.contacts_item}>Електронна пошта:
-            <a className={scss.contacts_link} href="mailto:color-farb@gmail.com"> color-farb@gmail.com</a>
-          </p>
+          <div className={scss.contacts_container}>
+            <h2 className={scss.title}>«ТОВ ВКФ Колор-Фарб» (головний офіс)</h2>
+            <address className={scss.address}>Адреса: Україна, м.Київ, вул. Біломорська, буд.2 </address>
+            <p className={scss.schedule}>Режим роботи: Пн-Пт 9:00 – 17:00</p>
+            <p className={scss.contacts_item}>Телефон:
+              <a className={scss.contacts_link} href="tel:+380991585152"> +38 (099) 158 51 52</a>
+            </p>
+            <p className={scss.contacts_item}>Електронна пошта:
+              <a className={scss.contacts_link} href="mailto:color-farb@gmail.com"> color-farb@gmail.com</a>
+            </p>
+          </div>
           <div className={scss.map_container}>
             <iframe
               title="GoogleMap"

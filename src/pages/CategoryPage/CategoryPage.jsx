@@ -7,7 +7,6 @@ import Loader  from '../../components/Loader/Loader';
 import CategoryList from './CategoryList/CategoryList';
 import scss from './CategoryPage.module.scss';
 import { useNavigate } from 'react-router-dom';
-import Search from "components/Search/Search";
 
 const CategoryPage = () => {
   const navigate = useNavigate();
@@ -31,7 +30,6 @@ const CategoryPage = () => {
 
   return (
     <div className={scss.catalog}>
-      <Search/>
       {loading === true ? (<Loader/>) : (
         <div>
           <div className={scss.container}>

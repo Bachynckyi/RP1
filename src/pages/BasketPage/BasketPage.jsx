@@ -52,13 +52,14 @@ const BasketPage = () => {
       if(isLoggedIn === true){
         dispatch(getCurrent(token))
         .then(response => {
-          setTotalAmount(response.payload.user.basket.reduce((prev, curr) => { return Number(prev) + Number(curr.price)*curr.quantity}, ""));
+          setTotalAmount(response.payload.user.basket.reduce((prev, curr) => { 
+            return (Number(prev) + Number(curr.price)*curr.quantity).toFixed(2)}, ""));
           setConfirmedOrder(response.payload.user.basket)})
         setStatusOrder(true);
       }
       else {
         const currentOrder = JSON.parse(localStorage.getItem("order"));
-        setTotalAmount(currentOrder.reduce((prev, curr) => { return Number(prev) + Number(curr.price)*curr.quantity}, ""));
+        setTotalAmount(currentOrder.reduce((prev, curr) => { return (Number(prev) + Number(curr.price)*curr.quantity).toFixed(2)}, ""));
         setConfirmedOrder(currentOrder);
         setStatusOrder(true);
       }

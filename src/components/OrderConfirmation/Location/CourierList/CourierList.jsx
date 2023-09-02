@@ -14,7 +14,7 @@ const CourierList = ({courierLocality, pickLocality}) => {
                 Description={Description} 
                 pickedLocality={pickedLocality} 
                 Ref={Ref} 
-                />
+            />
         );
     });
     

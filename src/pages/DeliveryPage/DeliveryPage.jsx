@@ -18,7 +18,7 @@ const DeliveryPage = () => {
               <li className={scss.sentences}>Нова Пошта (включаючи накладений платіж)</li>
               <li className={scss.sentences}>Самовивіз зі складу в місті Києві</li>
               <li className={scss.sentences}>Делівері (без можливості доставки з післяплатою)</li>
-              <li className={scss.sentences}>Доставка автомобілем по місту Києву (при замовленні від 400 кг)</li>
+              <li className={scss.sentences}>Доставка автомобілем по місту Києву (при замовленні від 500 кг)</li>
             </ol>
           </div>
         <div>

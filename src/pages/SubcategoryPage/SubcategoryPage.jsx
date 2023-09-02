@@ -8,7 +8,6 @@ import Loader  from '../../components/Loader/Loader';
 import scss from './SubcategoryPage.module.scss';
 import Footer from "components/Footer/Footer";
 import { useParams } from "react-router-dom";
-import Search from "components/Search/Search";
 import ProductPage from '../ProductPage/ProductPage';
 
 const SubcategoryPage = () => {
@@ -41,7 +40,6 @@ const SubcategoryPage = () => {
                     {Object.keys(subcategories).length !== 0 ?
                     (<>
                         <div className={scss.container}>
-                        <Search/>
                         <SubcategoryList 
                             subcategories={subcategories} 
                             fetchSubcategory={fetchSubcategory}

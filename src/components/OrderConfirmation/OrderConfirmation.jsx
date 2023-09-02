@@ -7,6 +7,8 @@ import BranchNumberList from './BranchNumber/BranchNumberList';
 import { getCities, getWarehouses } from 'redux/courier/delivery/delivery-operations';
 import DeliveryLocationList from './DeliveryLocation/DeliveryLocationList/DeliveryLocationList';
 import DeliveryBranchNumberList from './DeliveryBranchNumber/DeliveryBranchNumberList/DeliveryBranchNumberList';
+import PopularCitiesList from './PopularCities/PopularCitiesListNP/PopularCities';
+import PopularCitiesListDEL from './PopularCities/PopularCitiesListDEL/PopularCitiesDEL';
 
 const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
     const today = new Date();
@@ -34,6 +36,7 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
     const [errorStateBranchNumber, setErrorStateStateBranchNumber] = useState(false);
     const [searchDelivery, setSearchDelivery] = useState("");
     const [refLocalityDelivery, setRefLocalityDelivery] = useState(null);
+    const [showPopularCities, setShowPopularCities] = useState(false); 
 
     useEffect(() => {
         if(orderDetailes.typeOfDelivery === "Nova Poshta" && orderDetailes.locality !== "" && refLocality === null) {
@@ -106,8 +109,10 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
             setCourierBranchNumber(null);
             setRefLocality(null);
             setState(false);
+            setShowPopularCities(false);
         }
         else if (name === "locality"){
+            setShowPopularCities(false);
             if(orderDetailes.typeOfDelivery === "Delivery")  {
                 setSearchDelivery(value);
                 setStatusLocality(false);
@@ -203,6 +208,35 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
             setErrorStateLocality(true);
     };
 
+    const popularCities = () => {
+        setShowPopularCities(true);
+        setStatusBranchNumber(false);
+    };
+
+    const pickedPopularCity = (locality, Ref) => {
+        setOrderDetails(prevState => {
+            return { ...prevState, "branchNumber": "" };
+        });   
+        setOrderDetails(prevState => {
+            return { ...prevState, "locality": locality };
+        });
+        setShowPopularCities(false);
+        setState(false);
+        setRefLocality(Ref);
+        setErrorStateLocality(false);
+        setCourierBranchNumber(null);
+
+        if(orderDetailes.typeOfDelivery === "Delivery")  {  
+            setState(true);
+            setRefLocalityDelivery(Ref);
+        }
+    };
+
+    const onFocusNumberBranch = () => {
+        setStatusBranchNumber(true);
+        setShowPopularCities(false);
+    };
+ 
     return (
         <div className={scss.container}>
             <form className={scss.form} onSubmit={submitOrder}>
@@ -293,7 +327,7 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                                 {orderDetailes.typeOfDelivery === "Sklad" && (
                                     <div className={scss.delivery_details_warehouse}>
                                         <span className={scss.delivery_details_label}>Контактна інформація</span>
-                                        <address className={scss.delivery_details_address}>Адреса: Україна, м.Київ, вул. Магнітогорська буд.5</address>
+                                        <address className={scss.delivery_details_address}>Адреса: Україна, м.Київ, вул. Біломорська, буд.2</address>
                                         <p className={scss.delivery_details_schedule}>Режим роботи: Пн-Пт 9:00 – 17:00</p>
                                         <p className={scss.delivery_details_item}>Телефон:
                                         <a className={scss.delivery_details_link} href="tel:+380991585152"> +38 (099) 158 51 52</a>
@@ -301,46 +335,7 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                                     </div>)}
                                 {orderDetailes.typeOfDelivery === "Nova Poshta" && (
                                 <div className={scss.delivery_details_courier}>
-                                    <label className={scss.delivery_details_courier_label}>
-                                        <span className={scss.delivery_details_courier_subtitle}>Населений пункт</span>
-                                        <input
-                                        className={errorStateLocality === true ? (scss.delivery_details_courier_input_error) : (scss.delivery_details_courier_input)}
-                                        required
-                                        name='locality'
-                                        type='text'
-                                        onChange={handleChange}
-                                        value={orderDetailes.locality}
-                                        placeholder='Введіть назву населеного пункта'
-                                        />
-                                    </label>
-                                    <p className={errorStateLocality === true ? (scss.error_message_active) : (scss.error_message)}>Оберіть населений пункт зі списку !</p>
-                                    {!statusLocality && (
-                                        <>
-                                        {courierLocality !== null && (<CourierList courierLocality={courierLocality} pickLocality={pickLocality}/>)}
-                                        </>
-                                    )}
-                                        <label className={refLocality !== null ? (scss.delivery_details_courier_label_branchNumber_active) : (scss.delivery_details_courier_label_branchNumber)}>
-                                            <span className={scss.delivery_details_courier_subtitle}>Номер відділення</span>
-                                            <textarea
-                                            className={errorStateBranchNumber === true ? (scss.courier_input_error) : (scss.courier_input)}
-                                            required
-                                            name='branchNumber'
-                                            type='text'
-                                            onChange={handleChange}
-                                            value={orderDetailes.branchNumber}
-                                            placeholder='Введіть номер відділення'
-                                            rows="1"
-                                            />
-                                        </label>                             
-                                        <p className={errorStateBranchNumber === true ? (scss.error_message_active) : (scss.error_message)}>Оберіть номер відділення зі списку !</p>
-                                    {statusBranchNumber && (
-                                        <>
-                                            {courierBranchNumber !== null && (<BranchNumberList courierBranchNumber={courierBranchNumber} pickBranchNumber={pickBranchNumber} search={orderDetailes.branchNumber} notFoundBranch={notFoundBranch}/>)}   
-                                        </>
-                                    )}
-                                </div>)}
-                                {orderDetailes.typeOfDelivery === "Delivery" && (
-                                <div className={scss.delivery_details_courier}>
+                                    <div className={scss.subcontainer}>
                                     <label className={scss.delivery_details_courier_label}>
                                         <span className={scss.delivery_details_courier_subtitle}>Населений пункт</span>
                                         <input
@@ -351,32 +346,84 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                                             onChange={handleChange}
                                             value={orderDetailes.locality}
                                             placeholder='Введіть назву населеного пункта'
+                                            onFocus={popularCities}
                                         />
                                     </label>
                                     <p className={errorStateLocality === true ? (scss.error_message_active) : (scss.error_message)}>Оберіть населений пункт зі списку !</p>
                                     {!statusLocality && (
                                         <>
-                                        {courierLocality !== null && (<DeliveryLocationList courierLocality={courierLocality} pickLocality={pickLocality} searchDelivery={searchDelivery} notFoundCity={notFoundCity}/>)}
+                                        {courierLocality !== null && (<CourierList courierLocality={courierLocality} pickLocality={pickLocality}/>)}
                                         </>
                                     )}
-                                    <label className={refLocalityDelivery !== null ? (scss.delivery_details_courier_label_branchNumber_active) : (scss.delivery_details_courier_label_branchNumber)}>
-                                        <span className={scss.delivery_details_courier_subtitle}>Номер відділення</span>
-                                        <input
-                                            className={scss.delivery_details_courier_input}
+                                    {showPopularCities && (<PopularCitiesList pickedPopularCity={pickedPopularCity}/>)}
+                                    </div> 
+                                    <div className={scss.subcontainer}>   
+                                        <label className={refLocality !== null ? (scss.delivery_details_courier_label_branchNumber_active) : (scss.delivery_details_courier_label_branchNumber)}>
+                                            <span className={scss.delivery_details_courier_subtitle}>Номер відділення</span>
+                                            <textarea
+                                            className={errorStateBranchNumber === true ? (scss.courier_input_error) : (scss.courier_input)}
                                             required
                                             name='branchNumber'
                                             type='text'
                                             onChange={handleChange}
                                             value={orderDetailes.branchNumber}
                                             placeholder='Введіть номер відділення'
-                                        />
-                                    </label>
-                                    <p className={errorStateBranchNumber === true ? (scss.error_message_active) : (scss.error_message)}>Оберіть номер відділення зі списку !</p>
+                                            onFocus={onFocusNumberBranch}
+                                            />
+                                        </label>                             
+                                        <p className={errorStateBranchNumber === true ? (scss.error_message_active) : (scss.error_message)}>Оберіть номер відділення зі списку !</p>
                                     {statusBranchNumber && (
                                         <>
-                                            {courierBranchNumber !== null && (<DeliveryBranchNumberList courierBranchNumber={courierBranchNumber} pickBranchNumber={pickBranchNumber} search={orderDetailes.branchNumber} notFoundBranch={notFoundBranch}/>)}   
+                                            {courierBranchNumber !== null && (<BranchNumberList courierBranchNumber={courierBranchNumber} pickBranchNumber={pickBranchNumber} search={orderDetailes.branchNumber} notFoundBranch={notFoundBranch}/>)}   
                                         </>
                                     )}
+                                    </div>
+                                </div>)}
+                                {orderDetailes.typeOfDelivery === "Delivery" && (
+                                <div className={scss.delivery_details_courier}>
+                                    <div className={scss.subcontainer}>
+                                        <label className={scss.delivery_details_courier_label}>
+                                            <span className={scss.delivery_details_courier_subtitle}>Населений пункт</span>
+                                            <input
+                                                className={errorStateLocality === true ? (scss.delivery_details_courier_input_error) : (scss.delivery_details_courier_input)}
+                                                required
+                                                name='locality'
+                                                type='text'
+                                                onChange={handleChange}
+                                                value={orderDetailes.locality}
+                                                placeholder='Введіть назву населеного пункта'
+                                                onFocus={popularCities}
+                                            />
+                                        </label>
+                                        <p className={errorStateLocality === true ? (scss.error_message_active) : (scss.error_message)}>Оберіть населений пункт зі списку !</p>
+                                        {!statusLocality && (
+                                            <>
+                                            {courierLocality !== null && (<DeliveryLocationList courierLocality={courierLocality} pickLocality={pickLocality} searchDelivery={searchDelivery} notFoundCity={notFoundCity}/>)}
+                                            </>
+                                        )}
+                                        {showPopularCities && (<PopularCitiesListDEL pickedPopularCity={pickedPopularCity}/>)}
+                                    </div>
+                                    <div className={scss.subcontainer}>
+                                        <label className={refLocalityDelivery !== null ? (scss.delivery_details_courier_label_branchNumber_active) : (scss.delivery_details_courier_label_branchNumber)}>
+                                            <span className={scss.delivery_details_courier_subtitle}>Номер відділення</span>
+                                            <input
+                                                className={scss.delivery_details_courier_input}
+                                                required
+                                                name='branchNumber'
+                                                type='text'
+                                                onChange={handleChange}
+                                                value={orderDetailes.branchNumber}
+                                                placeholder='Введіть номер відділення'
+                                                onFocus={onFocusNumberBranch}
+                                            />
+                                        </label>
+                                        <p className={errorStateBranchNumber === true ? (scss.error_message_active) : (scss.error_message)}>Оберіть номер відділення зі списку !</p>
+                                        {statusBranchNumber && (
+                                            <>
+                                                {courierBranchNumber !== null && (<DeliveryBranchNumberList courierBranchNumber={courierBranchNumber} pickBranchNumber={pickBranchNumber} search={orderDetailes.branchNumber} notFoundBranch={notFoundBranch}/>)}   
+                                            </>
+                                        )}
+                                    </div>
                                 </div>)}
                             </div>
                         </div>

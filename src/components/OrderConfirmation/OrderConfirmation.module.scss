@@ -237,7 +237,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
 };
 
 .delivery_details_courier_label {
@@ -348,6 +347,7 @@
 };
 
 .error_message_active {
+    text-align: center;
     opacity: 1;
     color: red;
     margin: 0px;
@@ -356,25 +356,31 @@
 .error_message {
     opacity: 0;
     margin: 0px;
+    text-align: center;
 };
 
 .courier_input {
-    width: 300px;
+    width: 335px;
+    box-sizing: border-box;
     display: flex;
     font-size: 12px;
-    padding: 8px 16px;
+    padding: 2px 16px;
     border: 1.5px solid #2f303a;
     border-radius: 25px;
     font-style: normal;
     font-family: "Manrope";
     resize: none;
-    overflow: visible;
+    justify-content: center;
+    align-items: center;
 
     &:focus {
         border: 1.5px solid orange;
         outline: none;
     };
 
+    &::placeholder {
+        padding-top: 8px;
+    }
 };
 
 .courier_input_error {
@@ -392,5 +398,8 @@
         border: 1.5px solid red;
         outline: none;
     };
+};
 
-}
+.subcontainer {
+    position: relative;
+};
