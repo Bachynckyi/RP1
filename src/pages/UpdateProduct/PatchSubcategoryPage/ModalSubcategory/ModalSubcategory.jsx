@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import scss from './ModalSubcategory.module.scss';
 import {AiOutlineCloseCircle} from "react-icons/ai";
-import { updateSubcategoryWithPhoto, updateSubcategoryWithoutPhoto } from '../../../../redux/subcategory/subcategory-operations';
+import { updateSubcategoryWithPhoto, updateSubcategoryWithoutPhoto, updateStatusSubcategory } from '../../../../redux/subcategory/subcategory-operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { userToken } from 'redux/auth/auth-selectors';
 import ModalConfirmation from '../ModalConfirmation/ModalConfirmation';
@@ -11,11 +11,12 @@ const initialState = {
     photoSubcategory: "",
     descriptionSubcategory: "",
     _id: "",
+    active: "",
   };
 
 const ModalSubcategory = ({modalActive, setModalActive, pickedSubcategory}) => {
     const [subcategory, setSubcategory] = useState({...initialState});
-    const { nameSubcategory, descriptionSubcategory, photoSubcategory, _id} = subcategory;
+    const { nameSubcategory, descriptionSubcategory, photoSubcategory, _id, active} = subcategory;
     const [modalConfirmation, setModalConfirmation] = useState(false);
     const dispatch = useDispatch();
     const token = useSelector(userToken);
@@ -28,6 +29,7 @@ const ModalSubcategory = ({modalActive, setModalActive, pickedSubcategory}) => {
                 descriptionSubcategory: pickedSubcategory.descriptionSubcategory,
                 photoSubcategory: pickedSubcategory.photoSubcategory,
                 _id: pickedSubcategory._id,
+                active: pickedSubcategory.active,
             });
         }
         const handleDownInEscape = e => {
@@ -109,6 +111,13 @@ const ModalSubcategory = ({modalActive, setModalActive, pickedSubcategory}) => {
         setModalConfirmation(true);
     };
 
+    const activeChange = () => {
+        const data = { active: !active }
+        dispatch(updateStatusSubcategory({token, data, _id}));
+        setModalActive(false);
+        setSubcategory(initialState);
+    };
+
     return (
         <div className={scss.container}>
             <div className={!modalActive ? (scss.modal) : (scss.modal_active)} onClick={closeModal}>
@@ -158,6 +167,13 @@ const ModalSubcategory = ({modalActive, setModalActive, pickedSubcategory}) => {
                                 onChange={handleChangeDetails}
                             />
                         </label>
+                    </div>
+                    <div>
+                        {active === true ? (
+                            <button type='button' onClick={activeChange}>Деактивувати підкатегорію та товари</button>
+                        ) : (
+                            <button type='button' onClick={activeChange}>Активувати підкатегорію та товари</button>
+                        )}
                     </div>
                     <button type='button' className={scss.button} onClick={onSubmit}>Зберегти зміни</button>                
                     <button type='button' className={scss.button} onClick={onClick}>Видалити підкатегорію</button>

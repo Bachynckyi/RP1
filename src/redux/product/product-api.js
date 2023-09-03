@@ -67,4 +67,10 @@ export const deletePhotoSlider = async ({token, id}) => {
   return result;
 };
 
+export const updateStatusProduct = async ({token, data, _id}) => {
+  setToken(token);
+  const result = await instance.patch(`/api/product/updatestatusproduct/${_id}`, data);
+  return result;
+};
+
 

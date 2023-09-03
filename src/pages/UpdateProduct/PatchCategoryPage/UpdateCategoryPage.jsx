@@ -30,12 +30,13 @@ const PatchCategoryPage = () => {
     };
   }, [dispatch]);
 
-  const fetchCategory = (nameCategory, photoCategory, descriptionCategory, _id) => {
+  const fetchCategory = (nameCategory, photoCategory, descriptionCategory, _id, active) => {
     setPickedCategory({
         nameCategory: nameCategory, 
         photoCategory:photoCategory,
         descriptionCategory: descriptionCategory,
         _id: _id,
+        active: active,
     })
     setModalActive(true);
   };

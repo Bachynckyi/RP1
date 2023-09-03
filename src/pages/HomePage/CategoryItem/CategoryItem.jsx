@@ -24,7 +24,7 @@ const CategoryItem = ({nameCategory, _id, pickCategory, category}) => {
     useEffect(() => {
         try{
             dispatch(getSubcategoryByCategory(category))
-                .then(response => {setSubcategories(response.payload.data)
+                .then(response => {setSubcategories(response.payload.data.filter(item => item.active === true))
             })
         }
         catch(error){

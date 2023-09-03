@@ -5,7 +5,8 @@ import {
         getSubcategoryByCategory,
         updateSubcategoryWithoutPhoto,
         updateSubcategoryWithPhoto, 
-        deleteSubcategory } from './subcategory-operations';
+        deleteSubcategory, 
+        updateStatusSubcategory } from './subcategory-operations';
 
 const initialState = {
   loading: false,
@@ -74,6 +75,16 @@ const subCategorySlice = createSlice({
         state.loading = false;
       })
       .addCase(deleteSubcategory.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(updateStatusSubcategory.pending, state => {
+        state.loading = true;
+      })
+      .addCase(updateStatusSubcategory.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(updateStatusSubcategory.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       })

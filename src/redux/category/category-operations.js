@@ -65,3 +65,16 @@ import * as api from './category-api';
     }
   );
 
+  export const updateStatusCategory = createAsyncThunk(
+    'api/product/updatestatuscategory',
+    async (req, { rejectWithValue }) => {
+      try {
+        const {token, data, _id} = req;
+        const result = await api.updateStatusCategory({token, data, _id});
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );
+

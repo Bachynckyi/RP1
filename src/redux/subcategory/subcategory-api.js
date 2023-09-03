@@ -44,3 +44,9 @@ export const deleteSubcategory = async ({token, _id}) => {
   const result = await instance.delete(`/api/product/deletesubcategory/${_id}`);
   return result;
 };
+
+export const updateStatusSubcategory = async ({token, data, _id}) => {
+  setToken(token);
+  const result = await instance.patch(`/api/product/updatestatussubcategory/${_id}`, data);
+  return result;
+};

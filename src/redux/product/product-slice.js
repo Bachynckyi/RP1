@@ -9,6 +9,7 @@ import {  addProduct,
           getAllPhotoSlider,
           addPhotoSlider,
           deletePhotoSlider,
+          updateStatusProduct,
   } from './product-operations';
 
 const initialState = {
@@ -118,6 +119,16 @@ const productSlice = createSlice({
         state.loading = false;
       })
       .addCase(deletePhotoSlider.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(updateStatusProduct.pending, state => {
+        state.loading = true;
+      })
+      .addCase(updateStatusProduct.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(updateStatusProduct.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       })

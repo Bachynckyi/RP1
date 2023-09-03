@@ -19,9 +19,9 @@ const SubcategoryPage = () => {
     const categorySearch = category.category;
 
     useEffect(() => {
-        try{
+        try {
             dispatch(getSubcategoryByCategory(categorySearch))
-                .then(response => {setSubcategories(response.payload.data)
+                .then(response => {setSubcategories(response.payload.data.filter(item => item.active === true))
             })
         }
         catch(error){

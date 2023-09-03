@@ -38,7 +38,11 @@ const ProductPage = () => {
       }
         try {
           dispatch(getProductByCategory(subcategorySearch))
-            .then(response => setProductList(response.payload.data));
+            .then(response => {
+              const filterNotActive = response.payload.data.filter(item => item.active === true);
+              const defaultSortByType = [...filterNotActive].sort((a, b) => a.type.substring(0,a.type.indexOf(' ')).split(/,/).join('.') - b.type.substring(0,b.type.indexOf(' ')).split(/,/).join('.'))
+              setProductList(defaultSortByType);
+          })  
         }
         catch(error){
           console.log(error);
@@ -52,12 +56,30 @@ const ProductPage = () => {
       navigate(`/catalog/${category.category}/${category.subcategory}/${product._id}`);
     };
 
+    const onClick = () => {
+    };
+
     return (
       <>
         <div className={scss.container}>
         {loading === true? (<Loader/>) :
           ( <>
             <div className={scss.product_container}>
+              <div className={scss.filter_container}>
+                <div className={scss.filters}>
+                    <p>Сортувати за ціною:</p>
+                    <button type='button' onClick={onClick}>За замовчуванням</button>
+                </div>
+                <div className={scss.filters}>
+                    <p>Обрати колір:</p>
+                    <button type='button' onClick={onClick}>За замовчуванням</button>
+                </div>
+                <div className={scss.filters}>
+                    <p>Обрати фасування:</p>
+                    <button type='button' onClick={onClick}>За замовчуванням</button>
+                </div>
+                <button type='button' onClick={onClick}>Cкинути всі фільтра</button>
+              </div>
               {Object.keys(productList).length !== 0 ?
               (<ProductList productList={productList} fetchProduct={fetchProduct}/>)
               : 

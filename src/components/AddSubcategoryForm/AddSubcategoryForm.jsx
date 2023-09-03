@@ -24,7 +24,7 @@ const AddSubCategoryForm = () => {
     const loading = useSelector(isLoading);
     const [categories, setCategories] = useState(null);
     const [SubCategory, setsubCategory] = useState({...initialState});
-    const { nameSubcategory, photoSubcategory, subcategory, descriptionSubcategory, category, nameCategory} = SubCategory;
+    const { nameSubcategory, photoSubcategory, subcategory, descriptionSubcategory, category, nameCategory, active} = SubCategory;
 
     useEffect(() => {
         try{
@@ -51,6 +51,7 @@ const AddSubCategoryForm = () => {
         formData.append("descriptionSubcategory", descriptionSubcategory);
         formData.append("nameCategory", nameCategory);
         formData.append("category", category);
+        formData.append("active", active);
         const data = formData;
         const sendData = async ({token, data}) => {
             try {
@@ -75,6 +76,18 @@ const AddSubCategoryForm = () => {
             setsubCategory(prevState => {
                 return {...prevState, [name]: value.toLowerCase().split(/\s+/).join('-')};
             });
+        }
+        else if(name === "active"){
+            if(target.value === "true") {
+                setsubCategory(prevState => {
+                    return {...prevState, [name]: true};
+                });
+            }
+            else {
+                setsubCategory(prevState => {
+                    return {...prevState, [name]: false};
+                });
+            }
         }
         else {
             setsubCategory(prevState => {
@@ -121,6 +134,7 @@ const AddSubCategoryForm = () => {
                                 required
                                 value={nameSubcategory}
                                 onChange={handleChangeDetails}
+                                maxLength="30"
                             />
                         </label>
                         <label className={scss.label_input}>Назва категорії англійською мовою
@@ -147,6 +161,33 @@ const AddSubCategoryForm = () => {
                         </label>
                     </div>
                     {categories !== null && (<CategoriesList categories={categories} fetchCategory={fetchCategory}/>)}
+                        <div>
+                            <h2>Оберіть тип активності</h2>
+                            <div className={scss.input_container}>
+                                <input 
+                                    className={scss.input_radiobutton}
+                                    type="radio" 
+                                    id="active" 
+                                    name="active" 
+                                    value="true"
+                                    required
+                                    onChange={handleChangeDetails}
+                                />
+                                <label htmlFor="active" className={scss.label_radiobutton}>Активний</label>
+                            </div>
+                            <div className={scss.input_container}>
+                                <input 
+                                    className={scss.input_radiobutton}
+                                    type="radio" 
+                                    id="notActive"
+                                    name="active" 
+                                    value="false"
+                                    required
+                                    onChange={handleChangeDetails}
+                                />
+                                <label htmlFor="notActive" className={scss.label_radiobutton}>Не активний</label>
+                            </div>
+                        </div>
                     <button type='submit'>Додати категорію</button>
                 </form>
             </div>)}

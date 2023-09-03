@@ -21,13 +21,14 @@ const initialState = {
     photo: "",
     code: "",
     subcategory: "",
+    active: "",
 };
 
 const AddProductForm = () => {
     const dispatch = useDispatch();
     const token = useSelector(userToken);
     const [product, setProduct] = useState({...initialState});
-    const { title, description, price, color, type, photo, category, code, subcategory} = product;
+    const { title, description, price, color, type, photo, category, code, subcategory, active } = product;
     const [categories, setCategories] = useState(null);
     const [subCategories, setSubcategories] = useState(null);
     const loading = useSelector(isLoading);
@@ -55,6 +56,7 @@ const AddProductForm = () => {
         formData.append("description", description);
         formData.append("category", category);
         formData.append("code", code);
+        formData.append("active", active);
         if(subcategory !== null){
             formData.append("subcategory", subcategory);
         };
@@ -81,6 +83,18 @@ const AddProductForm = () => {
             setProduct(prevState => {
                 return {...prevState, [name]: value.toLowerCase().split(/,/).join('.')};
             });
+        }
+        else if(name === "active"){
+            if(target.value === "true") {
+                setProduct(prevState => {
+                    return {...prevState, [name]: true};
+                });
+            }
+            else {
+                setProduct(prevState => {
+                    return {...prevState, [name]: false};
+                });
+            }
         }
         else {
             setProduct(prevState => {
@@ -191,6 +205,33 @@ const AddProductForm = () => {
                                 onChange={handleChangeDetails}
                             />
                         </label>
+                    </div>
+                    <div>
+                        <h2>Оберіть тип активності</h2>
+                        <div className={scss.input_container}>
+                            <input 
+                                className={scss.input_radiobutton}
+                                type="radio" 
+                                id="active" 
+                                name="active" 
+                                value="true"
+                                required
+                                onChange={handleChangeDetails}
+                            />
+                            <label htmlFor="active" className={scss.label_radiobutton}>Активний</label>
+                        </div>
+                        <div className={scss.input_container}>
+                            <input 
+                                className={scss.input_radiobutton}
+                                type="radio" 
+                                id="notActive"
+                                name="active" 
+                                value="false"
+                                required
+                                onChange={handleChangeDetails}
+                            />
+                            <label htmlFor="notActive" className={scss.label_radiobutton}>Не активний</label>
+                        </div>
                     </div>
                     {categories !== null && (<CategoriesList categories={categories} fetchCategory={fetchCategory}/>)}
                     {subCategories !== null && (<SubcategoriesList subCategories={subCategories} fetchSubcategory={fetchSubcategory}/>)}

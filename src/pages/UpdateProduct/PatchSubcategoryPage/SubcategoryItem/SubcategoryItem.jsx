@@ -1,9 +1,9 @@
 import scss from "./SubcategoryItem.module.scss";
 
-const SubcategoryItem = ({nameSubcategory, photoSubcategory, subcategory, pickSubcategory, descriptionSubcategory, _id}) => {
+const SubcategoryItem = ({nameSubcategory, photoSubcategory, subcategory, pickSubcategory, descriptionSubcategory, _id, active}) => {
 
     const handlePicker = () => {
-        pickSubcategory(nameSubcategory, photoSubcategory, descriptionSubcategory, _id);
+        pickSubcategory(nameSubcategory, photoSubcategory, descriptionSubcategory, _id, active);
     };
 
     return (

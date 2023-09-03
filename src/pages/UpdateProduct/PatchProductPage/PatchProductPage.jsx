@@ -6,7 +6,7 @@ import ForbiddenPage from "pages/ForbiddenPage/ForbiddenPage";
 import { useDispatch, useSelector } from 'react-redux';
 import ModalConfirmation from './ModalConfirmation/ModalConfirmation';
 import { userToken } from 'redux/auth/auth-selectors';
-import {updateProductWithPhoto, updateProductWithoutPhoto} from "../../../redux/product/product-operations";
+import {updateProductWithPhoto, updateProductWithoutPhoto, updateStatusProduct } from "../../../redux/product/product-operations";
 import { getProductBySearch } from '../../../redux/product/product-operations';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,6 +18,7 @@ const PatchProductPage = () => {
     const [modalConfirmation, setModalConfirmation] = useState(false);
     const token = useSelector(userToken);
     const navigate = useNavigate();
+    const { _id, active }= product;
   
     const handleSearch = (event) => {
         setSearch(event.target.value);
@@ -107,7 +108,13 @@ const PatchProductPage = () => {
             sendData({token, data, _id});
             navigate(`/profile`);
         }
-    }
+    };
+
+    const activeChange = () => {
+        const data = { active: !active }
+        dispatch(updateStatusProduct({token, data, _id}));
+        navigate(`/profile`);
+    };
 
     return (
         <>
@@ -212,6 +219,13 @@ const PatchProductPage = () => {
                                     onChange={handleChangeDetails}
                                 />
                             </label>
+                        </div>
+                        <div>
+                        {active === true ? (
+                            <button type='button' onClick={activeChange}>Деактивувати товар</button>
+                        ) : (
+                            <button type='button' onClick={activeChange}>Активувати товар</button>
+                        )}
                         </div>
                         <button type='button' className={scss.button} onClick={onSubmit}>Зберегти зміни</button>                
                         <button type='button' className={scss.button} onClick={onClick}>Видалити товар</button>

@@ -1,9 +1,9 @@
 import scss from './CategoryItem.module.scss';
 
-const CategoryItem = ({nameCategory, photoCategory, pickCategory, descriptionCategory, _id}) => {
+const CategoryItem = ({nameCategory, photoCategory, pickCategory, descriptionCategory, _id, active}) => {
 
     const handlePicker = () => {
-        pickCategory(nameCategory, photoCategory, descriptionCategory, _id);
+        pickCategory(nameCategory, photoCategory, descriptionCategory, _id, active);
     };
 
     return (

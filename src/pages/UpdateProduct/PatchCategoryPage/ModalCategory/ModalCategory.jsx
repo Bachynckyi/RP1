@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import scss from "./ModalCategory.module.scss";
 import {AiOutlineCloseCircle} from "react-icons/ai";
-import { updateCategoryWithPhoto, updateCategoryWithoutPhoto } from 'redux/category/category-operations';
+import { updateCategoryWithPhoto, updateCategoryWithoutPhoto, updateStatusCategory } from 'redux/category/category-operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { userToken } from 'redux/auth/auth-selectors';
 import ModalConfirmation from '../ModalConfirmation/ModalConfirmation';
@@ -11,11 +11,12 @@ const initialState = {
     photoCategory: "",
     descriptionCategory: "",
     _id: "",
+    active: "",
   };
 
 const ModalCategory = ({modalActive, setModalActive, pickedCategory}) => {
     const [category, setCategory] = useState({...initialState});
-    const { nameCategory, descriptionCategory, photoCategory, _id} = category;
+    const { nameCategory, descriptionCategory, photoCategory, _id, active} = category;
     const [modalConfirmation, setModalConfirmation] = useState(false);
     const dispatch = useDispatch();
     const token = useSelector(userToken);
@@ -28,6 +29,7 @@ const ModalCategory = ({modalActive, setModalActive, pickedCategory}) => {
                 descriptionCategory: pickedCategory.descriptionCategory,
                 photoCategory: pickedCategory.photoCategory,
                 _id: pickedCategory._id,
+                active: pickedCategory.active,
             });
         }
         const handleDownInEscape = e => {
@@ -108,6 +110,14 @@ const ModalCategory = ({modalActive, setModalActive, pickedCategory}) => {
 
     const onClick = () => {
         setModalConfirmation(true);
+        console.log(active)
+    };
+
+    const activeChange = () => {
+        const data = { active: !active }
+        dispatch(updateStatusCategory({token, data, _id}));
+        setModalActive(false);
+        setCategory(initialState);
     };
 
     return (
@@ -159,6 +169,13 @@ const ModalCategory = ({modalActive, setModalActive, pickedCategory}) => {
                                 onChange={handleChangeDetails}
                             />
                         </label>
+                    </div>
+                    <div>
+                        {active === true ? (
+                            <button type='button' onClick={activeChange}>Деактивувати категорію, підкатегорії та товари</button>
+                        ) : (
+                            <button type='button' onClick={activeChange}>Активувати категорію, підкатегорії та товари</button>
+                        )}
                     </div>
                     <button type='button' className={scss.button} onClick={onSubmit}>Зберегти зміни</button>                
                     <button type='button' className={scss.button} onClick={onClick}>Видалити категорію</button>

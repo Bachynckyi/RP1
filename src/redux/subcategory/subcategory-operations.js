@@ -76,3 +76,16 @@ import * as api from './subcategory-api';
       }
     }
   );
+
+  export const updateStatusSubcategory = createAsyncThunk(
+    'api/product/updatestatussubcategory',
+    async (req, { rejectWithValue }) => {
+      try {
+        const {token, data, _id} = req;
+        const result = await api.updateStatusSubcategory({token, data, _id});
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );

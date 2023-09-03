@@ -17,7 +17,7 @@ const CategoryPage = () => {
   useEffect(() => {
     try{
         dispatch(getAllCategories())
-        .then(response => setCategories(response.payload.data))
+        .then(response => setCategories(response.payload.data.filter(item => item.active === true)))
     }
     catch(error){
         console.log(error)

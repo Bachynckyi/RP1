@@ -39,3 +39,9 @@ export const deleteCategory = async ({token, _id}) => {
   const result = await instance.delete(`/api/product/deletecategory/${_id}`);
   return result;
 };
+
+export const updateStatusCategory = async ({token, data, _id}) => {
+  setToken(token);
+  const result = await instance.patch(`/api/product/updatestatuscategory/${_id}`, data);
+  return result;
+};

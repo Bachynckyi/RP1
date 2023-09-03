@@ -127,3 +127,16 @@ export const addProduct = createAsyncThunk(
       }
     }
   );
+
+  export const updateStatusProduct = createAsyncThunk(
+    'api/product/updatestatusproduct',
+    async (req, { rejectWithValue }) => {
+      try {
+        const { token, data, _id } = req 
+        const result = await api.updateStatusProduct({token, data, _id});
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );

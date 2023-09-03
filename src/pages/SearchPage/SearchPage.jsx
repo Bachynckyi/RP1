@@ -21,7 +21,7 @@ const SearchPage = () => {
     try{
       const search = searchParams.get("search");
       dispatch(getProductBySearch(search))
-          .then(response => setProductList(response.payload.data));
+          .then(response => setProductList(response.payload.data.filter(item => item.active === true)));
     }
     catch(error){
       console.log(error);

@@ -10,13 +10,14 @@ const initialState = {
     photoCategory: "",
     category: "",
     descriptionCategory: "",
+    active: "",
   };
 
 const AddCategoryForm = () => {
     const dispatch = useDispatch();
     const token = useSelector(userToken);
     const [Category, setCategory] = useState({...initialState});
-    const { nameCategory, category, descriptionCategory, photoCategory} = Category;
+    const { nameCategory, category, descriptionCategory, photoCategory, active} = Category;
     
     const onSubmit = event => {
         event.preventDefault();
@@ -25,6 +26,7 @@ const AddCategoryForm = () => {
         formData.append("nameCategory", nameCategory);
         formData.append("category", category);
         formData.append("descriptionCategory", descriptionCategory);
+        formData.append("active", active);
         const data = formData;
         const sendData = async ({token, data}) => {
             try {
@@ -53,9 +55,22 @@ const AddCategoryForm = () => {
             }
         }
         else if(name === "category"){
+            console.log(Category)
             setCategory(prevState => {
                 return {...prevState, [name]: value.toLowerCase().split(/\s+/).join('-')};
             });
+        }
+        else if(name === "active"){
+            if(target.value === "true") {
+                setCategory(prevState => {
+                    return {...prevState, [name]: true};
+                });
+            }
+            else {
+                setCategory(prevState => {
+                    return {...prevState, [name]: false};
+                });
+            }
         }
         else {
             setCategory(prevState => {
@@ -63,7 +78,7 @@ const AddCategoryForm = () => {
             });
         }
     },
-      [setCategory]
+      [setCategory, Category]
     );
 
     return (
@@ -100,6 +115,7 @@ const AddCategoryForm = () => {
                             required
                             value={nameCategory}
                             onChange={handleChangeDetails}
+                            maxLength="30"
                         />
                     </label>
                     <label className={scss.label_input}>Назва категорії англійською мовою
@@ -124,6 +140,33 @@ const AddCategoryForm = () => {
                                 onChange={handleChangeDetails}
                             />
                     </label>
+                    <div>
+                        <h2>Оберіть тип активності</h2>
+                        <div className={scss.input_container}>
+                            <input 
+                                className={scss.input_radiobutton}
+                                type="radio" 
+                                id="active" 
+                                name="active" 
+                                value="true"
+                                required
+                                onChange={handleChangeDetails}
+                            />
+                            <label htmlFor="active" className={scss.label_radiobutton}>Активний</label>
+                        </div>
+                        <div className={scss.input_container}>
+                            <input 
+                                className={scss.input_radiobutton}
+                                type="radio" 
+                                id="notActive"
+                                name="active" 
+                                value="false"
+                                required
+                                onChange={handleChangeDetails}
+                            />
+                            <label htmlFor="notActive" className={scss.label_radiobutton}>Не активний</label>
+                        </div>
+                    </div>
                 </div>
                 <button type='submit'>Додати категорію</button>
             </form>

@@ -18,7 +18,7 @@ const HomePage = () => {
   useEffect(() => {
     try{
         dispatch(getAllCategories())
-        .then(response => setCategories(response.payload.data))
+        .then(response => setCategories(response.payload.data.filter(item => item.active === true)))
         dispatch(getAllPhotoSlider())
         .then(response => setSliderList(response.payload.data))
     }

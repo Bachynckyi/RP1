@@ -4,8 +4,8 @@ import scss from "./SubCategoryList.module.scss";
 
 const ProductList = ({ subcategories, fetchSubcategory }) => {
 
-    const pickSubcategory = (nameSubcategory, photoSubcategory, descriptionSubcategory, _id) => {
-        fetchSubcategory(nameSubcategory, photoSubcategory, descriptionSubcategory, _id);
+    const pickSubcategory = (nameSubcategory, photoSubcategory, descriptionSubcategory, _id, active) => {
+        fetchSubcategory(nameSubcategory, photoSubcategory, descriptionSubcategory, _id, active);
     };
 
     const elements = subcategories.map(({ _id, ...props }) => {

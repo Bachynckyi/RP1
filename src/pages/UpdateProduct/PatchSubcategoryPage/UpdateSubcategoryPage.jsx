@@ -29,12 +29,13 @@ const SubcategoryPage = () => {
 
     }, [dispatch]);
 
-    const fetchSubcategory = (nameSubcategory, photoSubcategory, descriptionSubcategory, _id) => {
+    const fetchSubcategory = (nameSubcategory, photoSubcategory, descriptionSubcategory, _id, active) => {
         setPickedSubcategory({
             nameSubcategory: nameSubcategory, 
             photoSubcategory:photoSubcategory,
             descriptionSubcategory: descriptionSubcategory,
             _id: _id,
+            active: active,
         })
         setModalActive(true);
     };
