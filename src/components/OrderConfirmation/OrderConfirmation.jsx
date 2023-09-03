@@ -378,6 +378,7 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                                         </>
                                     )}
                                     </div>
+                                    <p className={scss.textNP}>Накладений платіж: 20 ₴ + 2% комісії </p>
                                 </div>)}
                                 {orderDetailes.typeOfDelivery === "Delivery" && (
                                 <div className={scss.delivery_details_courier}>

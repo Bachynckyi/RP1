@@ -41,7 +41,7 @@ const Header = () => {
                 </div>
               </div>
             ) : (
-              <div className={scss.header_mobile}>
+              <div className={scss.header}>
                 <div className={scss.subcontainer}>
                   <Logo/>
                   <div className={scss.search_container_for_tablet}>

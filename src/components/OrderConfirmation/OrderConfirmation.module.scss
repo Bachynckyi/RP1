@@ -237,6 +237,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 };
 
 .delivery_details_courier_label {
@@ -384,22 +385,36 @@
 };
 
 .courier_input_error {
-    width: 300px;
+    width: 335px;
+    box-sizing: border-box;
     display: flex;
     font-size: 12px;
-    padding: 8px 16px;
-    border: 1.5px solid red;
+    padding: 2px 16px;
+    border: 1.5px solid #2f303a;
     border-radius: 25px;
     font-style: normal;
     font-family: "Manrope";
     resize: none;
+    justify-content: center;
+    align-items: center;
 
     &:focus {
         border: 1.5px solid red;
         outline: none;
     };
+
+    &::placeholder {
+        padding-top: 8px;
+    }
 };
 
 .subcontainer {
     position: relative;
+};
+
+.textNP {
+    position: absolute;
+    top: 180px;
+    font-style: normal;
+    font-family: "Manrope";
 };
