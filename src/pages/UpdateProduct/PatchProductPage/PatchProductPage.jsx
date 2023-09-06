@@ -6,7 +6,7 @@ import ForbiddenPage from "pages/ForbiddenPage/ForbiddenPage";
 import { useDispatch, useSelector } from 'react-redux';
 import ModalConfirmation from './ModalConfirmation/ModalConfirmation';
 import { userToken } from 'redux/auth/auth-selectors';
-import {updateProductWithPhoto, updateProductWithoutPhoto, updateStatusProduct } from "../../../redux/product/product-operations";
+import {updateProductWithPhoto, updateProductWithoutPhoto, updateStatusProduct, updateTopProduct } from "../../../redux/product/product-operations";
 import { getProductBySearch } from '../../../redux/product/product-operations';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ const PatchProductPage = () => {
     const [modalConfirmation, setModalConfirmation] = useState(false);
     const token = useSelector(userToken);
     const navigate = useNavigate();
-    const { _id, active }= product;
+    const { _id, active, top }= product;
   
     const handleSearch = (event) => {
         setSearch(event.target.value);
@@ -113,6 +113,12 @@ const PatchProductPage = () => {
     const activeChange = () => {
         const data = { active: !active }
         dispatch(updateStatusProduct({token, data, _id}));
+        navigate(`/profile`);
+    };
+
+    const topChange = () => {
+        const data = { top: !top }
+        dispatch(updateTopProduct({token, data, _id}));
         navigate(`/profile`);
     };
 
@@ -225,6 +231,13 @@ const PatchProductPage = () => {
                             <button type='button' onClick={activeChange}>Деактивувати товар</button>
                         ) : (
                             <button type='button' onClick={activeChange}>Активувати товар</button>
+                        )}
+                        </div>
+                        <div>
+                        {top === false ? (
+                            <button type='button' onClick={topChange}>Включити товар на вітрину</button>
+                        ) : (
+                            <button type='button' onClick={topChange}>Виключити товар з вітрини</button>
                         )}
                         </div>
                         <button type='button' className={scss.button} onClick={onSubmit}>Зберегти зміни</button>                

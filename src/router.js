@@ -32,6 +32,7 @@ const UserRoutes = () => {
       <Suspense>
         <Routes>
           <Route path="/" element={<HomePage/>}></Route>
+          <Route path="/top/:id" element={<HomePage/>}></Route>
           <Route path="/delivery" element={<DeliveryPage/>}></Route>
           <Route path="/company" element={<CompanyPage/>} ></Route>
           <Route path="/contacts" element={<ContactsPage/>} ></Route>

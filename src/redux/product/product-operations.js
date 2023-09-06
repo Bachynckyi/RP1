@@ -140,3 +140,28 @@ export const addProduct = createAsyncThunk(
       }
     }
   );
+
+  export const updateTopProduct = createAsyncThunk(
+    'api/product/updatetopproduct',
+    async (req, { rejectWithValue }) => {
+      try {
+        const { token, data, _id } = req 
+        const result = await api.updateTopProduct({token, data, _id});
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );
+
+  export const getAllTopProducts = createAsyncThunk(
+    'api/product/getalltopproducts',
+    async (_, { rejectWithValue }) => {
+      try { 
+        const result = await api.getAllTopProducts();
+        return result;
+      } catch (error) {
+        return rejectWithValue(error.response.request.status);
+      }
+    }
+  );

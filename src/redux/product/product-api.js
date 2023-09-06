@@ -73,4 +73,15 @@ export const updateStatusProduct = async ({token, data, _id}) => {
   return result;
 };
 
+export const updateTopProduct = async ({token, data, _id}) => {
+  setToken(token);
+  const result = await instance.patch(`/api/product/updatetopproduct/${_id}`, data);
+  return result;
+};
+
+export const getAllTopProducts = async () => {
+  const result = await instance.get(`/api/product/getalltopproducts`);
+  return result;
+};
+
 

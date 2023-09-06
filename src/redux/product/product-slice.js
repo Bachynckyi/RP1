@@ -10,6 +10,8 @@ import {  addProduct,
           addPhotoSlider,
           deletePhotoSlider,
           updateStatusProduct,
+          updateTopProduct,
+          getAllTopProducts,
   } from './product-operations';
 
 const initialState = {
@@ -129,6 +131,26 @@ const productSlice = createSlice({
         state.loading = false;
       })
       .addCase(updateStatusProduct.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(updateTopProduct.pending, state => {
+        state.loading = true;
+      })
+      .addCase(updateTopProduct.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(updateTopProduct.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(getAllTopProducts.pending, state => {
+        state.loading = true;
+      })
+      .addCase(getAllTopProducts.fulfilled, (state, { payload }) => {
+        state.loading = false;
+      })
+      .addCase(getAllTopProducts.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       })

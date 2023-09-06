@@ -91,7 +91,12 @@ const Modal = ({modalActive, setModalActive, product}) => {
             setIsShowDesription(false);
             setQuantity(1);
           }, 300);
-        navigate(`/catalog/${params.category}/${params.subcategory}`);
+        if(Object.keys(params).length === 1) {
+            navigate(`/`);
+        }
+        else {
+            navigate(`/catalog/${params.category}/${params.subcategory}`);
+        }
     };
 
     const openModalOneClick = () => {

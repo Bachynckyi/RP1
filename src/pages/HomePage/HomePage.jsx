@@ -7,13 +7,18 @@ import SlickCarousel from 'components/SlickCarousel/SlickCarousel';
 import Loader  from '../../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 import CategoryItem from './CategoryItem/CategoryItem';
-import { getAllPhotoSlider } from 'redux/product/product-operations';
+import { getAllPhotoSlider, getAllTopProducts } from 'redux/product/product-operations';
+import ProductList from 'pages/ProductPage/ProductList/ProductList';
+import Modal from "../../components/Modal/Modal";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [categories, setCategories] = useState(null);
   const [sliderList, setSliderList] = useState(null);
+  const [productList, setProductList] = useState({});
+  const [product, setProduct] = useState({});
+  const [modalActive, setModalActive] = useState(false);
 
   useEffect(() => {
     try{
@@ -21,6 +26,8 @@ const HomePage = () => {
         .then(response => setCategories(response.payload.data.filter(item => item.active === true)))
         dispatch(getAllPhotoSlider())
         .then(response => setSliderList(response.payload.data))
+        dispatch(getAllTopProducts())
+        .then(response => setProductList(response.payload.data))
     }
     catch(error){
         console.log(error)
@@ -29,6 +36,12 @@ const HomePage = () => {
 
   const pickCategory = (category) => {
     navigate(`/catalog/${category}`);
+  };
+
+  const fetchProduct = (product) => {
+    setProduct(product);
+    setModalActive(true);
+    navigate(`/top/${product._id}`);
   };
 
   return (
@@ -44,11 +57,24 @@ const HomePage = () => {
           </div>
           <ul className={scss.category_list}>
             {categories.map(({ _id, ...props }) => {
-              return (<CategoryItem key={_id} {...props}pickCategory={pickCategory}/>)
+              return (<CategoryItem key={_id} {...props} pickCategory={pickCategory}/>)
             })}
           </ul>
         </div>
+        {Object.keys(productList).length !== 0 ?
+              (
+              <div className={scss.top_container}>
+                <h2 className={scss.title}>Топ продажів</h2>
+                <ProductList productList={productList} fetchProduct={fetchProduct}/>
+              </div>)
+              : 
+          (<p></p>)}
       </div>
+      <Modal 
+        modalActive={modalActive} 
+        setModalActive={setModalActive} 
+        product={product} 
+      />
       <Footer/>
       </>
       )}
