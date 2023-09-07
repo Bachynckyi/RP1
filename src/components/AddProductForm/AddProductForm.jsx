@@ -22,6 +22,7 @@ const initialState = {
     code: "",
     subcategory: "",
     active: "",
+    top: "",
 };
 
 const AddProductForm = () => {
@@ -57,6 +58,7 @@ const AddProductForm = () => {
         formData.append("category", category);
         formData.append("code", code);
         formData.append("active", active);
+        formData.append("top", false);
         if(subcategory !== null){
             formData.append("subcategory", subcategory);
         };
