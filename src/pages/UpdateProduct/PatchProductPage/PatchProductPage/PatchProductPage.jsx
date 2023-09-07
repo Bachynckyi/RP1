@@ -1,46 +1,30 @@
 import scss from './PatchProductPage.module.scss';
-import { useState, useCallback } from 'react';
-import {GoSearch} from "react-icons/go";
+import { useState, useCallback, useEffect } from 'react';
 import { userEmail } from 'redux/auth/auth-selectors';
 import ForbiddenPage from "pages/ForbiddenPage/ForbiddenPage";
 import { useDispatch, useSelector } from 'react-redux';
-import ModalConfirmation from './ModalConfirmation/ModalConfirmation';
+import ModalConfirmation from "./../ModalConfirmation/ModalConfirmation";
 import { userToken } from 'redux/auth/auth-selectors';
-import {updateProductWithPhoto, updateProductWithoutPhoto, updateStatusProduct, updateTopProduct } from "../../../redux/product/product-operations";
-import { getProductBySearch } from '../../../redux/product/product-operations';
+import {getProductById, updateProductWithPhoto, updateProductWithoutPhoto, updateStatusProduct, updateTopProduct } from "../../../../redux/product/product-operations";
 import { useNavigate } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 const PatchProductPage = () => {
-    const [search, setSearch] = useState("");
     const userEmailVerify = useSelector(userEmail);
     const dispatch = useDispatch();
     const [product, setProduct] = useState([]);
     const [modalConfirmation, setModalConfirmation] = useState(false);
     const token = useSelector(userToken);
     const navigate = useNavigate();
+    const params = useParams();
     const { _id, active, top }= product;
-  
-    const handleSearch = (event) => {
-        setSearch(event.target.value);
-    };
 
-    const handleSubmit = () => {
-        if(search === ""){
-            return
-        }
-        else {
-            dispatch(getProductBySearch(search))
+    useEffect(() => {
+        dispatch(getProductById(params.id))
             .then(response => {
-                const item = response.payload.data.filter(item => item.code === search);
-                if(item.length === 0){
-                    setProduct([]);
-                }
-                else {
-                    setProduct(...item);
-                }
+                setProduct(response.payload.data[0])
             })
-        }
-    };
+    }, [dispatch, params.id])
 
     const handleChangeDetails = useCallback(({ target }) => {
         const {name, value } = target;
@@ -126,18 +110,6 @@ const PatchProductPage = () => {
         <>
         {userEmailVerify === "colorfarb@gmail.com" ? (
             <div className={scss.container}>
-                <h1 className={scss.title}>Введіть код товару</h1>
-                <div className={scss.container_search}>
-                    <input
-                    className={scss.input_search}
-                    value={search}
-                    onChange={handleSearch}
-                    placeholder='Введіть пошуковий запит'
-                    />
-                    <button type='button' onClick={handleSubmit} className={scss.button_search}>
-                        <GoSearch className={scss.icon_search}/>
-                    </button>
-                </div>
                 {product.length !== 0 && (
                     <form>
                         <div>                          
@@ -257,5 +229,3 @@ const PatchProductPage = () => {
   };
   
 export default PatchProductPage;
-
-

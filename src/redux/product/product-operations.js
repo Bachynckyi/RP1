@@ -38,7 +38,6 @@ export const addProduct = createAsyncThunk(
     }
   );
 
-  
   export const getProductById = createAsyncThunk(
     'api/product/getproductbyid/:id',
     async (id, { rejectWithValue }) => {

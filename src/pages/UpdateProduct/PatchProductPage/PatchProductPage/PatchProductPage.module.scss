@@ -1,0 +1,35 @@
+.container {
+    width: 100%;
+    padding: 40px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+};
+
+.title {
+    text-align: center;
+    font-family: "Manrope";
+    font-style: normal;
+    margin: 0px;
+};
+
+
+.label_input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+};
+
+.product_picture {
+    width: 400px;
+    height: 400px;
+    display: block;
+    margin: auto;
+};
+
+.title_picture {
+    margin-bottom: 20px;
+    margin-top: 20px;
+};
+

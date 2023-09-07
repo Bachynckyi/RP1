@@ -36,6 +36,20 @@ const ProductPage = () => {
           console.log(error);
         }
       }
+      else if(subcategorySearch === undefined) {
+        try {
+          dispatch(getProductByCategory(params.category))
+            .then(response => {
+              const filterNotActive = response.payload.data.filter(item => item.active === true);
+              const defaultSortByType = [...filterNotActive].sort((a, b) => a.type.substring(0,a.type.indexOf(' ')).split(/,/).join('.') - b.type.substring(0,b.type.indexOf(' ')).split(/,/).join('.'))
+              setProductList(defaultSortByType);
+          })  
+        }
+        catch(error){
+          console.log(error);
+        };  
+      }
+      else {
         try {
           dispatch(getProductByCategory(subcategorySearch))
             .then(response => {
@@ -46,14 +60,20 @@ const ProductPage = () => {
         }
         catch(error){
           console.log(error);
-    };  
+        };  
+      }
     // eslint-disable-next-line 
     }, [dispatch, subcategorySearch]);
 
     const fetchProduct = (product) => {
       setProduct(product);
       setModalActive(true);
-      navigate(`/catalog/${category.category}/${category.subcategory}/${product._id}`);
+      if(category.subcategory === undefined) {
+        navigate(`/catalog/${category.category}/${category.category}/${product._id}`);
+      }
+      else {
+        navigate(`/catalog/${category.category}/${category.subcategory}/${product._id}`);
+      }
     };
 
     const onClick = () => {

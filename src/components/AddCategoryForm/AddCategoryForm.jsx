@@ -55,7 +55,6 @@ const AddCategoryForm = () => {
             }
         }
         else if(name === "category"){
-            console.log(Category)
             setCategory(prevState => {
                 return {...prevState, [name]: value.toLowerCase().split(/\s+/).join('-')};
             });
@@ -78,6 +77,7 @@ const AddCategoryForm = () => {
             });
         }
     },
+    // eslint-disable-next-line 
       [setCategory, Category]
     );
 
