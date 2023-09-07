@@ -95,14 +95,16 @@ const Modal = ({modalActive, setModalActive, product}) => {
             navigate(`/`);
         }
         else {
-            if(params.subcategory === params.category) {
+            if(Object.keys(params).length === 0) {
+                return
+            }
+            else if(params.subcategory === params.category) {
                 navigate(`/catalog/${params.category}`);
-              }
-              else {
-                console.log(234)
+            }
+
+            else {
                 navigate(`/catalog/${params.category}/${params.subcategory}`);
-              }
-            // navigate(`/catalog/${params.category}/${params.subcategory}`);
+            }
         }
     };
 
