@@ -53,10 +53,10 @@ const PatchProductList = () => {
 
     const fetchProduct = (product) => {
       if(category.subcategory === undefined) {
-        navigate(`/catalog/${category.category}/${category.category}/${product._id}`);
+        navigate(`/updateproduct/${category.category}/${category.category}/${product._id}`);
       }
       else {
-        navigate(`/catalog/${category.category}/${category.subcategory}/${product._id}`);
+        navigate(`/updateproduct/${category.category}/${category.subcategory}/${product._id}`);
       }
     };
 
