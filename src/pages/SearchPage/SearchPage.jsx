@@ -34,21 +34,23 @@ const SearchPage = () => {
     };
 
     return (
-      <div>
+      <>
+      <div className={scss.container}>
         {loading ? (<Loader/>) :
-         (<div className={scss.container}>
+         (<>
             {Object.keys(productList).length !== 0 ?
               (<ProductList productList={productList} fetchProduct={fetchProduct}/>)
             : 
-              (<p>Нажаль по вашому запиту нічого не знайдено, спробуйте ще раз.</p>)}
-          </div>)}
+              (<p className={scss.item_notFound}>Нажаль по вашому запиту нічого не знайдено, спробуйте ще раз.</p>)}
+          </>)}
           <Modal 
             modalActive={modalActive} 
             setModalActive={setModalActive} 
             product={product} 
           />
-        <Footer/>
       </div>
+      <Footer/>
+      </>
     );
   };
   

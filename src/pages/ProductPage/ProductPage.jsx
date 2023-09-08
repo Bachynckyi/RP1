@@ -87,18 +87,18 @@ const ProductPage = () => {
             <div className={scss.product_container}>
               <div className={scss.filter_container}>
                 <div className={scss.filters}>
-                    <p>Сортувати за ціною:</p>
+                    <p className={scss.filter_name}>Сортувати за ціною:</p>
                     <button type='button' onClick={onClick}>За замовчуванням</button>
                 </div>
                 <div className={scss.filters}>
-                    <p>Обрати колір:</p>
+                    <p className={scss.filter_name}>Обрати колір:</p>
                     <button type='button' onClick={onClick}>За замовчуванням</button>
                 </div>
                 <div className={scss.filters}>
-                    <p>Обрати фасування:</p>
+                    <p className={scss.filter_name}>Обрати фасування:</p>
                     <button type='button' onClick={onClick}>За замовчуванням</button>
                 </div>
-                <button type='button' onClick={onClick}>Cкинути всі фільтра</button>
+                <button type='button' onClick={onClick} className={scss.button_cancel}>Cкинути всі фільтра</button>
               </div>
               {Object.keys(productList).length !== 0 ?
               (<ProductList productList={productList} fetchProduct={fetchProduct}/>)

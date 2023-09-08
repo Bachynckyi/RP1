@@ -21,5 +21,26 @@
     flex-direction: row;
 };
 
+.button_cancel {
+    margin-left: 20px;
+    background-color: orange;
+    font-family: "Manrope";
+    font-style: normal;
+    border-radius: 10px;
+    color: #fff;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        background-color: darkorange;
+    };
+};
+
+.filter_name {
+    font-family: "Manrope";
+    font-style: normal;
+};
+
 
 
