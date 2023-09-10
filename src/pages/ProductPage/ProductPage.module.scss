@@ -13,16 +13,28 @@
 
 .filter_container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 };
 
 .filters {
+    width: 100%;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    &:nth-child(n + 2) {
+        margin-top: 14px;
+    };
 };
 
-.button_cancel {
-    margin-left: 20px;
+.button_sort {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 140px;
+    height: 30px;
     background-color: orange;
     font-family: "Manrope";
     font-style: normal;
@@ -37,10 +49,63 @@
     };
 };
 
+.defaultName {
+
+}
+
 .filter_name {
+    // width: 100%;
     font-family: "Manrope";
     font-style: normal;
+    margin: 0px;
 };
 
+.down_allow {
+    margin-left: 6px;
+    width: 18px;
+    height: 18px;
+};
+
+.sortByPrice_wrapper {
+    display: flex;
+    flex-direction: column;
+};
+
+.colorMenuActive {
+    display: flex;
+    flex-direction: column;
+};
+
+.colorMenu {
+    display: none;
+};
+
+.typeMenuActive {
+    display: flex;
+    flex-direction: column;
+};
+
+.typeMenu {
+    display: none;
+};
+
+.button_cancel {
+    align-self: center;
+    width: 160px;
+    height: 30px;
+    margin-top: 20px;
+    background-color: orange;
+    font-family: "Manrope";
+    font-style: normal;
+    border-radius: 10px;
+    color: #fff;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        background-color: darkorange;
+    };
+};
 
 
