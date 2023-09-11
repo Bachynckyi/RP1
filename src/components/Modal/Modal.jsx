@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef} from 'react';
 import scss from './Modal.module.scss';
 import ModalOneClick from 'components/ModalOneClick/ModalOneClick';
 import {SlBasket} from "react-icons/sl";
@@ -22,6 +22,7 @@ const Modal = ({modalActive, setModalActive, product}) => {
     const isLoggedIn = useSelector(isLogin);
     const dispatch = useDispatch();
     const token = useSelector(userToken);
+    const ref = useRef(null);
 
     useEffect(() => {
         if(modalActive === true) {
@@ -58,6 +59,10 @@ const Modal = ({modalActive, setModalActive, product}) => {
         // eslint-disable-next-line
     }, [modalActive, quantity]);
     
+    useEffect(() => {
+        ref.current?.scrollIntoView({ behavior: 'smooth' })
+    }, [isShowDescription])
+
     const handleChange = (event) => {
         if(event.target.name === "increment"){
             if(quantity === ""){
@@ -146,7 +151,11 @@ const Modal = ({modalActive, setModalActive, product}) => {
     };
 
     const showDescription = () => {
-        setIsShowDesription(true);
+        setIsShowDesription(!isShowDescription)
+    };
+
+    const navigateToBasket = () => {
+        navigate(`/order`); 
     };
 
     return (
@@ -193,9 +202,13 @@ const Modal = ({modalActive, setModalActive, product}) => {
                     </button>)}
                 </div>
                 <div className={scss.description_container}>
-                    {isShowDescription === true ? (<p className={scss.description}>{description}</p>)
-                    :(<button className={scss.button_description} onClick={showDescription}>Опис</button>)}
+                    <button type='button' className={scss.button_to_basket} onClick={navigateToBasket}>Оформити замовлення</button>
+                    {isShowDescription === true ? 
+                        (<button className={scss.button_description} onClick={showDescription}>Приховати опис</button>)
+                        :
+                        (<button className={scss.button_description} onClick={showDescription}>Показати опис</button>)}
                 </div>
+                {isShowDescription && (<p className={scss.description} ref={ref}>{description}</p>)}
                 </div>
             </div>
         <ModalOneClick 

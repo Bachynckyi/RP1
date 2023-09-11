@@ -7,7 +7,7 @@ const initialState = {
   password: "",
 };
 
-export const LoginForm = ({onSubmit}) => {
+export const LoginForm = ({onSubmit, error}) => {
   const [state, setState] = useState({ ...initialState });
   const { email, password } = state;
 
@@ -46,12 +46,13 @@ export const LoginForm = ({onSubmit}) => {
           required
           placeholder='Введіть пароль'
           onChange={handleChange}
+          minLength="6"
         />
       </div>
+      <p className={error ? (scss.error_message_active) : (scss.error_message)}>Не правильна адреса електронної пошти або пароль</p>
       <button className={scss.button} type="submit">
         <p className={scss.pp}>Вхід</p>
       </button>
-
       <NavLink className={scss.p} to="/register">
         Немає аккаунта? Реєстрація
       </NavLink>

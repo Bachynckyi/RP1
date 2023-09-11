@@ -352,6 +352,8 @@
     padding: 10px; 
     border-radius: 10px;
     font-weight: 700;
+    margin-left: 20px;
+    background-color: orange;
 
     @media screen and (min-width: 1024px) {
         width: 150px;
@@ -416,3 +418,30 @@
 .basket_word_selected {
     font-weight: 700;
 };
+
+.button_to_basket {
+    cursor: pointer;
+    margin-top: 20px;
+    height: 40px;
+    display: flex;
+    width: 33vw;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    border: 1px solid;
+    padding: 10px; 
+    border-radius: 10px;
+    font-weight: 700;
+    background-color: orange;
+
+    @media screen and (min-width: 1024px) {
+        width: 150px;
+        margin-top: 10px;
+
+        &:hover {
+            background-color: darkorange;
+        }
+    }
+};
+

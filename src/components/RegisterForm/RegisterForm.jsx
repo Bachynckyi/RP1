@@ -7,7 +7,7 @@ const initialState = {
   password: "",
 };
 
-const RegisterForm = ({onSubmit}) => {
+const RegisterForm = ({onSubmit, error}) => {
   const [state, setState] = useState({ ...initialState });
   const { email, password } = state;
 
@@ -46,8 +46,10 @@ const RegisterForm = ({onSubmit}) => {
           required
           placeholder='Введіть пароль'
           onChange={handleChange}
+          minLength="6"
         />
       </div>
+      <p className={error ? (scss.error_message_active) : (scss.error_message)}>Адреса електронної пошти вже зареєстрована</p>
       <button className={scss.button} type="submit">
         <p className={scss.pp}>Реєстрація</p>
       </button>
