@@ -185,6 +185,7 @@ const Modal = ({modalActive, setModalActive, product}) => {
                         name="quantity"
                         onChange={handleChange}
                         type='text'
+                        maxLength="3"
                         />
                     <button className={scss.quantity_button_increment} type="button" onClick={handleChange} name='increment'>+</button>
                 </div>

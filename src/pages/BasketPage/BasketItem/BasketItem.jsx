@@ -176,6 +176,7 @@ const BasketItem = ({product, updateOrder, _id, basket}) => {
                   name="quantity"
                   onChange={handleChange}
                   type='text'
+                  maxLength="3"
                   />
               <button type="button" onClick={handleChange} name='increment' className={scss.quantity_button_increment}>+</button>
           </div>
