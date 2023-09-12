@@ -60,7 +60,7 @@
     transform: scale(1);
     transition: 0.5s;
     width: 70vw;
-    height: 85vh;
+    height: 88vh;
     overflow: auto;
     margin: auto;
     margin-top: 5vh;
@@ -216,6 +216,7 @@
     font-family: "Manrope";
     font-style: normal;
     cursor: pointer;
+    padding: 0px;
 };
 
 .quantity_button_increment {
@@ -234,6 +235,7 @@
     font-family: "Manrope";
     font-style: normal;
     cursor: pointer;
+    padding: 0px;
 };
 
 .input {
