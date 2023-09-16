@@ -39,7 +39,7 @@ const PatchProductList = () => {
           try {
             dispatch(getProductByCategory(subcategorySearch))
               .then(response => {
-                const filterNotActive = response.payload.data.filter(item => item.active === true);
+                const filterNotActive = response.payload.data;
                 const defaultSortByType = [...filterNotActive].sort((a, b) => a.type.substring(0,a.type.indexOf(' ')).split(/,/).join('.') - b.type.substring(0,b.type.indexOf(' ')).split(/,/).join('.'))
                 setProductList(defaultSortByType);
             })  

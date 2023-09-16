@@ -1,4 +1,4 @@
-import scss from "./Subcategory.module.scss";
+import scss from './SubcategoryItem.module.scss';
 
 const CategoriesItem = ({nameSubcategory, subcategory, pickSubcategory}) => {
 
@@ -8,16 +8,19 @@ const CategoriesItem = ({nameSubcategory, subcategory, pickSubcategory}) => {
     };
 
     return (
-        <li>
-            <input
-                className={scss.input} 
-                type="radio" 
-                id={subcategory} 
-                name="subcategory" 
-                value={subcategory} 
-                onChange={handlePicker}
-            />
-            <label htmlFor={subcategory} className={scss.label}>{nameSubcategory}</label>
+        <li className={scss.subcategory_item}>
+            <label htmlFor={subcategory} className={scss.label}>
+                <input
+                    className={scss.radio_button}
+                    type="radio" 
+                    id={subcategory} 
+                    name="subcategory" 
+                    value={subcategory} 
+                    onChange={handlePicker}
+                />
+                <span className={scss.custom_button}></span>
+                <span className={scss.subcategory_name}>{nameSubcategory}</span>
+            </label>
         </li>
     );
   };

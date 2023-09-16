@@ -56,12 +56,12 @@ const Header = () => {
                 <Search/>
                 </div>
                 <div className={scss.menu_list}>
-                {!userStatus ? (
+                {!userStatus && (
                   <div className={scss.auth_list}>
-                  <NavLink className={scss.nav_mobile_item} to="/login" onClick={toggle}>Вхід</NavLink>
-                  <NavLink className={scss.nav_mobile_item} to="/register" onClick={toggle}>Реєстрація</NavLink>
+                    <NavLink className={scss.nav_mobile_item} to="/login" onClick={toggle}>Вхід</NavLink>
+                    <NavLink className={scss.nav_mobile_item} to="/register" onClick={toggle}>Реєстрація</NavLink>
                   </div>
-                ) : (<NavLink className={scss.nav_mobile_item} to="/profile">Особистий кабінет</NavLink>)}
+                )}
                 <NavLink className={scss.nav_mobile_item} to="/catalog" onClick={toggle}>Каталог</NavLink >
                 <NavLink className={scss.nav_mobile_item} to="/delivery" onClick={toggle}>Доставка і Оплата</NavLink>
                 <NavLink className={scss.nav_mobile_item} to="/company" onClick={toggle}>Про компанію</NavLink>

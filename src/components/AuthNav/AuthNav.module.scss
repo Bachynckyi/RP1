@@ -8,7 +8,7 @@
         text-decoration: none;
         margin-right: 10px;
         border-radius: 50%;
-    }
+    };
 };
 
 .user_icon {
@@ -19,19 +19,18 @@
 
     &:hover {
         color: orange;
-    }
+    };
 
     @media screen and (min-width: 1024px) {
         display: block;
-    }
+    };
 };
-
 
 .usermenu_container {
     display: flex;
     flex-direction: row;
     align-items: center;
-}
+};
 
 .basket_icon {
     width: 38px;
@@ -43,6 +42,33 @@
     }
 };
 
-.basket_link {
-    margin-right: 20px;
-};  
+.user {
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    outline: none;
+    margin-right: 16px;
+    cursor: pointer;
+
+    @media screen and (min-width: 1280px) {
+        display: block;
+        margin-left: 10px;
+        margin-right: 0px;
+    };
+
+};
+
+.logout_icon {
+    width: 46px;
+    height: 46px;
+    color: #fff;
+
+    &:hover {
+        color: orange;
+    }
+
+    @media screen and (min-width: 1024px) {
+        display: block;
+    }
+};

@@ -8,7 +8,7 @@ import { addProduct } from '../../redux/product/product-operations';
 import CategoriesList from '../CategoryList/CategoryList';
 import { isLoading } from '../../redux/category/category-selectors';
 import Loader  from '../../components/Loader/Loader';
-import { getAllSubcategories } from '../../redux/subcategory/subcategory-operations';
+import { getSubcategoryByCategory } from '../../redux/subcategory/subcategory-operations';
 import SubcategoriesList from 'components/SubcategoryList/SubcategoryList';
 
 const initialState = {
@@ -38,13 +38,20 @@ const AddProductForm = () => {
         try{
             dispatch(getAllCategories())
             .then(response => setCategories(response.payload.data))
-            dispatch(getAllSubcategories())
-            .then(response => setSubcategories(response.payload.data))
         }
         catch(error){
             console.log(error)
         };
     }, [dispatch])
+
+    useEffect(() => {
+        const categorySearch = category;
+        if(categorySearch !== ""){
+            dispatch(getSubcategoryByCategory(categorySearch))
+            .then(response => {setSubcategories(response.payload.data)
+        })
+        }
+    }, [category, dispatch])
 
     const onSubmit = event => {
         event.preventDefault();
@@ -122,123 +129,149 @@ const AddProductForm = () => {
             {loading ? (<Loader/>) : (
             <div className={scss.container}>
                 <form className={scss.product_form} onSubmit={onSubmit}>
-                    <div>
-                        {photo ? 
-                        (<img 
-                            src={URL.createObjectURL(photo)} 
-                            alt="productPhoto" 
-                            className={scss.product_picture}
-                            />)
-                        :
-                        (<img 
-                            src={defaultPicture} 
-                            alt="defaultPicture"
-                            className={scss.product_picture}
-                            />)}                      
-                        <p className={scss.title_picture}>Фотографія товару</p>
-                            <input
-                                type='file'
-                                name="photo"
-                                required
-                                accept="image/png, image/jpeg"
-                                onChange={handleChangeDetails}
-                            />
-                    </div> 
-                    <div> 
-                        <label className={scss.label_input}>Назва товару
-                            <input
-                                className={scss.input}
-                                name='title'
-                                placeholder='Введіть назву товару'
-                                required
-                                value={title}
-                                onChange={handleChangeDetails}
-                            />
-                        </label>
-                        <label>Опис
-                            <textarea
-                                className={scss.label_input}
-                                name='description'
-                                placeholder='Введіть опис'
-                                rows="20"
-                                cols="70"
-                                required
-                                value={description}
-                                onChange={handleChangeDetails}
-                            />
-                        </label>
-                        <label className={scss.label_input}>Фасовка
-                            <input
-                                className={scss.input}
-                                name='type'
-                                placeholder='Введіть фасовку'
-                                required
-                                value={type}
-                                onChange={handleChangeDetails}
-                            />
-                        </label>
-                        <label className={scss.label_input}>Колір
-                            <input
-                                className={scss.input}
-                                name='color'
-                                placeholder='Введіть колір'
-                                required
-                                value={color}
-                                onChange={handleChangeDetails}
-                            />
-                        </label>
-                        <label className={scss.label_input}>Ціна
-                            <input
-                                className={scss.input}
-                                name='price'
-                                placeholder='Введіть ціну'
-                                required
-                                value={price}
-                                onChange={handleChangeDetails}
-                            />
-                        </label>
-                        <label className={scss.label_input}>Код товару
-                            <input
-                                className={scss.input}
-                                name='code'
-                                placeholder='Введіть код товару'
-                                required
-                                value={code}
-                                onChange={handleChangeDetails}
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <h2>Оберіть тип активності</h2>
-                        <div className={scss.input_container}>
-                            <input 
-                                className={scss.input_radiobutton}
-                                type="radio" 
-                                id="active" 
-                                name="active" 
-                                value="true"
-                                required
-                                onChange={handleChangeDetails}
-                            />
-                            <label htmlFor="active" className={scss.label_radiobutton}>Активний</label>
+                    <div className={scss.subcontainer_text}>
+                        <div className={scss.subcontainer_photo}>
+                            <p className={scss.title_picture}>Фотографія товару</p>
+                            {photo ? 
+                            (<img 
+                                src={URL.createObjectURL(photo)} 
+                                alt="productPhoto" 
+                                className={scss.product_picture}
+                                />)
+                            :
+                            (<img 
+                                src={defaultPicture} 
+                                alt="defaultPicture"
+                                className={scss.product_picture}
+                                />)}                      
+                                <input
+                                    className={scss.input_photo}
+                                    type='file'
+                                    id="file"
+                                    name="photo"
+                                    required
+                                    accept="image/png, image/jpeg"
+                                    onChange={handleChangeDetails}
+                                />
+                                <label htmlFor="file" className={scss.button_input_file}>Оберіть файл</label>
+                        </div> 
+                        <div> 
+                            <label className={scss.label_input}>Назва товару
+                                <input
+                                    className={scss.input_text}
+                                    name='title'
+                                    placeholder='Введіть назву товару'
+                                    required
+                                    value={title}
+                                    onChange={handleChangeDetails}
+                                    maxLength="35"
+                                />
+                            </label>
+                            <label className={scss.label_input}>Фасовка
+                                <input
+                                    className={scss.input_text}
+                                    name='type'
+                                    placeholder='Введіть фасовку'
+                                    required
+                                    value={type}
+                                    onChange={handleChangeDetails}
+                                    maxLength="10"
+                                />
+                            </label>
+                            <label className={scss.label_input}>Колір
+                                <input
+                                    className={scss.input_text}
+                                    name='color'
+                                    placeholder='Введіть колір'
+                                    required
+                                    value={color}
+                                    onChange={handleChangeDetails}
+                                    maxLength="35"
+                                />
+                            </label>
+                            <label className={scss.label_input}>Ціна
+                                <input
+                                    className={scss.input_text}
+                                    name='price'
+                                    placeholder='Введіть ціну'
+                                    required
+                                    value={price}
+                                    onChange={handleChangeDetails}
+                                    maxLength="15"
+                                />
+                            </label>
+                            <label className={scss.label_input}>Код товару
+                                <input
+                                    className={scss.input_text}
+                                    name='code'
+                                    placeholder='Введіть код товару'
+                                    required
+                                    value={code}
+                                    onChange={handleChangeDetails}
+                                    maxLength="10"
+                                />
+                            </label>
                         </div>
-                        <div className={scss.input_container}>
-                            <input 
-                                className={scss.input_radiobutton}
-                                type="radio" 
-                                id="notActive"
-                                name="active" 
-                                value="false"
-                                required
-                                onChange={handleChangeDetails}
-                            />
-                            <label htmlFor="notActive" className={scss.label_radiobutton}>Не активний</label>
+                        <div>
+                            <label className={scss.label_textarea}>Додати опис
+                                <textarea
+                                    className={scss.description_area}
+                                    name='description'
+                                    placeholder='Введіть опис'
+                                    rows="20"
+                                    cols="70"
+                                    required
+                                    value={description}
+                                    onChange={handleChangeDetails}
+                                />
+                            </label>
                         </div>
                     </div>
-                    {categories !== null && (<CategoriesList categories={categories} fetchCategory={fetchCategory}/>)}
-                    {subCategories !== null && (<SubcategoriesList subCategories={subCategories} fetchSubcategory={fetchSubcategory}/>)}
-                    <button type='submit'>Додати товар</button>
+                    <div className={scss.subcontainer_buttons}>
+                        <div className={scss.menu_types}>
+                        {categories !== null && (<CategoriesList categories={categories} fetchCategory={fetchCategory}/>)}
+                        </div>
+                        <div className={scss.menu_types}>
+                        <p className={scss.title}>Оберіть підкатегорію товару</p>
+                        {subCategories !== null && (<SubcategoriesList subCategories={subCategories} fetchSubcategory={fetchSubcategory}/>)}
+                        </div>
+                        <div className={scss.menu_types}>
+                            <p className={scss.type_active}>Оберіть тип активності</p>
+                            <div className={scss.input_container}>
+                                <label htmlFor="active" className={scss.label}>
+                                <input 
+                                    className={scss.radio_button}
+                                    type="radio" 
+                                    id="active" 
+                                    name="active" 
+                                    value="true"
+                                    required
+                                    onChange={handleChangeDetails}
+                                />
+                                <span className={scss.custom_button}></span>
+                                <span className={scss.button_name}>Активний</span>
+                                </label>
+                            </div>
+                            <div className={scss.input_container}>
+                                <label htmlFor="notActive" className={scss.label}>
+                                <input 
+                                    className={scss.radio_button}
+                                    type="radio" 
+                                    id="notActive"
+                                    name="active" 
+                                    value="false"
+                                    required
+                                    onChange={handleChangeDetails}
+                                />
+                                <span className={scss.custom_button}></span>
+                                <span className={scss.button_name}>Не активний</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type='submit' className={scss.button_submit}>Додати товар</button>
                 </form>
+
             </div>
             )}
         </>

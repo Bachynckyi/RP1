@@ -11,9 +11,6 @@
     position: fixed;
     top: 0;
     left: 0;
-    // display: flex;
-    // align-items: center;
-    // justify-content: center;
     transition: 0.5s;
     opacity: 0;
     pointer-events: none;
@@ -25,13 +22,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    // display: flex;
-    // align-items: center;
-    // justify-content: center;
     background-color: rgba(0, 0, 0, 0.4);
     transition: 0.5s;
     object-fit: cover;
-
 };
 
 .modal_content {
@@ -186,7 +179,7 @@
     font-weight: 600;
     font-family: "Manrope";
     font-style: normal;
-}
+};
 
 .quantity_container {
     display: flex;
@@ -198,7 +191,7 @@
     @media screen and (min-width: 1024px) {
         margin-top: 10px;
     }
-}
+};
 
 .quantity_button_decrement {
     display: flex;
@@ -295,7 +288,7 @@
             background-color: darkorange;
         }
     }
-}
+};
 
 .icon_basket {
     width: 25px;

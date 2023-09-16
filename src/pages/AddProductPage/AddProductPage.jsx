@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import scss from './AddProductPage.module.scss';
 import { userEmail } from 'redux/auth/auth-selectors';
 import ForbiddenPage from "pages/ForbiddenPage/ForbiddenPage";
+import Footer from "components/Footer/Footer";
 
 const AddProduct = () => {
     const loading = useSelector(isLoading);
@@ -13,10 +14,13 @@ const AddProduct = () => {
     return (
         <>
             {userEmailVerify === "colorfarb@gmail.com" ? (
+            <>
             <div className={scss.container}>
                 <h1 className={scss.title}>Додати товар</h1>
                 {loading ? (<Loader/>) : (<AddProductForm/>)}
-            </div>)
+            </div>
+            <Footer/>
+            </>)
             : (<ForbiddenPage/>)}
         </>
     );

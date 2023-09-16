@@ -29,11 +29,11 @@ const ModalConfirmation = ({modalConfirmation, setModalConfirmation, _id}) => {
 
     const closeModal = () => {
         setModalConfirmation(false);
-    }
+    };
 
     const onClick = () => {
-        dispatch(removeProductById({token, _id}));
-        navigate(`/profile`);
+        dispatch(removeProductById({token, _id}))
+            .then(navigate(`/profile`))
     };
 
     return (
@@ -42,12 +42,12 @@ const ModalConfirmation = ({modalConfirmation, setModalConfirmation, _id}) => {
                 <div className={!modalConfirmation ? (scss.modal_content) : (scss.modal_content_active)} onClick={e => e.stopPropagation()}>
                     {loading === true ? (<Loader/>) : 
                     (
-                    <>
+                    <div className={scss.subcontainer}>
                         <button className={scss.button_close}type="button" onClick={closeModal}><AiOutlineCloseCircle className={scss.icon_close}/></button>
-                        <h1>Увага!!!</h1>
-                        <h2>Товар буде видалено</h2>
-                        <button type='button' onClick={onClick}>Підтвердити</button>
-                    </>
+                        <p className={scss.error_message}>Увага !!!</p>
+                        <p className={scss.error_text}>Товар буде видалено без можливості відновлення !!!</p>
+                        <button type='button' onClick={onClick} className={scss.button_submit}>Підтвердити</button>
+                    </div>
                     )}
                 </div>
             </div>

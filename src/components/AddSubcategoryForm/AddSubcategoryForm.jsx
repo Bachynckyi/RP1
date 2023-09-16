@@ -102,93 +102,108 @@ const AddSubCategoryForm = () => {
         <div>
             {loading ? (<Loader/>) : (
             <div className={scss.container}>
-                <form className={scss.product_form} onSubmit={onSubmit}>
-                    <div>
-                        {photoSubcategory !== "" ? 
-                        (<img 
-                            src={URL.createObjectURL(photoSubcategory)} 
-                            alt="SubcategoryPhoto" 
-                            className={scss.product_picture}
-                            />)
-                        :
-                        (<img 
-                            src={defaultPicture} 
-                            alt="defaultPicture"
-                            className={scss.product_picture}
-                            />)}                      
-                        <p className={scss.title_picture}>Фотографія підкатегорії</p>
-                            <input
-                                type='file'
-                                name="photoSubcategory"
-                                required
-                                accept="image/png, image/jpeg"
-                                onChange={handleChangeDetails}
-                            />
-                    </div> 
-                    <div> 
-                        <label className={scss.label_input}>Назва підкатегорії
-                            <input
-                                className={scss.input}
-                                name='nameSubcategory'
-                                placeholder='Введіть назву категорії'
-                                required
-                                value={nameSubcategory}
-                                onChange={handleChangeDetails}
-                                maxLength="30"
-                            />
-                        </label>
-                        <label className={scss.label_input}>Назва категорії англійською мовою
-                            <input
-                                className={scss.input}
-                                name='subcategory'
-                                placeholder='Введіть назву категорії англійською мовою'
-                                required
-                                value={subcategory}
-                                onChange={handleChangeDetails}
-                            />
-                        </label>
-                        <label>Опис категорії
-                                <textarea
-                                    className={scss.label_input}
-                                    name='descriptionSubcategory'
-                                    placeholder='Введіть опис'
-                                    rows="20"
-                                    cols="70"
+                <form className={scss.form_container} onSubmit={onSubmit}>
+                    <div className={scss.product_form}>
+                        <div className={scss.subcontainer}>
+                        <div className={scss.subcontainer_photo}>
+                            <p className={scss.title_picture}>Фотографія підкатегорії</p>
+                            {photoSubcategory !== "" ? 
+                            (<img 
+                                src={URL.createObjectURL(photoSubcategory)} 
+                                alt="SubcategoryPhoto" 
+                                className={scss.product_picture}
+                                />)
+                            :
+                            (<img 
+                                src={defaultPicture} 
+                                alt="defaultPicture"
+                                className={scss.product_picture}
+                                />)}                      
+                                <input
+                                    className={scss.input_photo}
+                                    type='file'
+                                    name="photoSubcategory"
                                     required
-                                    value={descriptionSubcategory}
+                                    id='file'
+                                    accept="image/png, image/jpeg"
                                     onChange={handleChangeDetails}
                                 />
-                        </label>
-                    </div>
-                    {categories !== null && (<CategoriesList categories={categories} fetchCategory={fetchCategory}/>)}
-                        <div>
-                            <h2>Оберіть тип активності</h2>
-                            <div className={scss.input_container}>
-                                <input 
-                                    className={scss.input_radiobutton}
-                                    type="radio" 
-                                    id="active" 
-                                    name="active" 
-                                    value="true"
+                                <label htmlFor="file" className={scss.button_input_file}>Оберіть файл</label>
+                        </div> 
+                        <div> 
+                            <label className={scss.label_input}>Назва підкатегорії
+                                <input
+                                    className={scss.input_text}
+                                    name='nameSubcategory'
+                                    placeholder='Введіть назву категорії'
                                     required
+                                    value={nameSubcategory}
                                     onChange={handleChangeDetails}
+                                    maxLength="30"
                                 />
-                                <label htmlFor="active" className={scss.label_radiobutton}>Активний</label>
-                            </div>
-                            <div className={scss.input_container}>
-                                <input 
-                                    className={scss.input_radiobutton}
-                                    type="radio" 
-                                    id="notActive"
-                                    name="active" 
-                                    value="false"
+                            </label>
+                            <label className={scss.label_input}>Назва категорії англійською мовою
+                                <input
+                                    className={scss.input_text}
+                                    name='subcategory'
+                                    placeholder='Введіть назву категорії англійською мовою'
                                     required
+                                    value={subcategory}
                                     onChange={handleChangeDetails}
+                                    maxLength="30"
                                 />
-                                <label htmlFor="notActive" className={scss.label_radiobutton}>Не активний</label>
-                            </div>
+                            </label>
+                            <div className={scss.menu_types}>
+                                <p className={scss.type_active}>Оберіть тип активності</p>
+                                <div className={scss.input_container}>
+                                    <label htmlFor="active" className={scss.label}>
+                                    <input 
+                                        className={scss.radio_button}
+                                        type="radio" 
+                                        id="active" 
+                                        name="active" 
+                                        value="true"
+                                        required
+                                        onChange={handleChangeDetails}
+                                    />
+                                    <span className={scss.custom_button}></span>
+                                    <span className={scss.button_name}>Активний</span>
+                                    </label>
+                                </div>
+                                <div className={scss.input_container}>
+                                    <label htmlFor="notActive" className={scss.label}>
+                                    <input 
+                                        className={scss.radio_button}
+                                        type="radio" 
+                                        id="notActive"
+                                        name="active" 
+                                        value="false"
+                                        required
+                                        onChange={handleChangeDetails}
+                                    />
+                                    <span className={scss.custom_button}></span>
+                                    <span className={scss.button_name}>Не активний</span>
+                                    </label>
+                                </div>
                         </div>
-                    <button type='submit'>Додати категорію</button>
+                        </div>
+                        <label className={scss.label_textarea}>Додати опис підкатегорії
+                                    <textarea
+                                        className={scss.description_area}
+                                        name='descriptionSubcategory'
+                                        placeholder='Введіть опис'
+                                        rows="20"
+                                        cols="70"
+                                        required
+                                        value={descriptionSubcategory}
+                                        onChange={handleChangeDetails}
+                                        maxLength="300"
+                                    />
+                        </label>
+                        </div>
+                        {categories !== null && (<CategoriesList categories={categories} fetchCategory={fetchCategory}/>)}
+                    </div>
+                    <button type='submit' className={scss.button_submit}>Додати підкатегорію</button>
                 </form>
             </div>)}
         </div>

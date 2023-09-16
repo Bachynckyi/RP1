@@ -21,7 +21,9 @@ const ProductPage = lazy(() => import('./pages/ProductPage/ProductPage'));
 const SearchPage = lazy(() => import('./pages/SearchPage/SearchPage'));
 const BasketPage = lazy(() => import('./pages/BasketPage/BasketPage'));
 const UpdateCategoryPage = lazy(() => import('./pages/UpdateProduct/PatchCategoryPage/UpdateCategoryPage'));
+const UpdateCategory = lazy(() => import('./pages/UpdateProduct/PatchCategoryPage/UpdateCategory/UpdateCategory'));
 const UpdateSubcategoryPage = lazy(() => import('./pages/UpdateProduct/PatchSubcategoryPage/UpdateSubcategoryPage'));
+const UpdateSubcategory = lazy(() => import('./pages/UpdateProduct/PatchSubcategoryPage/UpdateSubcategory/UpdateSubcategory'));
 const UpdateProductCategory = lazy(() => import('./pages/UpdateProduct/PatchProductPage/PatchProductCategory/PatchProductCategory'));
 const UpdateProductSubcategory = lazy(() => import('./pages/UpdateProduct/PatchProductPage/PatchProductSubcategory/PatchProductSubcategory'));
 const UpdateProductList = lazy(() => import('./pages/UpdateProduct/PatchProductPage/PatchProductList/PatchProductList'));
@@ -57,7 +59,9 @@ const UserRoutes = () => {
             <Route path="/addcategory" element={<AddCategory/>}/>
             <Route path="/addsubcategory" element={<AddSubcategory/>}/>
             <Route path="/updatecategory" element={<UpdateCategoryPage/>}/>
+            <Route path="/updatecategory/:category" element={<UpdateCategory/>}/>
             <Route path="/updatesubcategory" element={<UpdateSubcategoryPage/>}/>
+            <Route path="/updatesubcategory/:subcategory" element={<UpdateSubcategory/>}/>
             <Route path="/updateproduct" element={<UpdateProductCategory/>}/>
             <Route path="/updateproduct/:category" element={<UpdateProductSubcategory/>}/>
             <Route path="/updateproduct/:category/:subcategory" element={<UpdateProductList/>}/>

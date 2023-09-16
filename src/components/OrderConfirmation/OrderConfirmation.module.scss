@@ -317,11 +317,11 @@
             margin-left: 20px;
         }
     }
-
 };
 
 .radio_button {
-    display: none;
+    opacity: 0;
+    position: absolute;
     cursor: pointer;
 };  
 

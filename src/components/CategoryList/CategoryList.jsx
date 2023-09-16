@@ -1,4 +1,5 @@
 import CategoryItem from './CategoryItem/CategoryItem';
+import scss from './CategoryList.module.scss';
 
 const CategoryList = ({ categories, fetchCategory }) => {
 
@@ -14,8 +15,8 @@ const CategoryList = ({ categories, fetchCategory }) => {
     
     return (
         <div>
-            <h3>Обрати категорію товару</h3>
-            <ol>{elements}</ol>
+            <p className={scss.title}>Оберіть категорію товару</p>
+            <ul className={scss.category_list}>{elements}</ul>
         </div>
     );
 };

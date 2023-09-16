@@ -6,11 +6,13 @@ import { deleteSubcategory } from "../../../../redux/subcategory/subcategory-ope
 import Loader from 'components/Loader/Loader';
 import { isLoading } from '../../../../redux/subcategory/subcategory-selectors';
 import { userToken } from 'redux/auth/auth-selectors';
+import { useNavigate } from 'react-router-dom';
 
 const ModalConfirmation = ({modalConfirmation, setModalConfirmation, _id}) => {
     const dispatch = useDispatch();
     const loading = useSelector(isLoading);
     const token = useSelector(userToken);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleDownInEscape = e => {
@@ -32,7 +34,7 @@ const ModalConfirmation = ({modalConfirmation, setModalConfirmation, _id}) => {
     const onClick = () => {
         try{
             dispatch(deleteSubcategory({token, _id}))
-            .then(closeModal())
+            .then(navigate(`/profile`))
           }
           catch(error){
             console.log(error)
@@ -45,18 +47,18 @@ const ModalConfirmation = ({modalConfirmation, setModalConfirmation, _id}) => {
                 <div className={!modalConfirmation ? (scss.modal_content) : (scss.modal_content_active)} onClick={e => e.stopPropagation()}>
                     {loading === true ? (<Loader/>) : 
                     (
-                    <>
+                    <div className={scss.subcontainer}>
                         <button className={scss.button_close}type="button" onClick={closeModal}><AiOutlineCloseCircle className={scss.icon_close}/></button>
-                        <h1>Увага!!!</h1>
-                        <h2>При видаленні категорії відбудеться видалення всіх підкатегорій та товарів, що належать до цієї категорії!!!</h2>
-                        <button type='button' onClick={onClick}>Підтвердити</button>
-                    </>
+                        <p className={scss.error_message}>Увага !!!</p>
+                        <p className={scss.error_text}>При видаленні підкатегорії відбудеться видалення товарів, що належать до цієї підкатегорії !!!</p>
+                        <button type='button' onClick={onClick} className={scss.button_submit}>Підтвердити</button>
+                    </div>
                     )}
                 </div>
             </div>
         </div>
     )
-  };
+};
   
 export default ModalConfirmation;
 

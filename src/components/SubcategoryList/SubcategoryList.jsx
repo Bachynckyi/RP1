@@ -1,4 +1,5 @@
 import SubcategoryItem from './SubcategoryItem/SubcategoryItem';
+import scss from './SubcategoryList.module.scss';
 
 const SubcategoryList = ({ subCategories, fetchSubcategory }) => {
 
@@ -13,10 +14,7 @@ const SubcategoryList = ({ subCategories, fetchSubcategory }) => {
     });
     
     return (
-        <div>
-            <h3>Обрати підкатегорію товару</h3>
-            <ol>{elements}</ol>
-        </div>
+        <ul className={scss.subcategory_list}>{elements}</ul>
     );
 };
 

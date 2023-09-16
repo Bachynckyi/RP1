@@ -8,6 +8,7 @@ import { userToken } from 'redux/auth/auth-selectors';
 import {getProductById, updateProductWithPhoto, updateProductWithoutPhoto, updateStatusProduct, updateTopProduct } from "../../../../redux/product/product-operations";
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
+import Footer from 'components/Footer/Footer';
 
 const PatchProductPage = () => {
     const userEmailVerify = useSelector(userEmail);
@@ -68,7 +69,7 @@ const PatchProductPage = () => {
                 }
               };
             sendData({token, data, _id});
-            navigate(`/profile`);
+            navigate(`/updateproduct/${params.category}/${params.subcategory}`);
         }
         else if (typeof(product.photo) === "object"){
             const _id = product._id;
@@ -90,139 +91,155 @@ const PatchProductPage = () => {
                 }
               };
             sendData({token, data, _id});
-            navigate(`/profile`);
+            navigate(`/updateproduct/${params.category}/${params.subcategory}`);
         }
     };
 
     const activeChange = () => {
         const data = { active: !active }
         dispatch(updateStatusProduct({token, data, _id}));
-        navigate(`/profile`);
+        navigate(`/updateproduct/${params.category}/${params.subcategory}`);
     };
 
     const topChange = () => {
         const data = { top: !top }
         dispatch(updateTopProduct({token, data, _id}));
-        navigate(`/profile`);
+        navigate(`/updateproduct/${params.category}/${params.subcategory}`);
     };
 
     return (
         <>
         {userEmailVerify === "colorfarb@gmail.com" ? (
+            <>
             <div className={scss.container}>
                 {product.length !== 0 && (
-                    <form>
-                        <div>                          
-                        {typeof(product.photo) === "string" ? 
-                        (<img 
-                            src={product.photo} 
-                            alt="productPhoto" 
-                            className={scss.product_picture}
-                            />)
-                        :
-                        (<img 
-                            src={URL.createObjectURL(product.photo)} 
-                            alt="productPhoto"
-                            className={scss.product_picture}
-                            />)}                      
-                        <p className={scss.title_picture}>Фотографія товару</p>
-                            <input
-                                type='file'
-                                name="photo"
-                                required
-                                accept="image/png, image/jpeg"
-                                onChange={handleChangeDetails}
-                            />
-                        </div> 
-                        <div> 
-                            <label className={scss.label_input}>Назва товару
+                    <>
+                    <h1 className={scss.title}>Змінити товар "{product.title}"</h1>
+                    <form className={scss.product_form}>
+                        <div className={scss.subcontainer_text}>
+                            <div className={scss.subcontainer_photo}>
+                                <p className={scss.title_picture}>Фотографія товару</p>
+                                {typeof(product.photo) === "string" ? 
+                                (<img 
+                                    src={product.photo} 
+                                    alt="productPhoto" 
+                                    className={scss.product_picture}
+                                />)
+                                :
+                                (<img 
+                                    src={URL.createObjectURL(product.photo)} 
+                                    alt="productPhoto"
+                                    className={scss.product_picture}
+                                />)}                      
                                 <input
-                                    className={scss.input}
-                                    name='title'
-                                    placeholder='Введіть назву товару'
+                                    className={scss.input_photo}
+                                    type='file'
+                                    id="file"
+                                    name="photo"
                                     required
-                                    value={product.title}
+                                    accept="image/png, image/jpeg"
                                     onChange={handleChangeDetails}
                                 />
-                            </label>
-                            <label>Опис
-                                <textarea
-                                    className={scss.label_input}
-                                    name='description'
-                                    placeholder='Введіть опис'
-                                    rows="20"
-                                    cols="70"
-                                    required
-                                    value={product.description}
-                                    onChange={handleChangeDetails}
-                                />
-                            </label>
-                            <label className={scss.label_input}>Фасовка
-                                <input
-                                    className={scss.input}
-                                    name='type'
-                                    placeholder='Введіть фасовку'
-                                    required
-                                    value={product.type}
-                                    onChange={handleChangeDetails}
-                                />
-                            </label>
-                            <label className={scss.label_input}>Колір
-                                <input
-                                    className={scss.input}
-                                    name='color'
-                                    placeholder='Введіть колір'
-                                    required
-                                    value={product.color}
-                                    onChange={handleChangeDetails}
-                                />
-                            </label>
-                            <label className={scss.label_input}>Ціна
-                                <input
-                                    className={scss.input}
-                                    name='price'
-                                    placeholder='Введіть ціну'
-                                    required
-                                    value={product.price}
-                                    onChange={handleChangeDetails}
-                                />
-                            </label>
-                            <label className={scss.label_input}>Код товару
-                                <input
-                                    className={scss.input}
-                                    name='code'
-                                    placeholder='Введіть код товару'
-                                    required
-                                    value={product.code}
-                                    onChange={handleChangeDetails}
-                                />
-                            </label>
+                                <label htmlFor="file" className={scss.button_input_file}>Оберіть файл</label>
+                            </div>
+                            <div> 
+                                <label className={scss.label_input}>Назва товару
+                                    <input
+                                        className={scss.input_text}
+                                        name='title'
+                                        placeholder='Введіть назву товару'
+                                        required
+                                        value={product.title}
+                                        onChange={handleChangeDetails}
+                                        maxLength="35"
+                                    />
+                                </label>
+                                <label className={scss.label_input}>Фасовка
+                                    <input
+                                        className={scss.input_text}
+                                        name='type'
+                                        placeholder='Введіть фасовку'
+                                        required
+                                        value={product.type}
+                                        onChange={handleChangeDetails}
+                                        maxLength="10"
+                                    />
+                                </label>
+                                <label className={scss.label_input}>Колір
+                                    <input
+                                        className={scss.input_text}
+                                        name='color'
+                                        placeholder='Введіть колір'
+                                        required
+                                        value={product.color}
+                                        onChange={handleChangeDetails}
+                                        maxLength="35"
+                                    />
+                                </label>
+                                <label className={scss.label_input}>Ціна
+                                    <input
+                                        className={scss.input_text}
+                                        name='price'
+                                        placeholder='Введіть ціну'
+                                        required
+                                        value={product.price}
+                                        onChange={handleChangeDetails}
+                                        maxLength="15"
+                                    />
+                                </label>
+                                <label className={scss.label_input}>Код товару
+                                    <input
+                                        className={scss.input_text}
+                                        name='code'
+                                        placeholder='Введіть код товару'
+                                        required
+                                        value={product.code}
+                                        onChange={handleChangeDetails}
+                                        maxLength="10"
+                                    />
+                                </label>
+                            </div>
+                            <div>
+                                <label className={scss.label_textarea}>Опис
+                                    <textarea
+                                        className={scss.description_area}
+                                        name='description'
+                                        placeholder='Введіть опис'
+                                        rows="20"
+                                        cols="70"
+                                        required
+                                        value={product.description}
+                                        onChange={handleChangeDetails}
+                                    />
+                                </label>
+                            </div>
                         </div>
-                        <div>
-                        {active === true ? (
-                            <button type='button' onClick={activeChange}>Деактивувати товар</button>
-                        ) : (
-                            <button type='button' onClick={activeChange}>Активувати товар</button>
-                        )}
+                        <div className={scss.menu_buttons}>
+                            {active === true ? (
+                                <button type='button' className={scss.button} onClick={activeChange}>Деактивувати товар</button>
+                            ) : (
+                                <button type='button' className={scss.button} onClick={activeChange}>Активувати товар</button>
+                            )}
+                            {top === false ? (
+                                <button type='button' className={scss.button} onClick={topChange}>Включити товар на вітрину</button>
+                            ) : (
+                                <button type='button' className={scss.button} onClick={topChange}>Виключити товар з вітрини</button>
+                            )}
+                            <button type='button' className={scss.button} onClick={onSubmit}>Зберегти зміни</button>                
+                            <button type='button' className={scss.button} onClick={onClick}>Видалити товар</button>
                         </div>
-                        <div>
-                        {top === false ? (
-                            <button type='button' onClick={topChange}>Включити товар на вітрину</button>
-                        ) : (
-                            <button type='button' onClick={topChange}>Виключити товар з вітрини</button>
-                        )}
-                        </div>
-                        <button type='button' className={scss.button} onClick={onSubmit}>Зберегти зміни</button>                
-                        <button type='button' className={scss.button} onClick={onClick}>Видалити товар</button>
                     </form>
+                    </>
                 )}
-                    {modalConfirmation && (
+                {modalConfirmation && (
                     <ModalConfirmation
-                    modalConfirmation={modalConfirmation} 
-                    setModalConfirmation={setModalConfirmation}
-                    _id={product._id}
+                        modalConfirmation={modalConfirmation} 
+                        setModalConfirmation={setModalConfirmation}
+                        _id={product._id}
                 />)}
-            </div>)
+            </div>
+            <Footer/>
+            </>)
         : (<ForbiddenPage/>)}
         </>
     )

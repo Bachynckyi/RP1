@@ -19,11 +19,14 @@ const HomePage = () => {
   const [productList, setProductList] = useState({});
   const [product, setProduct] = useState({});
   const [modalActive, setModalActive] = useState(false);
+  const [activeCategory, setActiveCategory] = useState(null);
 
   useEffect(() => {
     try{
         dispatch(getAllCategories())
-        .then(response => setCategories(response.payload.data.filter(item => item.active === true)))
+        .then(response => {
+          setCategories(response.payload.data.filter(item => item.active === true));
+        })
         dispatch(getAllPhotoSlider())
         .then(response => setSliderList(response.payload.data))
         dispatch(getAllTopProducts())
@@ -34,14 +37,19 @@ const HomePage = () => {
     };
 }, [dispatch]);
 
-  const pickCategory = (category) => {
-    navigate(`/catalog/${category}`);
-  };
-
   const fetchProduct = (product) => {
     setProduct(product);
     setModalActive(true);
     navigate(`/top/${product._id}`);
+  };
+
+  const clickCategory = (category) => {
+    if(category === activeCategory) {
+      setActiveCategory(null)
+    }
+    else {
+      setActiveCategory(category)
+    }
   };
 
   return (
@@ -57,14 +65,13 @@ const HomePage = () => {
           </div>
           <ul className={scss.category_list}>
             {categories.map(({ _id, ...props }) => {
-              return (<CategoryItem key={_id} {...props} pickCategory={pickCategory}/>)
+              return (<CategoryItem key={_id} {...props} clickCategory={clickCategory} activeCategory={activeCategory}/>)
             })}
           </ul>
         </div>
         {Object.keys(productList).length !== 0 ?
-              (
-              <div className={scss.top_container}>
-                <h2 className={scss.title}>Топ продажів</h2>
+              (<div className={scss.top_container}>
+                <h3 className={scss.title}>Топ продажів</h3>
                 <ProductList productList={productList} fetchProduct={fetchProduct}/>
               </div>)
               : 

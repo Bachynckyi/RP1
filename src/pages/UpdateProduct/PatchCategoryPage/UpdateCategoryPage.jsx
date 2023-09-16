@@ -8,17 +8,17 @@ import { isLoading } from '../../../redux/category/category-selectors';
 import Loader  from '../../../components/Loader/Loader';
 import CategoryList from './CategoryList/CategoryList';
 import scss from './UpdateCategoryPage.module.scss';
-import Modal from './ModalCategory/ModalCategory';
 import { userEmail } from 'redux/auth/auth-selectors';
 import ForbiddenPage from "pages/ForbiddenPage/ForbiddenPage";
+import { useNavigate } from 'react-router-dom';
+
 
 const PatchCategoryPage = () => {
   const dispatch = useDispatch();
   const loading = useSelector(isLoading);
   const [categories, setCategories] = useState(null);
-  const [modalActive, setModalActive] = useState(false);
-  const [pickedCategory, setPickedCategory] = useState(null);
   const userEmailVerify = useSelector(userEmail);
+  const navigate = useNavigate();
   
   useEffect(() => {
     try{
@@ -30,34 +30,20 @@ const PatchCategoryPage = () => {
     };
   }, [dispatch]);
 
-  const fetchCategory = (nameCategory, photoCategory, descriptionCategory, _id, active) => {
-    setPickedCategory({
-        nameCategory: nameCategory, 
-        photoCategory:photoCategory,
-        descriptionCategory: descriptionCategory,
-        _id: _id,
-        active: active,
-    })
-    setModalActive(true);
+  const fetchCategory = (category) => {
+    navigate(`/updatecategory/${category}`);
   };
 
   return (
     <>
     {userEmailVerify === "colorfarb@gmail.com" ? (
-        <div className={scss.catalog}>
+        <div>
         {loading === true ? (<Loader/>) : (
           <div>
             <div className={scss.container}>
                 <h1 className={scss.title}>Змінити категорії товарів</h1>
                 {categories !== null && (<CategoryList categories={categories} fetchCategory={fetchCategory}/>)}
-            </div>
-            {pickedCategory !== null && (
-              <Modal 
-                  modalActive={modalActive} 
-                  setModalActive={setModalActive}
-                  pickedCategory={pickedCategory}
-              />
-            )}
+            </div>  
             <Footer/>
           </div>
         )} 

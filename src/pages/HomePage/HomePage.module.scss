@@ -16,6 +16,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
 
     @media screen and (min-width: 1024px) {
         flex-direction: row-reverse;
@@ -41,22 +43,19 @@
 
     @media screen and (min-width: 1024px) {
         width: 34%;
-        margin-top: 30px;
     };
 
     @media screen and (min-width: 1300px) {
         width: 26%;
-        margin-top: 30px;
     };
 
     @media screen and (min-width: 1600px) {
         width: 22%;
-        margin-top: 30px;
     };
 };
 
 .slick_container {
-    margin: 30px 0px 30px 0px;
+    margin: 0px 0px 30px 0px;
     width: 100%;
 
     @media screen and (min-width: 768px) {
@@ -65,6 +64,7 @@
 
     @media screen and (min-width: 1024px) {
         width: 62%;
+        margin-bottom: 0px; 
         margin-left: 100px;
     };
 };
@@ -75,9 +75,10 @@
     align-items: center;
     width: 100%;
     margin-top: 0px;
-    margin-bottom: 0px;
+    margin-bottom: 20px;
     font-family: "Manrope";
     font-style: normal;
+    font-size: 30px;
 };
 
 .top_container {

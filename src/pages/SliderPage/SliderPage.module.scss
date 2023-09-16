@@ -1,5 +1,5 @@
 .container {
-    padding: 0px 40px;
+    padding: 0px 40px 40px 40px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -21,10 +21,114 @@
     margin-bottom: 30px;
     font-family: "Manrope";
     font-style: normal;
+    font-size: 26px;
+    font-weight: 600;
 };
 
 .product_picture {
     width: 400px;
     height: 400px;
     display: block;
+    border-radius: 15px;
+};
+
+.product_picture_active {
+    display: block;
+    width: 100%;
+    border-radius: 15px;
+};
+
+.subcontainer_photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+};
+
+.input_photo {
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+};
+
+.button_input_file {
+    width: 150px;
+    height: 12px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    background-color: orange;
+    color: #fff;
+    border: 1px solid;
+    padding: 10px; 
+    border-radius: 10px;
+    font-family: "Manrope";
+    font-style: normal;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 18px;
+    
+    &:hover {
+        background-color: darkorange;
+    };
+};
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    background-color: orange;
+    color: #fff;
+    border: 1px solid;
+    padding: 10px; 
+    border-radius: 10px;
+    font-family: "Manrope";
+    font-style: normal;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: 20px;
+
+    &:hover {
+        background-color: darkorange;
+    };
+
+    &:nth-child(n + 2) {
+        margin-left: 20px;
+    } 
+};
+
+.gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+};
+
+.gallery_list {
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+    width: 100%;
+};
+
+.gallery_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:nth-child(n + 2 ){
+        margin-top: 50px;
+    }
+};
+
+.gallery_picture {
+    display: block;
+    width: 100%;
+    border-radius: 15px;
 };

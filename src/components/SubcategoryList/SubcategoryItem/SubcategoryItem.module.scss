@@ -1,10 +1,9 @@
-.category_item {
+.subcategory_item {
 
     &:nth-child(n+2) {
         margin-top: 10px;
     }
 };
-
 
 .label {
     display: flex;
@@ -41,7 +40,7 @@
     display: inline-block;
 };
 
-.category_name {
+.subcategory_name {
     margin-left: 10px;
     font-size: 18px;
 };

@@ -5,6 +5,7 @@ import scss from './AddSubcategoryPage.module.scss';
 import AddSubcategoryForm from 'components/AddSubcategoryForm/AddSubcategoryForm';
 import { userEmail } from 'redux/auth/auth-selectors';
 import ForbiddenPage from "pages/ForbiddenPage/ForbiddenPage";
+import Footer from 'components/Footer/Footer';
 
 const AddSubCategory = () => {
     const loading = useSelector(isLoading);
@@ -13,10 +14,13 @@ const AddSubCategory = () => {
     return (
         <>
             {userEmailVerify === "colorfarb@gmail.com" ? (
+            <>
             <div className={scss.container}>
                 <h1 className={scss.title}>Додати підкатегорію</h1>
                 {loading ? (<Loader/>) : (<AddSubcategoryForm/>)}
-            </div>)
+            </div>
+            <Footer/>
+            </>)
             : (<ForbiddenPage/>)}
         </>
     );

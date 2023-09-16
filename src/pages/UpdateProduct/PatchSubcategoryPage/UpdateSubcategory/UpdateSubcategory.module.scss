@@ -1,9 +1,33 @@
+.page_container {
+    padding: 0px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    max-width: 1600px;
+    margin: auto;
+};
+
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
+};
+
+.title {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-family: "Manrope";
+    font-style: normal;
+};
+
+.form_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 };
 
 .product_form {
@@ -15,38 +39,15 @@
     flex-wrap: wrap;
     font-family: "Manrope";
     font-style: normal;
-};
+};  
 
-.form_container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-};
-
-.subcontainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-};
-
-.title_picture {
-    margin: 0px 0px 10px 0px;
-    text-align: center;
-    font-weight: 700;
-    font-size: 20px;
-};
-
-.product_picture {
-    width: 300px;
-    height: 300px;
-    display: block;
-    border-radius: 15px;
-};
-
-.subcontainer_photo {
-    display: flex;
-    flex-direction: column;
+.input_photo {
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
 };
 
 .button_input_file {
@@ -73,13 +74,23 @@
     };
 };
 
-.input_photo {
-    width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
+.title_picture {
+    margin: 0px 0px 10px 0px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+};
+
+.product_picture {
+    width: 300px;
+    height: 300px;
+    display: block;
+    border-radius: 15px;
+};
+
+.subcontainer_photo {
+    display: flex;
+    flex-direction: column;
 };
 
 .label_input {
@@ -108,55 +119,6 @@
     };
 };
 
-.type_active {
-    font-size: 20px;
-    font-weight: 700;
-    text-align: center;
-};
-
-.radio_button {
-    opacity: 0;
-    position: absolute;
-    cursor: pointer;
-};  
-
-.custom_button {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    border: 2px solid orange;
-    position: relative;
-    border-radius: 5px;
-};
-
-.custom_button::before {
-    content: '';
-    position: absolute;
-    display: none;
-    width: 24px;
-    height: 24px;
-    background-color: orange;
-};
-
-.radio_button:checked + .custom_button::before {
-    display: inline-block;
-};
-
-.button_name {
-    margin-left: 10px;
-    font-size: 18px;
-};
-
-.input_container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    &:nth-child(n + 2 ) {
-        margin-top: 10px;
-    }
-};
-
 .description_area {
     margin-top: 6px;
     resize: none;
@@ -177,40 +139,18 @@
     text-align: center;
     font-weight: 700;
     font-size: 20px;
-
-    &:nth-child(n + 2 ) {
-        margin-top: 10px;
-    }
 };
 
-.label {
+.menu_container {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    cursor: pointer;
+    flex-direction: column;
+    margin-bottom: auto;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.button_submit {
+.button {
     width: 250px;
-    height: 40px;
-    margin-top: 30px;
+    height: 50px;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -225,10 +165,15 @@
     cursor: pointer;
     font-weight: 600;
     font-size: 18px;
-    margin-bottom: 30px;
 
     &:hover {
         background-color: darkorange;
     };
-    
+};
+
+.menu_buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
 };

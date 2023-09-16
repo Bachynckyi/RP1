@@ -99,3 +99,51 @@
 .button_close:hover .icon_close {
     color: orange;
 };
+
+.subcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+};
+
+.error_message {
+    color: red;
+    font-family: "Manrope";
+    font-style: normal; 
+    font-weight: 700;
+    font-size: 34px;
+    text-align: center;
+};
+
+.button_submit {
+    width: 250px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    background-color: orange;
+    color: #fff;
+    border: 1px solid;
+    padding: 10px; 
+    border-radius: 10px;
+    font-family: "Manrope";
+    font-style: normal;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: auto;
+
+    &:hover {
+        background-color: darkorange;
+    };
+};
+
+.error_text {
+    font-family: "Manrope";
+    font-style: normal; 
+    font-weight: 700;
+    font-size: 22px;
+    text-align: center;
+};

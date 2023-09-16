@@ -8,6 +8,7 @@ import Loader  from '../../components/Loader/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { userToken } from 'redux/auth/auth-selectors';
 import defaultPicture from '../../images/images.png';
+import Footer from 'components/Footer/Footer';
 
 const SliderPage = () => {
     const userEmailVerify = useSelector(userEmail);
@@ -30,12 +31,13 @@ const SliderPage = () => {
     const onClick = () => {
         const data = new FormData();
         data.append("photoSlider", photoSlider);
-        dispatch(addPhotoSlider({token, data}))
+        if(photoSlider !== null){
+            dispatch(addPhotoSlider({token, data}))
             .then(() => {
                 setphotoSlider(null);
                 window.location.reload();
             })
-
+        }
     };
 
     const deletePhoto = (event) => {
@@ -49,18 +51,18 @@ const SliderPage = () => {
     return (
         <>
             {userEmailVerify === "colorfarb@gmail.com" ? (
-                <div className={scss.container}>
+                <>
                     {loading === true ? (<Loader/>) : (
                         <div>
+                        <div className={scss.container}>
                             <h1 className={scss.title}>Редагувати слайдер</h1>
-                            <div>
+                            <div className={scss.subcontainer_photo}>
                                 <h2 className={scss.subtitle}>Додати нове фото</h2>
-                                <div>
                                 {photoSlider ? 
                                 (<img 
                                     src={URL.createObjectURL(photoSlider)} 
                                     alt="newPhotoSlider"
-                                    className={scss.product_picture}
+                                    className={scss.product_picture_active}
                                     />)
                                     :
                                     (<img 
@@ -68,36 +70,42 @@ const SliderPage = () => {
                                         alt="defaultPicture"
                                         className={scss.product_picture}
                                         />)}                      
-                                    <p className={scss.title_picture}>Нова фотографія для слайдеру</p>
-                                        <input
-                                            type='file'
-                                            name="photoSlider"
-                                            required
-                                            accept="image/png, image/jpeg"
-                                            onChange={handleChange}
-                                        />
-                                </div>
-                                <button type='button' onClick={onClick}>Додати зображення до слайдеру</button>
+                                    <input
+                                        className={scss.input_photo}
+                                        id="file"
+                                        type='file'
+                                        name="photoSlider"
+                                        required
+                                        accept="image/png, image/jpeg"
+                                        onChange={handleChange}
+                                    />
+                                    <label htmlFor="file" className={scss.button_input_file}>Оберіть файл</label>
+                                <button type='button' className={scss.button} onClick={onClick}>Додати зображення до слайдеру</button>
                             </div>
                             {Object.keys(sliderList).length  !== 0 && (
-                                <ul>Галерея зображень
-                                    {sliderList.map((slide) => 
-                                    (
-                                    <li key={slide._id}>
-                                        <img
-                                            src={slide.photoSlider}
-                                            alt='photoSlider'
-                                            className={scss.product_picture}
-                                        />
-                                        <button type='button' id={slide._id} onClick={deletePhoto}>Видалити зі слайдеру</button>   
-                                    </li>
-                                    )
-                                    )}
-                                </ul>
+                                <div className={scss.gallery}>
+                                    <p className={scss.subtitle}>Галерея зображень</p>
+                                    <ul className={scss.gallery_list}>
+                                        {sliderList.map((slide) => 
+                                        (
+                                        <li key={slide._id} className={scss.gallery_item}>
+                                            <img
+                                                src={slide.photoSlider}
+                                                alt='photoSlider'
+                                                className={scss.gallery_picture}
+                                            />
+                                            <button type='button' className={scss.button} id={slide._id} onClick={deletePhoto}>Видалити зі слайдеру</button>   
+                                        </li>
+                                        )
+                                        )}
+                                    </ul>
+                                </div>
                             )}
-                        </div> 
+                        </div>
+                        <Footer/>
+                        </div>
                     )}
-                </div>)
+                </>)
             : (<ForbiddenPage/>)}
         </>
     );

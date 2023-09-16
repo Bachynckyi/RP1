@@ -6,17 +6,16 @@ import { getAllSubcategories } from '../../../redux/subcategory/subcategory-oper
 import Loader  from '../../../components/Loader/Loader';
 import scss from './UpdateSubcategoryPage.module.scss';
 import Footer from "components/Footer/Footer";
-import Modal from './ModalSubcategory/ModalSubcategory';
 import { userEmail } from 'redux/auth/auth-selectors';
 import ForbiddenPage from "pages/ForbiddenPage/ForbiddenPage";
+import { useNavigate } from 'react-router-dom';
 
 const SubcategoryPage = () => {
     const dispatch = useDispatch();
     const loading = useSelector(isLoading);
-    const [subcategories, setSubcategories] = useState({});
-    const [pickedSubcategory, setPickedSubcategory] = useState(null);
-    const [modalActive, setModalActive] = useState(false);
+    const [subcategories, setSubcategories] = useState(null);
     const userEmailVerify = useSelector(userEmail);
+    const navigate = useNavigate();
 
     useEffect(() => {
         try {
@@ -29,49 +28,28 @@ const SubcategoryPage = () => {
 
     }, [dispatch]);
 
-    const fetchSubcategory = (nameSubcategory, photoSubcategory, descriptionSubcategory, _id, active) => {
-        setPickedSubcategory({
-            nameSubcategory: nameSubcategory, 
-            photoSubcategory:photoSubcategory,
-            descriptionSubcategory: descriptionSubcategory,
-            _id: _id,
-            active: active,
-        })
-        setModalActive(true);
+    const fetchSubcategory = (subcategory) => {
+        navigate(`/updatesubcategory/${subcategory}`);
     };
 
     return (
         <>
-            {userEmailVerify === "colorfarb@gmail.com" ? (
-            <div >
-                {loading === true ? (<Loader/>) : (
-                    <div >
-                        {Object.keys(subcategories).length !== 0 &&
-                        (<>
-                            <div className={scss.container}>
-                                <h1 className={scss.title}>Змінити підкатегорії товарів</h1>
-                                <SubcategoryList 
-                                    subcategories={subcategories} 
-                                    fetchSubcategory={fetchSubcategory}
-                                />
-                            </div>
-                            {pickedSubcategory !== null && (
-                                <Modal 
-                                    modalActive={modalActive} 
-                                    setModalActive={setModalActive}
-                                    pickedSubcategory={pickedSubcategory}
-                                />
-                            )}
-                            <Footer/>
-                        </>)}
-                    </div>
-                )} 
-            </div>) 
-            :
-            (<ForbiddenPage/>)}
+        {userEmailVerify === "colorfarb@gmail.com" ? (
+            <div>
+            {loading === true ? (<Loader/>) : (
+              <div>
+                <div className={scss.container}>
+                    <h1 className={scss.title}>Змінити підкатегорії товарів</h1>
+                    {subcategories !== null && (<SubcategoryList subcategories={subcategories} fetchSubcategory={fetchSubcategory}/>)}
+                </div>  
+                <Footer/>
+              </div>
+            )} 
+          </div>
+        ) : (<ForbiddenPage/>)}
         </>
-    );
-  };
+      );;
+};
   
 export default SubcategoryPage;
 
