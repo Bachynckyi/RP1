@@ -27,7 +27,6 @@ const RegisterForm = ({onSubmit, error}) => {
   );
 
   return (
-    <>
       <form className={scss.form} onSubmit={handleSubmit}>
       <h2 className={scss.h}>Реєстрація</h2>
       <div className={scss.wrapper}>
@@ -57,7 +56,6 @@ const RegisterForm = ({onSubmit, error}) => {
         Є аккаунт? Вхід
       </NavLink>
     </form>
-    </>
   );
 };
 
