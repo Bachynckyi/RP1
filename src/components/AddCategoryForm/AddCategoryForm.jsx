@@ -4,6 +4,7 @@ import defaultPicture from '../../images/images.png';
 import { addCategory } from 'redux/category/category-operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { userToken } from 'redux/auth/auth-selectors';
+import Notiflix from 'notiflix';
 
 const initialState = {
     nameCategory: "",
@@ -28,16 +29,17 @@ const AddCategoryForm = () => {
         formData.append("descriptionCategory", descriptionCategory);
         formData.append("active", active);
         const data = formData;
-        const sendData = async ({token, data}) => {
-            try {
-            dispatch(addCategory({token, data}));
-            } 
-            catch (error) {
-              console.log(error)
-            }
-          };
-        sendData({token, data});
-        setCategory(initialState);
+        dispatch(addCategory({token, data}))
+            .then(response => {
+                if(Object.keys(response.payload).length !== 0){
+                    Notiflix.Notify.success('Нова категорія успішно створена', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                    setCategory(initialState);
+                }
+                else {
+                    Notiflix.Notify.failure('Помилка при додаванні', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                    setCategory(initialState);
+                }
+            });
     };
 
     const handleChangeDetails = useCallback(({ target }) => {

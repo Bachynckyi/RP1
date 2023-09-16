@@ -6,13 +6,15 @@ import Loader from 'components/Loader/Loader';
 import { isLoading } from '../../../../redux/category/category-selectors';
 import { userToken } from 'redux/auth/auth-selectors';
 import { removeProductById } from '../../../../redux/product/product-operations';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import Notiflix from 'notiflix';
 
 const ModalConfirmation = ({modalConfirmation, setModalConfirmation, _id}) => {
     const dispatch = useDispatch();
     const loading = useSelector(isLoading);
     const token = useSelector(userToken);
     const navigate = useNavigate();
+    const params = useParams();
 
     useEffect(() => {
         const handleDownInEscape = e => {
@@ -33,7 +35,17 @@ const ModalConfirmation = ({modalConfirmation, setModalConfirmation, _id}) => {
 
     const onClick = () => {
         dispatch(removeProductById({token, _id}))
-            .then(navigate(`/profile`))
+        .then(response => {
+            console.log(response)
+            if(response.payload.data === "Deleted" ){
+                Notiflix.Notify.success('Категорія успішно видалена', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                navigate(`/updateproduct/${params.category}/${params.subcategory}`);
+            }
+            else {
+                Notiflix.Notify.failure('Помилка при видаленні категорії', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                navigate(`/updateproduct/${params.category}/${params.subcategory}`);
+            }
+        });
     };
 
     return (

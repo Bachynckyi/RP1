@@ -8,6 +8,8 @@ import { userToken } from 'redux/auth/auth-selectors';
 import CategoriesList from '../CategoryList/CategoryList';
 import { isLoading } from '../../redux/category/category-selectors';
 import Loader  from '../../components/Loader/Loader';
+import Notiflix from 'notiflix';
+
 
 const initialState = {
     nameSubcategory: "",
@@ -53,16 +55,17 @@ const AddSubCategoryForm = () => {
         formData.append("category", category);
         formData.append("active", active);
         const data = formData;
-        const sendData = async ({token, data}) => {
-            try {
-            dispatch(addSubcategory({token, data}));
-            } 
-            catch (error) {
-              console.log(error)
-            }
-          };
-        sendData({token, data});
-        setsubCategory(initialState);
+        dispatch(addSubcategory({token, data}))
+            .then(response => {
+                if(Object.keys(response.payload).length !== 0){
+                    Notiflix.Notify.success('Нова підкатегорія успішно створена', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                    setsubCategory(initialState);
+                }
+                else {
+                    Notiflix.Notify.failure('Помилка при додаванні', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                    setsubCategory(initialState);
+                }
+            });
     };
 
     const handleChangeDetails = useCallback(({ target }) => {

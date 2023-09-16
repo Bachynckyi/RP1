@@ -7,6 +7,7 @@ import Loader from 'components/Loader/Loader';
 import { isLoading } from '../../../../redux/category/category-selectors';
 import { userToken } from 'redux/auth/auth-selectors';
 import { useNavigate } from 'react-router-dom';
+import Notiflix from 'notiflix';
 
 const ModalConfirmation = ({modalConfirmation, setModalConfirmation, _id}) => {
     const dispatch = useDispatch();
@@ -33,7 +34,16 @@ const ModalConfirmation = ({modalConfirmation, setModalConfirmation, _id}) => {
 
     const onClick = () => {
         dispatch(deleteCategory({token, _id}))
-            .then(navigate(`/profile`))
+            .then(response => {
+                if(response.payload.data === "Zero products" || response.payload.data === "All items have been deleted" ){
+                    Notiflix.Notify.success('Категорія успішно видалена', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                    navigate(`/updatecategory`);
+                }
+                else {
+                    Notiflix.Notify.failure('Помилка при видаленні категорії', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                    navigate(`/updatecategory`);
+                }
+            });
     };
 
     return (

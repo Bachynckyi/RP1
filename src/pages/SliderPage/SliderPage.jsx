@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userToken } from 'redux/auth/auth-selectors';
 import defaultPicture from '../../images/images.png';
 import Footer from 'components/Footer/Footer';
+import Notiflix from 'notiflix';
 
 const SliderPage = () => {
     const userEmailVerify = useSelector(userEmail);
@@ -21,21 +22,26 @@ const SliderPage = () => {
     useEffect(() => {
         dispatch(getAllPhotoSlider())
             .then(response => setSliderList(response.payload.data))
-    }, [dispatch]);
+    }, [dispatch, photoSlider]);
 
     const handleChange = useCallback(({ target }) => {
         setphotoSlider(target.files[0]) 
-    }
-    ,[setphotoSlider]);
+    },[setphotoSlider]);
 
     const onClick = () => {
         const data = new FormData();
         data.append("photoSlider", photoSlider);
         if(photoSlider !== null){
             dispatch(addPhotoSlider({token, data}))
-            .then(() => {
-                setphotoSlider(null);
-                window.location.reload();
+            .then((response) => {
+                if(Object.keys(response.payload).length !== 0){
+                    Notiflix.Notify.success('Новий постер успішно доданий', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                    setphotoSlider(null);
+                }
+                else {
+                    Notiflix.Notify.failure('Помилка при додаванні', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                    setphotoSlider(null);
+                }
             })
         }
     };
@@ -43,9 +49,16 @@ const SliderPage = () => {
     const deletePhoto = (event) => {
         const id = event.target.id
         dispatch(deletePhotoSlider({token, id}))
-            .then(() => {
-                window.location.reload();
-            })
+            .then((response) => {
+                if(response.payload.data === "Deleted"){
+                    Notiflix.Notify.success('Постер успішно видалений', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                    setphotoSlider(null);
+                    setSliderList(sliderList.filter(item => item._id !== id));
+                }
+                else {
+                    Notiflix.Notify.failure('Помилка при видаленні', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                }
+            });
     };
 
     return (

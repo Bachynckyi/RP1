@@ -7,6 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ModalConfirmation from '../ModalConfirmation/ModalConfirmation';
 import { userEmail } from 'redux/auth/auth-selectors';
 import ForbiddenPage from "pages/ForbiddenPage/ForbiddenPage";
+import Notiflix from 'notiflix';
 
 const initialState = {
     nameSubcategory: "",
@@ -16,7 +17,7 @@ const initialState = {
     active: "",
   };
 
-const UpdateSubcategory = ({pickedSubcategory}) => {
+const UpdateSubcategory = () => {
     const [subcategory, setSubcategory] = useState({...initialState});
     const {nameSubcategory, descriptionSubcategory, photoSubcategory, _id, active} = subcategory;
     const [modalConfirmation, setModalConfirmation] = useState(false);
@@ -60,16 +61,17 @@ const UpdateSubcategory = ({pickedSubcategory}) => {
     const onSubmit = () => {
         if(typeof(photoSubcategory) === "string" ){
             const data = {nameSubcategory, descriptionSubcategory};
-            const sendData = async ({token, data, _id}) => {
-                try {
-                dispatch(updateSubcategoryWithoutPhoto({token, data, _id}));
-                } 
-                catch (error) {
-                  console.log(error)
-                }
-              };
-            sendData({token, data, _id});
-            navigate(`/profile`);
+            dispatch(updateSubcategoryWithoutPhoto({token, data, _id}))
+                .then(response => {
+                    if(Object.keys(response.payload).length !== 0){
+                        Notiflix.Notify.success('Підкатегорія успішно змінена', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                        navigate(`/updatesubcategory`);
+                    }
+                    else {
+                        Notiflix.Notify.failure('Помилка при зміні підкатегорії', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                        navigate(`/updatesubcategory`);
+                    }
+                });
         }
         else if (typeof(photoSubcategory) === "object"){
             const formData = new FormData();
@@ -77,16 +79,18 @@ const UpdateSubcategory = ({pickedSubcategory}) => {
             formData.append("nameSubcategory", nameSubcategory);
             formData.append("descriptionSubcategory", descriptionSubcategory);
             const data = formData;
-            const sendData = async ({token, data, _id}) => {
-                try {
-                dispatch(updateSubcategoryWithPhoto({token, data, _id}));
-                } 
-                catch (error) {
-                  console.log(error)
-                }
-              };
-            sendData({token, data, _id});
-            navigate(`/profile`);
+            dispatch(updateSubcategoryWithPhoto({token, data, _id}))
+                .then(response => {
+                    if(Object.keys(response.payload).length !== 0){
+                        Notiflix.Notify.success('Підкатегорія успішно змінена', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                        navigate(`/updatesubcategory`);
+                    }
+                    else {
+                        Notiflix.Notify.failure('Помилка при зміні підкатегорії', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                        navigate(`/updatesubcategory`);
+                    }
+                });
+
         }
     };
 
@@ -96,9 +100,17 @@ const UpdateSubcategory = ({pickedSubcategory}) => {
 
     const activeChange = () => {
         const data = { active: !active }
-        dispatch(updateStatusSubcategory({token, data, _id}));
-        setSubcategory(initialState);
-        navigate(`/profile`);
+        dispatch(updateStatusSubcategory({token, data, _id}))
+            .then(response => {
+                if(response.payload.data === "Zero products"){
+                    Notiflix.Notify.success('Підкатегорія успішно змінена', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                    navigate(`/updatesubcategory`);
+                }
+                else {
+                    Notiflix.Notify.failure('Помилка при зміні підкатегорії', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                    navigate(`/updatesubcategory`);
+                }
+            });
     };
 
     return (

@@ -10,6 +10,7 @@ import { isLoading } from '../../redux/category/category-selectors';
 import Loader  from '../../components/Loader/Loader';
 import { getSubcategoryByCategory } from '../../redux/subcategory/subcategory-operations';
 import SubcategoriesList from 'components/SubcategoryList/SubcategoryList';
+import Notiflix from 'notiflix';
 
 const initialState = {
     title: "",
@@ -70,16 +71,17 @@ const AddProductForm = () => {
             formData.append("subcategory", subcategory);
         };
         const data = formData;
-        const sendData = async ({token, data}) => {
-            try {
-            dispatch(addProduct({token, data}));
-            } 
-            catch (error) {
-              console.log(error)
+        dispatch(addProduct({token, data}))
+        .then(response => {
+            if(Object.keys(response.payload).length !== 0){
+                Notiflix.Notify.success('Новий товар успішно створений', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                setProduct(initialState);
             }
-          };
-        sendData({token, data});
-        setProduct(initialState);
+            else {
+                Notiflix.Notify.failure('Помилка при додаванні', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                setProduct(initialState);
+            }
+        });
     };
 
     const handleChangeDetails = useCallback(({ target }) => {

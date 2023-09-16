@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getAllCategories } from 'redux/category/category-operations';
 import { userEmail } from 'redux/auth/auth-selectors';
 import ForbiddenPage from "pages/ForbiddenPage/ForbiddenPage";
+import Notiflix from 'notiflix';
 
 const initialState = {
     nameCategory: "",
@@ -15,7 +16,7 @@ const initialState = {
     descriptionCategory: "",
     _id: "",
     active: "",
-  };
+};
 
 const UpdateCategory = () => {
     const [category, setCategory] = useState({...initialState});
@@ -35,7 +36,6 @@ const UpdateCategory = () => {
 
     }, [params.category, dispatch]);
     
-
     const handleChangeDetails = useCallback(({ target }) => {
         const {name, value } = target;
         if(name === "photoCategory"){
@@ -62,15 +62,17 @@ const UpdateCategory = () => {
     const onSubmit = () => {
         if(typeof(photoCategory) === "string" ){
             const data = {nameCategory, descriptionCategory};
-            const sendData = async ({token, data, _id}) => {
-                try {
-                dispatch(updateCategoryWithoutPhoto({token, data, _id}));
-                } 
-                catch (error) {
-                  console.log(error)
-                }
-              };
-            sendData({token, data, _id});
+            dispatch(updateCategoryWithoutPhoto({token, data, _id}))
+                .then(response => {
+                    if(Object.keys(response.payload).length !== 0){
+                        Notiflix.Notify.success('Категорія успішно змінена', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                        navigate(`/updatecategory`);
+                    }
+                    else {
+                        Notiflix.Notify.failure('Помилка при зміні категорії', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                        navigate(`/updatecategory`);
+                    }
+                });
         }
         else if (typeof(photoCategory) === "object"){
             const formData = new FormData();
@@ -78,16 +80,17 @@ const UpdateCategory = () => {
             formData.append("nameCategory", nameCategory);
             formData.append("descriptionCategory", descriptionCategory);
             const data = formData;
-            const sendData = async ({token, data, _id}) => {
-                try {
-                dispatch(updateCategoryWithPhoto({token, data, _id}));
-                } 
-                catch (error) {
-                  console.log(error)
-                }
-              };
-            sendData({token, data, _id});
-            navigate(`/profile`);
+            dispatch(updateCategoryWithPhoto({token, data, _id}))
+                .then(response => {
+                    if(Object.keys(response.payload).length !== 0){
+                        Notiflix.Notify.success('Категорія успішно змінена', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                        navigate(`/updatecategory`);
+                    }
+                    else {
+                        Notiflix.Notify.failure('Помилка при зміні категорії', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                        navigate(`/updatecategory`);
+                    }
+                });
         }
     };
 
@@ -97,9 +100,17 @@ const UpdateCategory = () => {
 
     const activeChange = () => {
         const data = { active: !active }
-        dispatch(updateStatusCategory({token, data, _id}));
-        setCategory(initialState);
-        navigate(`/profile`);
+        dispatch(updateStatusCategory({token, data, _id}))
+            .then(response => {
+                if(response.payload.data === "Zero products"){
+                    Notiflix.Notify.success('Категорія успішно змінена', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                    navigate(`/updatecategory`);
+                }
+                else {
+                    Notiflix.Notify.failure('Помилка при зміні категорії', {timeout: 5000, position: "center-top", width: 200, showOnlyTheLastOne: true});
+                    navigate(`/updatecategory`);
+                }
+            });
     };
 
     return (
