@@ -407,8 +407,8 @@ const OrderConfirmation= ({confirmedOrder, totalAmount, dispatchOrder}) => {
                                     <div className={scss.subcontainer}>
                                         <label className={refLocalityDelivery !== null ? (scss.delivery_details_courier_label_branchNumber_active) : (scss.delivery_details_courier_label_branchNumber)}>
                                             <span className={scss.delivery_details_courier_subtitle}>Номер відділення</span>
-                                            <input
-                                                className={scss.delivery_details_courier_input}
+                                            <textarea
+                                                className={errorStateBranchNumber === true ? (scss.courier_input_error) : (scss.courier_input)}
                                                 required
                                                 name='branchNumber'
                                                 type='text'

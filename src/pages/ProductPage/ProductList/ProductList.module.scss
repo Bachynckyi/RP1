@@ -10,5 +10,12 @@
     @media screen and (min-width: 1024px) {
         justify-content: center;
         flex-direction: row;
+        gap: 30px;
+    };
+
+    @media screen and (min-width: 1280px) {
+        justify-content: center;
+        flex-direction: row;
+        gap: 50px;
     };
 };

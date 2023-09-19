@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import {getProductById} from '../../redux/product/product-operations';
 import {BiSolidDownArrow} from "react-icons/bi";
 import {CiFilter} from "react-icons/ci";
+import ScrollToTop from "react-scroll-to-top";
+import {FiArrowUpCircle} from "react-icons/fi";
 
 const ProductPage = () => {
     const category = useParams();
@@ -63,6 +65,19 @@ const ProductPage = () => {
             setModalActive(true);
             navigate(`/catalog/${category.category}/${category.subcategory}/${params.id}`);
           });
+          dispatch(getProductByCategory(params.category))
+          .then(response => {
+            const dataColors = response.payload.data.map(item => item.color);
+            const colors = dataColors.filter((el, id) => dataColors.indexOf(el) === id);
+            setDataColor(colors);
+            const dataTypes = response.payload.data.map(item => item.type);
+            const types = dataTypes.filter((el, id) => dataTypes.indexOf(el) === id);
+            setDataType(types);
+            const filterNotActive = response.payload.data.filter(item => item.active === true);
+            setProductList(filterNotActive);
+            const defaultSortByType = [...filterNotActive].sort((a, b) => a.type.substring(0,a.type.indexOf(' ')).split(/,/).join('.') - b.type.substring(0,b.type.indexOf(' ')).split(/,/).join('.'))
+            setFilteredProductList(defaultSortByType);
+        }) 
         }
         catch(error){
           console.log(error);
@@ -282,134 +297,140 @@ const ProductPage = () => {
         <div className={scss.container}>
         {loading === true? (<Loader/>) :
           (<>
-            <div className={scss.product_container}>
-              {Object.keys(filteredProductList).length !== 0 && (
-                <div className={scss.filter_container} ref={menuRef} >
-                  <div className={scss.filters}>
-                      <p className={scss.filter_name}>
-                        <CiFilter className={scss.icon_filter}/>за ціною:
-                      </p>
-                      <button type='button' onClick={toggleMenuFilterPrice} className={scss.button_sort}>
-                        <BiSolidDownArrow className={scss.down_allow}/>
-                      </button>
-                      {sortMenuFilterPriceActive && (
-                        <div className={sortMenuFilterPriceActive? (scss.priceMenuActive) : (scss.priceMenu)}>
+              <div className={scss.product_container}>
+                {Object.keys(filteredProductList).length !== 0 && (
+                  <div className={scss.filter_container} ref={menuRef} >
+                    <div className={scss.filters}>
+                        <p className={scss.filter_name}>
+                          <CiFilter className={scss.icon_filter}/>за ціною:
+                        </p>
+                        <button type='button' onClick={toggleMenuFilterPrice} className={scss.button_sort}>
+                          <BiSolidDownArrow className={scss.down_allow}/>
+                        </button>
+                        {sortMenuFilterPriceActive && (
+                          <div className={sortMenuFilterPriceActive? (scss.priceMenuActive) : (scss.priceMenu)}>
+                            <ul className={scss.menu_list}>
+                                <li className={scss.item_color}>
+                                  <input
+                                    className={scss.radio_button}
+                                    type="radio"
+                                    value="За замовчуванням"
+                                    name="За замовчуванням"
+                                    id="За замовчуванням"
+                                    onChange={onChangeSortByPrice}
+                                    checked={sortByPrice.includes("За замовчуванням")}
+                                  />
+                                  <span className={scss.custom_button}></span>
+                                  <label htmlFor="За замовчуванням" className={scss.subtitle}>За замовчуванням</label>
+                                </li>
+                                <li className={scss.item_color}>
+                                  <input
+                                    className={scss.radio_button}
+                                    type="radio"
+                                    value="Від дешевих до дорогих"
+                                    name="Від дешевих до дорогих"
+                                    id="Від дешевих до дорогих"
+                                    onChange={onChangeSortByPrice}
+                                    checked={sortByPrice.includes("Від дешевих до дорогих")}
+                                  />
+                                  <span className={scss.custom_button}></span>
+                                  <label htmlFor="Від дешевих до дорогих" className={scss.subtitle}>Від дешевих до дорогих</label>
+                                </li>
+                                <li className={scss.item_color}>
+                                  <input
+                                    className={scss.radio_button}
+                                    type="radio"
+                                    value="Від дорогих до дешевих"
+                                    name="Від дорогих до дешевих"
+                                    id="Від дорогих до дешевих"
+                                    onChange={onChangeSortByPrice}
+                                    checked={sortByPrice.includes("Від дорогих до дешевих")}
+                                  />
+                                  <span className={scss.custom_button}></span>
+                                  <label htmlFor="Від дорогих до дешевих" className={scss.subtitle}>Від дорогих до дешевих</label>
+                                </li>
+                            </ul>
+                          </div>
+                        )}
+                    </div>
+                    <div className={scss.filters}>
+                        <p className={scss.filter_name}>
+                            <CiFilter className={scss.icon_filter}/>за кольором:
+                        </p>
+                        <button type='button' className={scss.button_sort} onClick={toggleMenuFilterColor}>
+                          <BiSolidDownArrow className={scss.down_allow}/>  
+                        </button>
+                        <div className={sortMenuFilterColorActive ? (scss.colorMenuActive) : (scss.colorMenu)}>
                           <ul className={scss.menu_list}>
-                              <li className={scss.item_color}>
-                                <input
-                                  className={scss.radio_button}
-                                  type="radio"
-                                  value="За замовчуванням"
-                                  name="За замовчуванням"
-                                  id="За замовчуванням"
-                                  onChange={onChangeSortByPrice}
-                                  checked={sortByPrice.includes("За замовчуванням")}
-                                />
-                                <span className={scss.custom_button}></span>
-                                <label htmlFor="За замовчуванням" className={scss.subtitle}>За замовчуванням</label>
-                              </li>
-                              <li className={scss.item_color}>
-                                <input
-                                  className={scss.radio_button}
-                                  type="radio"
-                                  value="Від дешевих до дорогих"
-                                  name="Від дешевих до дорогих"
-                                  id="Від дешевих до дорогих"
-                                  onChange={onChangeSortByPrice}
-                                  checked={sortByPrice.includes("Від дешевих до дорогих")}
-                                />
-                                <span className={scss.custom_button}></span>
-                                <label htmlFor="Від дешевих до дорогих" className={scss.subtitle}>Від дешевих до дорогих</label>
-                              </li>
-                              <li className={scss.item_color}>
-                                <input
-                                  className={scss.radio_button}
-                                  type="radio"
-                                  value="Від дорогих до дешевих"
-                                  name="Від дорогих до дешевих"
-                                  id="Від дорогих до дешевих"
-                                  onChange={onChangeSortByPrice}
-                                  checked={sortByPrice.includes("Від дорогих до дешевих")}
-                                />
-                                <span className={scss.custom_button}></span>
-                                <label htmlFor="Від дорогих до дешевих" className={scss.subtitle}>Від дорогих до дешевих</label>
-                              </li>
-                          </ul>
-                        </div>
-                      )}
-                  </div>
-                  <div className={scss.filters}>
-                      <p className={scss.filter_name}>
-                          <CiFilter className={scss.icon_filter}/>за кольором:
-                      </p>
-                      <button type='button' className={scss.button_sort} onClick={toggleMenuFilterColor}>
-                        <BiSolidDownArrow className={scss.down_allow}/>  
-                      </button>
-                      <div className={sortMenuFilterColorActive ? (scss.colorMenuActive) : (scss.colorMenu)}>
-                        <ul className={scss.menu_list}>
-                          {dataColor.map((color) => {
-                            return (
-                              <li key={color} className={scss.item_color}>
-                                <input
-                                  className={scss.radio_button}
-                                  type="checkbox"
-                                  value={color}
-                                  name={color}
-                                  id={color}
-                                  onChange={onChangeSortByColor}
-                                  checked={sortByColor.includes(color)}
-                                />
-                                <span className={scss.custom_button}></span>
-                                <label htmlFor={color} className={scss.subtitle}>{color}</label>
-                              </li>
-                          )})}
-                        </ul>
-                      </div>
-                  </div>
-                  <div className={scss.filters}>
-                      <p className={scss.filter_name}>
-                        <CiFilter className={scss.icon_filter}/>за фасуванням:
-                      </p>
-                      <button type='button' className={scss.button_sort} onClick={toggleMenuFilterType}>
-                        <BiSolidDownArrow className={scss.down_allow}/>  
-                      </button>
-                      <div className={sortMenuFilterTypeActive ? (scss.typeMenuActive) : (scss.typeMenu)}>
-                          <ul className={scss.menu_list}>
-                            {dataType.map((type) => {
+                            {dataColor.map((color) => {
                               return (
-                                <li key={type} className={scss.item_color}>
+                                <li key={color} className={scss.item_color}>
                                   <input
                                     className={scss.radio_button}
                                     type="checkbox"
-                                    value={type}
-                                    name={type}
-                                    id={type}
-                                    onChange={onChangeSortByType}
-                                    checked={sortByType.includes(type)}
+                                    value={color}
+                                    name={color}
+                                    id={color}
+                                    onChange={onChangeSortByColor}
+                                    checked={sortByColor.includes(color)}
                                   />
                                   <span className={scss.custom_button}></span>
-                                  <label htmlFor={type} className={scss.subtitle}>{type}</label>
+                                  <label htmlFor={color} className={scss.subtitle}>{color}</label>
                                 </li>
                             )})}
                           </ul>
                         </div>
+                    </div>
+                    <div className={scss.filters}>
+                        <p className={scss.filter_name}>
+                          <CiFilter className={scss.icon_filter}/>за фасуванням:
+                        </p>
+                        <button type='button' className={scss.button_sort} onClick={toggleMenuFilterType}>
+                          <BiSolidDownArrow className={scss.down_allow}/>  
+                        </button>
+                        <div className={sortMenuFilterTypeActive ? (scss.typeMenuActive) : (scss.typeMenu)}>
+                            <ul className={scss.menu_list}>
+                              {dataType.map((type) => {
+                                return (
+                                  <li key={type} className={scss.item_color}>
+                                    <input
+                                      className={scss.radio_button}
+                                      type="checkbox"
+                                      value={type}
+                                      name={type}
+                                      id={type}
+                                      onChange={onChangeSortByType}
+                                      checked={sortByType.includes(type)}
+                                    />
+                                    <span className={scss.custom_button}></span>
+                                    <label htmlFor={type} className={scss.subtitle}>{type}</label>
+                                  </li>
+                              )})}
+                            </ul>
+                          </div>
+                    </div>
+                    <button type='button' className={scss.button_cancel} onClick={discardFilters}>Cкинути всі фільтри</button>
                   </div>
-                  <button type='button' className={scss.button_cancel} onClick={discardFilters}>Cкинути всі фільтри</button>
-                </div>
-              )}
-              {Object.keys(filteredProductList).length !== 0 ?
-                (<ProductList productList={filteredProductList} fetchProduct={fetchProduct}/>)
-              : 
-              (<p></p>)}
-            </div>  
+                )}
+                {Object.keys(filteredProductList).length !== 0 ?
+                  (<ProductList productList={filteredProductList} fetchProduct={fetchProduct}/>)
+                : 
+                (<p></p>)}
+                {!modalActive && (              
+                  <ScrollToTop 
+                    smooth
+                    className={scss.button_scrollTop}
+                    component={<FiArrowUpCircle style={{width: "100%", height: "100%"}}/>}
+                />)}
+              </div>
             <Modal 
               modalActive={modalActive} 
               setModalActive={setModalActive} 
-              product={product} 
+              product={product}
             />
-            <Footer/>
           </>)}
         </div>
+        <Footer/>
       </>
     );
 };

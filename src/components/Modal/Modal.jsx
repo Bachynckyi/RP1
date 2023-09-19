@@ -26,7 +26,7 @@ const Modal = ({modalActive, setModalActive, product}) => {
 
     useEffect(() => {
         if(modalActive === true) {
-            document.body.style.cssText = `overflow-y: hidden; padding-right: ${window.innerWidth - document.body.offsetWidth}px`
+            document.body.style.cssText = `overflow-y: hidden`
             if(isLoggedIn === true) {
                 dispatch(getCurrent(token))
                     .then(response => {
@@ -53,7 +53,7 @@ const Modal = ({modalActive, setModalActive, product}) => {
         };
         window.addEventListener('keydown', handleDownInEscape);
         return () => {
-            document.body.style.cssText = `overflow-y: auto; padding-right: 0px`
+            document.body.style.cssText = `overflow-y: auto`
             window.removeEventListener('keydown', handleDownInEscape)
         };
         // eslint-disable-next-line

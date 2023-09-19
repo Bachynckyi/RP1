@@ -15,7 +15,7 @@ const AuthNav = () => {
   const navigate = useNavigate();
   const userEmailVerify = useSelector(userEmail);
   const dispatch = useDispatch();
-  const token = useSelector(userToken)
+  const token = useSelector(userToken);
 
   const onClick = () => {
     if(userEmailVerify === "colorfarb@gmail.com") {
