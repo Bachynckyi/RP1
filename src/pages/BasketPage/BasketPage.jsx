@@ -99,7 +99,7 @@ const BasketPage = () => {
               {Object.keys(basket).length !== 0 ?
               (<>
                 <BasketList basket={basket} newOrder={newOrder}/>
-                {!statusOrder && <button onClick={handleClick} className={scss.button_confirm}>Оформити замовлення</button>}
+                {!statusOrder && <button onClick={handleClick} className={scss.button_confirm}>Підтвердити замовлення</button>}
                 {statusOrder && 
                 (<OrderConfirmation confirmedOrder={confirmedOrder} totalAmount={totalAmount} dispatchOrder={dispatchOrder}/>)}
               </>) : (<p className={scss.info}>Нічого немає в кошику</p>)}              

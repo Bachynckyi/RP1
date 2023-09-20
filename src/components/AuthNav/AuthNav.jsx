@@ -44,12 +44,15 @@ const AuthNav = () => {
     <div>
         {!userStatus ? (
           <div className={scss.usermenu_container}>
-            <NavLink to="/order" className={scss.basket_link}>
+            <NavLink to="/order" className={({isActive}) => isActive ? scss.basket_link_selected : scss.basket_link }>
               <SlBasket className={scss.basket_icon}/>
             </NavLink>
-            <NavLink className={scss.user} to="/login">
+            <NavLink className={({isActive}) => isActive ? scss.user_selected : scss.user } to="/login">
               <BiUser className={scss.user_icon}/>
             </NavLink>
+            <button className={!userStatus && (scss.user_notActive)}>
+              <IoLogOutOutline className={scss.logout_icon}/>
+            </button>
           </div>
         ) : (
           <div className={scss.usermenu_container}>

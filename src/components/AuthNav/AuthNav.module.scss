@@ -42,6 +42,12 @@
     }
 };
 
+.basket_link_selected {
+    .basket_icon {
+        color: orange;
+    }
+}
+
 .user {
     background-color: transparent;
     border: none;
@@ -51,13 +57,25 @@
     margin-right: 16px;
     cursor: pointer;
 
-    @media screen and (min-width: 1280px) {
+    @media screen and (min-width: 1024px) {
         display: block;
         margin-left: 10px;
         margin-right: 0px;
     };
 
 };
+
+.user_selected {
+    @media screen and (min-width: 1024px) {
+        display: block;
+        margin-left: 10px;
+        margin-right: 0px;
+    };
+    .user_icon {
+        color: orange;
+    };
+};
+
 
 .logout_icon {
     width: 46px;
@@ -71,4 +89,20 @@
     @media screen and (min-width: 1024px) {
         display: block;
     }
+};
+
+.user_notActive {
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    outline: none;
+    opacity: 0;
+    margin-right: 16px;
+
+    @media screen and (min-width: 1024px) {
+        display: block;
+        margin-left: 10px;
+        margin-right: 0px;
+    };
 };
