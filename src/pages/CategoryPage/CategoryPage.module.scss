@@ -23,6 +23,34 @@
 .catalog {
     background-color: #fff;
     margin-top: 20px;
-}
+};
+
+.button_scrollTop {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+    padding: 0px !important;
+    box-shadow: none !important;
+    color: orange !important;
+    background-color: transparent !important;
+    position: sticky !important;
+    margin-left: auto !important;
+    right: 0px !important;
+    bottom: 30px !important;
+    margin-right: -34px !important;
+
+    @media screen and (min-width: 1200px) {
+        width: 60px !important;
+        height: 60px !important;
+        margin-right: -10px !important;
+    };
+
+    @media screen and (min-width: 1600px) {
+        width: 70px !important;
+        height: 70px !important;
+        margin-right: 0px !important;
+    };
+
+};
 
 

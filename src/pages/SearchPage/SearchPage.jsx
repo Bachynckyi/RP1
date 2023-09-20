@@ -8,6 +8,8 @@ import Loader from "components/Loader/Loader";
 import { isLoading } from '../../redux/product/product-selectors';
 import Modal from "components/Modal/Modal";
 import scss from './SearchPage.module.scss';
+import ScrollToTop from "react-scroll-to-top";
+import {FiArrowUpCircle} from "react-icons/fi";
 
 const SearchPage = () => {
   const loading = useSelector(isLoading);
@@ -43,6 +45,12 @@ const SearchPage = () => {
             : 
               (<p className={scss.item_notFound}>Нажаль по вашому запиту нічого не знайдено, спробуйте ще раз.</p>)}
           </>)}
+          <ScrollToTop 
+                smooth
+                top={500}
+                className={scss.button_scrollTop}
+                component={<FiArrowUpCircle style={{width: "100%", height: "100%"}}/>}
+          />
           <Modal 
             modalActive={modalActive} 
             setModalActive={setModalActive} 

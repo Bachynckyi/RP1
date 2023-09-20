@@ -3,11 +3,16 @@
     height: 100%;
     margin: auto;
     max-width: 1600px;
-    padding: 0px 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 0px 50px 0px 50px;
+    margin-bottom: 20px;
 
     @media screen and (min-width: 1024px) {
-        padding: 0px 40px;
-    }
+        padding: 0px 60px 0px 50px;
+    };
 };
 
 .page_container {
@@ -21,11 +26,9 @@
 
     @media screen and (min-width: 1024px) {
         flex-direction: row-reverse;
-    };
-
-    @media screen and (min-width: 1024px) {
         align-items: flex-start;
     };
+
 };
 
 .category_list {
@@ -88,6 +91,34 @@
     padding: 20px 0px 40px 0px;
 };
 
+
+.button_scrollTop {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+    padding: 0px !important;
+    box-shadow: none !important;
+    color: orange !important;
+    background-color: transparent !important;
+    position: sticky !important;
+    margin-left: auto !important;
+    right: 0px !important;
+    bottom: 30px !important;
+    margin-right: -44px !important;
+
+    @media screen and (min-width: 1200px) {
+        width: 60px !important;
+        height: 60px !important;
+        margin-right: -10px !important;
+    };
+
+    @media screen and (min-width: 1600px) {
+        width: 70px !important;
+        height: 70px !important;
+        margin-right: 0px !important;
+    };
+
+};
 
 
 

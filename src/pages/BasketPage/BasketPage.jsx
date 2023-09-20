@@ -12,6 +12,8 @@ import {AiFillCheckCircle} from "react-icons/ai";
 import {VscError} from "react-icons/vsc";
 import { isLogin, userToken } from '../../redux/auth/auth-selectors';
 import { getCurrent, clearBasket } from 'redux/auth/auth-operations';
+import ScrollToTop from "react-scroll-to-top";
+import {FiArrowUpCircle} from "react-icons/fi";
 
 const BasketPage = () => {
     const [basket, setBasket] = useState({});
@@ -119,6 +121,12 @@ const BasketPage = () => {
               </div>)}
               </>)}
           </>)}
+          <ScrollToTop 
+            smooth
+            top={500}
+            className={scss.button_scrollTop}
+            component={<FiArrowUpCircle style={{width: "100%", height: "100%"}}/>}
+          />
         </div>
         <Footer/>
         </>

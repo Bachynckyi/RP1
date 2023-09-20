@@ -7,6 +7,8 @@ import Loader  from '../../components/Loader/Loader';
 import CategoryList from './CategoryList/CategoryList';
 import scss from './CategoryPage.module.scss';
 import { useNavigate } from 'react-router-dom';
+import ScrollToTop from "react-scroll-to-top";
+import {FiArrowUpCircle} from "react-icons/fi";
 
 const CategoryPage = () => {
   const navigate = useNavigate();
@@ -35,6 +37,12 @@ const CategoryPage = () => {
           <div className={scss.container}>
               <h1 className={scss.title}>Категорії товарів</h1>
               {categories !== null && (<CategoryList categories={categories} fetchCategory={fetchCategory}/>)}
+              <ScrollToTop 
+                smooth
+                top={1000}
+                className={scss.button_scrollTop}
+                component={<FiArrowUpCircle style={{width: "100%", height: "100%"}}/>}
+              />
           </div>
           <Footer/>
         </div>

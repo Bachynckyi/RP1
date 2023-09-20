@@ -419,6 +419,7 @@ const ProductPage = () => {
                 {!modalActive && (              
                   <ScrollToTop 
                     smooth
+                    top={500}
                     className={scss.button_scrollTop}
                     component={<FiArrowUpCircle style={{width: "100%", height: "100%"}}/>}
                 />)}

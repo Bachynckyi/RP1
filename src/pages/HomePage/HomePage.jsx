@@ -10,6 +10,8 @@ import CategoryItem from './CategoryItem/CategoryItem';
 import { getAllPhotoSlider, getAllTopProducts } from 'redux/product/product-operations';
 import ProductList from 'pages/ProductPage/ProductList/ProductList';
 import Modal from "../../components/Modal/Modal";
+import ScrollToTop from "react-scroll-to-top";
+import {FiArrowUpCircle} from "react-icons/fi";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -76,6 +78,13 @@ const HomePage = () => {
               </div>)
               : 
           (<p></p>)}
+            {!modalActive && (              
+              <ScrollToTop 
+                smooth
+                top={500}
+                className={scss.button_scrollTop}
+                component={<FiArrowUpCircle style={{width: "100%", height: "100%"}}/>}
+            />)}
       </div>
       <Modal 
         modalActive={modalActive} 

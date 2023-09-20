@@ -9,6 +9,8 @@ import scss from './SubcategoryPage.module.scss';
 import Footer from "components/Footer/Footer";
 import { useParams } from "react-router-dom";
 import ProductPage from '../ProductPage/ProductPage';
+import ScrollToTop from "react-scroll-to-top";
+import {FiArrowUpCircle} from "react-icons/fi";
 
 const SubcategoryPage = () => {
     const navigate = useNavigate();
@@ -43,6 +45,12 @@ const SubcategoryPage = () => {
                         <SubcategoryList 
                             subcategories={subcategories} 
                             fetchSubcategory={fetchSubcategory}
+                        />
+                        <ScrollToTop 
+                            smooth
+                            top={1000}
+                            className={scss.button_scrollTop}
+                            component={<FiArrowUpCircle style={{width: "100%", height: "100%"}}/>}
                         />
                         </div>
                         <Footer/>
