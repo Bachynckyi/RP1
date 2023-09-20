@@ -10,7 +10,7 @@ const SlickCarousel = ({sliderList} ) => {
     slidesToScroll: 1,
     autoplay: true,
     speed: 500,
-    autoplaySpeed: 3000,  
+    autoplaySpeed: 4000,  
     lazyLoad: true,
   };
   

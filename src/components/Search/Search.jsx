@@ -17,6 +17,7 @@ const Search = () => {
         }
         else {
             navigate(`/products?search=${search}`);
+            setSearch("");
         }
     };
 

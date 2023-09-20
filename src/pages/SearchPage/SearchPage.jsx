@@ -20,14 +20,9 @@ const SearchPage = () => {
   const [modalActive, setModalActive] = useState(false);
 
   useEffect(() => {
-    try{
       const search = searchParams.get("search");
       dispatch(getProductBySearch(search))
           .then(response => setProductList(response.payload.data.filter(item => item.active === true)));
-    }
-    catch(error){
-      console.log(error);
-    };
     }, [dispatch, searchParams])
 
     const fetchProduct = (product) => {
@@ -45,12 +40,13 @@ const SearchPage = () => {
             : 
               (<p className={scss.item_notFound}>Нажаль по вашому запиту нічого не знайдено, спробуйте ще раз.</p>)}
           </>)}
-          <ScrollToTop 
-                smooth
-                top={500}
-                className={scss.button_scrollTop}
-                component={<FiArrowUpCircle style={{width: "100%", height: "100%"}}/>}
-          />
+          {!modalActive && (              
+                  <ScrollToTop 
+                    smooth
+                    top={500}
+                    className={scss.button_scrollTop}
+                    component={<FiArrowUpCircle style={{width: "100%", height: "100%"}}/>}
+          />)}
           <Modal 
             modalActive={modalActive} 
             setModalActive={setModalActive} 
